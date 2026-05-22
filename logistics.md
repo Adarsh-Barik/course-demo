@@ -8,7 +8,9 @@ nav_order: 1
 # Logistics
 
 
-**Evaluation**: The course evaluation policy is:
+### Evaluation
+
+The course evaluation policy is:
 
 - Minor:  20%
 - Major:  30%
@@ -19,16 +21,20 @@ nav_order: 1
 - Attendance:  2% (lectures) + 5% (labs)
 
 
-**Quiz schedule**: TBD
+### Quiz schedule
+TBD
 
-**Lab Exam schedule**:
+### Lab Exam schedule
 
 1. First Lab exam: TBD
 2. Second Lab exam: TBD
 
-**Passing criteria**: 30% in course total
+### Passing criteria
+30% in course total
 
-**Acadmic Honesty**: Cheating, including copying or allowing others to copy during lab exams, minor exam, or major exam, will result in an F grade in the course. In addition, the student will be referred to the DISCO, which will place additional penalties.
+### Acadmic Honesty
+
+Cheating, including copying or allowing others to copy during lab exams, minor exam, or major exam, will result in an F grade in the course. In addition, the student will be referred to the DISCO, which will place additional penalties.
 
 _Note: There will be no Re-minor/Re-quiz/Re-lab-exam in this course. Any missed exam/quiz/lab-exam will be scaled from the remaining grading components, subject to the submission of a valid medical certificate._
 

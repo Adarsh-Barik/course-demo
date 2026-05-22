@@ -11,25 +11,34 @@ seo:
 # COL1000: Introduction to Programming
 
 ## Course Information
-**Instructors**: Ragesh Jaisawal, Rajendra Kumar, Adarsh Barik, and Vijay Keswani
 
-**Lectures**: TBD   (TBD)
+### Instructors
+Ragesh Jaisawal, Rajendra Kumar, Adarsh Barik, and Vijay Keswani
 
-**Labs**: TBD xx:xx-yy:yy   (TBD)
+### Lectures
+TBD   (TBD)
 
-**Reference Books**:
+### Labs
+TBD xx:xx-yy:yy   (TBD)
+
+### Reference Books
+
 1. Introduction to Computation and Programming Using Python  by John Guttag
 2. Think Python  by Allen B. Downey
 
-**Head TAs**: Amazing TA1, Amazing TA2
+### Head TAs
+Amazing TA1, Amazing TA2
 
-**Office hours**: TBD
+### Office hours
+
+TBD
 
 | Monday | Tuesday | Wednesday | Thursday | Friday |
 | -------- | -------- | -------- | ------- | ------- |
-| xxxx  | xxxx   | xxxx | xxxx | xxxx |
+| xxxx  | xxxx   |
+xxxx | xxxx | xxxx |
 
-**TA Lab Duties**
+### TA Lab Duties
 
 |  | LH xxx | LH yyy |
 | -------- | -------- | ------ |
@@ -39,9 +48,11 @@ seo:
 | Thursday    | xyz   | xyx   |
 | Friday    | xyz   | xyx   |
 
-**Lab exam TAs**: xyz
+### Lab exam TAs
+xyz
 
-**Grading TAs**: xyz 
+### Grading TAs
+xyz 
 
 ---
 
