@@ -12,7 +12,7 @@ nav_order: 1
 > **📅 Wednesday, 22 July 2026**  
 > **🕗 Reporting Time:** 8:15 AM  
 > **📝 Exam Time:** 8:30 AM – 9:45 AM
-> **🏫 Location and Seating Plan (TBD)
+> **🏫 Location and Seating Plan:** (TBD)
 >
 
 
@@ -34,7 +34,7 @@ nav_order: 1
 ## Snapshot of the Front Page
 
 <p align="center">
-  <img src="images/first_page.png" alt="Front page of the python assessment test" width="750">
+  <img src="first_page.png" alt="Front page of the python assessment test" width="750">
 </p>
 
 
