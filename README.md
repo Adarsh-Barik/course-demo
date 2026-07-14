@@ -10,16 +10,30 @@ seo:
 
 # COL1000: Introduction to Programming
 
+{: .important-title }
+> ## Python Programming Assessment Test (Computer Literacy Test)
+>
+> **📅 Wednesday, 22 July**  
+> **🕗 Reporting Time:** 8:15 AM  
+> **📝 Exam Time:** 8:30 AM – 9:45 AM
+>
+> 👉 **[See instructions here!](instructions.md)**
+
 ## Course Information
 
 ### Instructors
 Ragesh Jaisawal, Rajendra Kumar, Adarsh Barik, and Vijay Keswani
 
 ### Lectures
-TBD   (TBD)
+- Monday: 2:00 pm - 3:30 pm (Location: TBD) 
+- Thursday: 2:00 pm - 3:30 pm (Location: TBD)
 
 ### Labs
-TBD xx:xx-yy:yy   (TBD)
+- Monday: 9:00 am - 11:00 am, 11:00 am - 1:00 pm 
+- Tuesday: 9:00 am - 11:00 am
+- Wednesday: 9:00 am - 11:00 am
+- Thursday: 9:00 am - 11:00 am, 11:00 am - 1:00 pm
+- Friday: 9:00 am - 11:00 am
 
 ### Reference Books
 
@@ -27,7 +41,8 @@ TBD xx:xx-yy:yy   (TBD)
 2. Think Python  by Allen B. Downey
 
 ### Head TAs
-Amazing TA1, Amazing TA2
+
+TBD
 
 ### Office hours
 
@@ -35,24 +50,24 @@ TBD
 
 | Monday | Tuesday | Wednesday | Thursday | Friday |
 | -------- | -------- | -------- | ------- | ------- |
-| xxxx  | xxxx   |
-xxxx | xxxx | xxxx |
+|   |    |   | | |
+|   |    |   | | |
 
 ### TA Lab Duties
 
-|  | LH xxx | LH yyy |
+|  | LH TBD | LH TBD |
 | -------- | -------- | ------ |
-| Monday    | xyz   | xyx   |
-| Tuesday    | xyz   | xyx   |
-| Wednesday    | xyz   | xyx   |
-| Thursday    | xyz   | xyx   |
-| Friday    | xyz   | xyx   |
+| Monday    | TBD   | TBD   |
+| Tuesday    | TBD   | TBD   |
+| Wednesday    | TBD   | TBD   |
+| Thursday    | TBD   | TBD   |
+| Friday    | TBD   | TBD   |
 
 ### Lab exam TAs
-xyz
+TBD
 
 ### Grading TAs
-xyz 
+TBD 
 
 ---
 

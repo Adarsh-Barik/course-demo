@@ -22,12 +22,13 @@ The course evaluation policy is:
 
 
 ### Quiz schedule
-TBD
+
+1. Quiz 1: 17th August, 2026, 6:30 - 7:30 pm
 
 ### Lab Exam schedule
 
-1. First Lab exam: TBD
-2. Second Lab exam: TBD
+1. Lab exam 1: 6th September, 2026 (Sunday)
+2. Lab exam 2: 15th November, 2026 (Sunday)  
 
 ### Passing criteria
 30% in course total
