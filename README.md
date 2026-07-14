@@ -13,7 +13,7 @@ seo:
 {: .important-title }
 > ## Python Programming Assessment Test (Computer Literacy Test)
 >
-> **📅 Wednesday, 22 July**  
+> **📅 Wednesday, 22 July, 2026**  
 > **🕗 Reporting Time:** 8:15 AM  
 > **📝 Exam Time:** 8:30 AM – 9:45 AM
 >
