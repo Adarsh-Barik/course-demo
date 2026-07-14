@@ -31,7 +31,7 @@ nav_order: 1
 ---
 
 ## Snapshot of the Front Page
-![Front Page](images/first_page.png)
+![Front Page](images/first_page.jpg)
 
 
 
