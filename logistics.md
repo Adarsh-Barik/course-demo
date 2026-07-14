@@ -30,8 +30,6 @@ The course evaluation policy is:
 1. Lab exam 1: 6th September, 2026 (Sunday)
 2. Lab exam 2: 15th November, 2026 (Sunday)  
 
-### Passing criteria
-30% in course total
 
 ### Acadmic Honesty
 
