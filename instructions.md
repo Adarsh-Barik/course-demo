@@ -13,7 +13,6 @@ nav_order: 1
 > **🕗 Reporting Time:** 8:15 AM  
 > **📝 Exam Time:** 8:30 AM – 9:45 AM
 > **🏫 Location and Seating Plan:** (TBD)
->
 
 
 {: .important }
@@ -32,10 +31,8 @@ nav_order: 1
 ---
 
 ## Snapshot of the Front Page
+![Front Page](images/front-page.png)
 
-<p align="center">
-  <img src="first_page.png" alt="Front page of the python assessment test" width="750">
-</p>
 
 
 
