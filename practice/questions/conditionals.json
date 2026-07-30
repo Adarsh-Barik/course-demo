@@ -1,0 +1,74 @@
+[
+  {
+    "level":"easy",
+    "question":"What is printed?",
+    "code":"x = 5\nif x > 3:\n    print('A')",
+    "choices":["A","Nothing","Error","5"],
+    "answer":0,
+    "hints":["Check whether 5 > 3.","The condition is true."]
+  },
+  {
+    "level":"easy",
+    "question":"What is printed?",
+    "code":"x = 2\nif x > 5:\n    print('A')\nelse:\n    print('B')",
+    "choices":["A","B","Nothing","Error"],
+    "answer":1,
+    "hints":["Is 2 greater than 5?","The else branch executes."]
+  },
+  {
+    "level":"easy",
+    "question":"What is printed?",
+    "code":"x = 4\nif x == 4:\n    print('Yes')",
+    "choices":["Yes","No","4","Error"],
+    "answer":0,
+    "hints":["== checks equality.","4 equals 4."]
+  },
+  {
+    "level":"medium",
+    "question":"What is printed?",
+    "code":"x = 8\nif x < 5:\n    print('A')\nelse:\n    print('B')",
+    "choices":["A","B","AB","Nothing"],
+    "answer":1,
+    "hints":["Check x < 5.","The condition is false."]
+  },
+  {
+    "level":"medium",
+    "question":"What is printed?",
+    "code":"x = 3\nif x > 5:\n    print('A')\nelif x > 2:\n    print('B')\nelse:\n    print('C')",
+    "choices":["A","B","C","Nothing"],
+    "answer":1,
+    "hints":["The first condition fails.","Check the elif."]
+  },
+  {
+    "level":"medium",
+    "question":"What is printed?",
+    "code":"x = 6\nif x % 2 == 0:\n    print('Even')\nelse:\n    print('Odd')",
+    "choices":["Even","Odd","6","Error"],
+    "answer":0,
+    "hints":["Find 6 % 2.","Remainder is zero."]
+  },
+  {
+    "level":"hard",
+    "question":"What is printed?",
+    "code":"x = 5\nif x > 3:\n    if x < 10:\n        print('A')\n    else:\n        print('B')",
+    "choices":["A","B","Nothing","Error"],
+    "answer":0,
+    "hints":["Both conditions must be checked.","5 is between 3 and 10."]
+  },
+  {
+    "level":"hard",
+    "question":"What is printed?",
+    "code":"x = 2\ny = 3\nif x > 1 and y > 1:\n    print('Yes')",
+    "choices":["Yes","No","Nothing","Error"],
+    "answer":0,
+    "hints":["Both conditions are true.","Evaluate x>1 and y>1."]
+  },
+  {
+    "level":"hard",
+    "question":"What is printed?",
+    "code":"x = 4\nif x < 3:\n    print('A')\nelif x < 5:\n    print('B')\nelse:\n    print('C')",
+    "choices":["A","B","C","Nothing"],
+    "answer":1,
+    "hints":["First condition is false.","Check the elif."]
+  }
+]
