@@ -1,3 +1,13 @@
+.featured-card{
+    grid-column:1/-1;
+    background:#f8fafc;
+    border:2px solid #2563eb;
+}
+
+.featured-card:hover{
+    background:#eff6ff;
+}
+
 .topic-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -58,4 +68,107 @@ pre{
     width:0%;
     background:#2da44e;
     border-radius:20px;
+}
+
+body{
+    font-size:18px;
+    line-height:1.6;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.question-card{
+    background:white;
+    border-radius:12px;
+    padding:24px;
+    margin-top:20px;
+    box-shadow:
+        0 2px 12px rgba(0,0,0,.08);
+}
+
+pre{
+    background:#1e293b;
+    color:#f8fafc;
+
+    font-size:17px;
+
+    padding:18px;
+
+    border-radius:10px;
+
+    overflow-x:auto;
+}
+
+.choice{
+    display:block;
+
+    margin:12px 0;
+
+    padding:12px;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    cursor:pointer;
+}
+
+.choice:hover{
+    background:#f8fafc;
+}
+
+button{
+
+    font-size:16px;
+
+    padding:12px 24px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#2563eb;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.badge{
+    display:inline-block;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    color:white;
+
+    font-weight:600;
+
+    margin-bottom:12px;
+}
+
+.badge.easy{
+    background:#16a34a;
+}
+
+.badge.medium{
+    background:#ea580c;
+}
+
+.badge.hard{
+    background:#dc2626;
+}
+
+.progress-info{
+
+    font-size:18px;
+
+    font-weight:600;
+
+    margin-bottom:10px;
 }

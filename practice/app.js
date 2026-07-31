@@ -29,7 +29,9 @@ function render(){
     let html = `
     <div class="question-card">
 
-    <h2>${q.level.toUpperCase()}</h2>
+    <span class="badge ${q.level}">
+    ${q.level.toUpperCase()}
+</span>
 
     <pre>${q.code}</pre>
 

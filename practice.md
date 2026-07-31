@@ -18,6 +18,21 @@ Earn XP, unlock badges, and revise Python through interactive challenges.
 
 <div class="topic-grid">
 
+<a class="topic-card featured-card"
+   href="{{ site.baseurl }}/practice/all-questions.html">
+
+    <h2>📚 Question Bank</h2>
+
+    <p>
+        Browse all practice questions organized by topic and difficulty.
+    </p>
+
+    <p>
+        No XP • No hints • No progression
+    </p>
+
+</a>
+
   <a class="topic-card" href="{{ site.baseurl }}/practice/topic.html?topic=variables">
     <h3>Variables</h3>
     <p>9 Questions</p>
