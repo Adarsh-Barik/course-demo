@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 
 <meta charset="utf-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1">
 
 <title>Question Bank</title>
 
@@ -18,24 +14,13 @@
 
 <div class="container">
 
-<a href="../practice/"
-   class="back-link">
-
-← Practice Arena
-
-</a>
-
-<h1>📚 Question Bank</h1>
+<h1>📚 COL1000 Question Bank</h1>
 
 <p>
-
-Browse questions freely and solve them in any order.
-
+Browse questions freely and practice in any order.
 </p>
 
-<div id="all-questions">
-
-</div>
+<div id="all-questions"></div>
 
 </div>
 
@@ -49,62 +34,50 @@ const topics = [
 ];
 
 const container =
-    document.getElementById(
-        "all-questions"
-    );
+    document.getElementById("all-questions");
 
 Promise.all(
 
-topics.map(t =>
-    fetch(`questions/${t}.json`)
+    topics.map(t =>
+        fetch(`questions/${t}.json`)
         .then(r=>r.json())
-)
+    )
 
 ).then(data=>{
 
     data.forEach((questions,index)=>{
 
-        const topic =
-            topics[index];
+        const topic = topics[index];
 
-        let html =
-        `<section class="topic-section">
+        let html = `
+        <section class="topic-section">
 
         <h2>
         ${topic.toUpperCase()}
-        </h2>`;
+        </h2>
+        `;
 
-        ["easy","medium","hard"]
-        .forEach(level=>{
+        ["easy","medium","hard"].forEach(level=>{
 
             html += `
-            <h3 class="section-level">
-
+            <h3 class="${level}">
             ${level.toUpperCase()}
-
             </h3>
             `;
 
             questions
-            .filter(
-                q=>q.level===level
-            )
+            .filter(q=>q.level===level)
             .forEach((q,id)=>{
 
                 html += `
-                <div
-                class="bank-question">
+                <div class="bank-question">
 
                 <p>
-
                 <strong>
-
                 ${id+1}.
-
                 </strong>
 
                 ${q.question}
-
                 </p>
 
                 <pre>
@@ -114,17 +87,11 @@ ${q.code}
                 <details>
 
                 <summary>
-
                 Show Answer
-
                 </summary>
 
                 <p>
-
-                ${
-                    q.choices[q.answer]
-                }
-
+                ${q.choices[q.answer]}
                 </p>
 
                 </details>
@@ -132,15 +99,11 @@ ${q.code}
                 </div>
                 `;
             });
-
         });
 
-        html +=
-        "</section>";
+        html += "</section>";
 
-        container.innerHTML +=
-        html;
-
+        container.innerHTML += html;
     });
 
 });
@@ -148,5 +111,4 @@ ${q.code}
 </script>
 
 </body>
-
 </html>
