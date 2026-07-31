@@ -4,25 +4,16 @@ nav_order: 7
 permalink: /practice/
 ---
 
-<link rel="stylesheet"
-      href="{{ site.baseurl }}/practice/style.css">
+<h1>🎮 COL1000 Practice Arena</h1>
 
-# 🎮 COL1000 Practice Arena
-
+<p>
 Earn XP, unlock badges, and revise Python through interactive challenges.
+</p>
 
-<div class="dashboard">
-
-<div>
-⭐ XP:
-<span id="xp">0</span>
-</div>
-
-<div>
-🏅 Badges:
-<span id="badge-count">0</span>
-</div>
-
+<div id="stats">
+    <strong>XP:</strong> <span id="xp">0</span>
+    &nbsp;&nbsp;
+    <strong>Badges:</strong> <span id="badge-count">0</span>
 </div>
 
 <div class="topic-grid">
@@ -30,55 +21,42 @@ Earn XP, unlock badges, and revise Python through interactive challenges.
 <a class="topic-card featured-card"
    href="{{ site.baseurl }}/practice/all-questions.html">
 
-<h2>📚 Question Bank</h2>
+    <h2>📚 Question Bank</h2>
 
-<p>
-Browse all questions organized by topic and difficulty.
-</p>
+    <p>
+        Browse all practice questions organized by topic and difficulty.
+    </p>
 
-<p>
-Practice in any order.
-</p>
-
-</a>
-
-<a class="topic-card"
-   href="{{ site.baseurl }}/practice/topic.html?topic=variables">
-
-<h3>Variables</h3>
-
-<p>9 Questions</p>
+    <p>
+        No XP • No hints • No progression
+    </p>
 
 </a>
 
-<a class="topic-card"
-   href="{{ site.baseurl }}/practice/topic.html?topic=conditionals">
+  <a class="topic-card" href="{{ site.baseurl }}/practice/topic.html?topic=variables">
+    <h3>Variables</h3>
+    <p>9 Questions</p>
+  </a>
 
-<h3>Conditionals</h3>
+  <a class="topic-card" href="{{ site.baseurl }}/practice/topic.html?topic=conditionals">
+    <h3>Conditionals</h3>
+    <p>9 Questions</p>
+  </a>
 
-<p>9 Questions</p>
+  <a class="topic-card" href="{{ site.baseurl }}/practice/topic.html?topic=loops">
+    <h3>Loops</h3>
+    <p>9 Questions</p>
+  </a>
 
-</a>
-
-<a class="topic-card"
-   href="{{ site.baseurl }}/practice/topic.html?topic=loops">
-
-<h3>Loops</h3>
-
-<p>9 Questions</p>
-
-</a>
-
-<a class="topic-card"
-   href="{{ site.baseurl }}/practice/topic.html?topic=lists">
-
-<h3>Lists</h3>
-
-<p>9 Questions</p>
-
-</a>
+  <a class="topic-card" href="{{ site.baseurl }}/practice/topic.html?topic=lists">
+    <h3>Lists</h3>
+    <p>9 Questions</p>
+  </a>
 
 </div>
+
+<link rel="stylesheet"
+      href="{{ site.baseurl }}/practice/style.css">
 
 <script>
 
@@ -87,16 +65,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.getElementById("xp").textContent =
         localStorage.getItem("xp") || 0;
 
-    const badges =
-        JSON.parse(
-            localStorage.getItem("badges")
-            || "[]"
-        );
+    let badges = JSON.parse(
+        localStorage.getItem("badges") || "[]"
+    );
 
     document.getElementById("badge-count")
-        .textContent =
-        badges.length;
-
+        .textContent = badges.length;
 });
 
 </script>

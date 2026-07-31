@@ -1,84 +1,47 @@
 const params =
-    new URLSearchParams(
-        window.location.search
-    );
+    new URLSearchParams(window.location.search);
 
 const topic =
     params.get("topic");
 
-document.getElementById(
-    "topic-name"
-).innerText =
-topic.toUpperCase();
+document.getElementById("topic-name")
+    .innerText =
+    topic.toUpperCase();
 
 let wrongAttempts = 0;
 
-updateXP();
-
-fetch(
-    `questions/${topic}.json`
-)
+fetch(`questions/${topic}.json`)
 .then(r=>r.json())
 .then(questions=>{
 
 let current = 0;
 
-document
-.getElementById(
-    "question-total"
-)
-.textContent =
-questions.length;
-
 render();
 
 function render(){
 
-    const q =
-        questions[current];
+    const q = questions[current];
 
-    document
-    .getElementById(
-        "question-number"
-    )
-    .textContent =
-    current + 1;
-
-    document
-    .getElementById(
-        "progress"
-    )
-    .style.width =
-    `${100*(current)/
-      questions.length}%`;
+    document.getElementById("progress")
+        .style.width =
+        `${100*current/questions.length}%`;
 
     let html = `
-
     <div class="question-card">
 
-    <span
-        class="badge ${q.level}">
-
-        ${q.level.toUpperCase()}
-
-    </span>
+    <span class="badge ${q.level}">
+    ${q.level.toUpperCase()}
+</span>
 
     <pre>${q.code}</pre>
 
-    <p>
-
-    ${q.question}
-
-    </p>
-
+    <p>${q.question}</p>
     `;
 
     q.choices.forEach((c,i)=>{
 
         html += `
-
-        <label
-            class="choice">
+        <label class="choice">
 
         <input
             type="radio"
@@ -92,46 +55,33 @@ function render(){
     });
 
     html += `
-
-    <button
-        onclick="checkAnswer()">
-
-    Submit
-
+    <button onclick="checkAnswer()">
+        Submit
     </button>
 
-    <div id="feedback">
-
-    </div>
+    <div id="feedback"></div>
 
     </div>
     `;
 
-    document
-    .getElementById(
+    document.getElementById(
         "question-container"
     ).innerHTML = html;
 }
 
-window.checkAnswer =
-function(){
+window.checkAnswer = function(){
 
     const selected =
-    document.querySelector(
-    'input[name="choice"]:checked'
-    );
+        document.querySelector(
+            'input[name="choice"]:checked'
+        );
 
-    if(!selected)
-        return;
+    if(!selected) return;
 
-    const q =
-        questions[current];
+    const q = questions[current];
 
-    if(
-        parseInt(
-            selected.value
-        ) === q.answer
-    ){
+    if(parseInt(selected.value)
+        === q.answer){
 
         awardXP(q.level);
 
@@ -139,56 +89,19 @@ function(){
 
         wrongAttempts = 0;
 
-        if(
-            current >=
-            questions.length
-        ){
+        if(current >= questions.length){
 
-            completeTopic(
-                topic
-            );
+            completeTopic(topic);
 
             document
             .getElementById(
                 "question-container"
-            ).innerHTML =
-
-            `<div class="completion-card">
-
-            <h2>
-
-            🏆 Topic Completed!
-
-            </h2>
-
+            ).innerHTML = `
+            <h2>🏆 Topic Complete</h2>
             <p>
-
-            Badge unlocked.
-
+            Badge unlocked!
             </p>
-
-            <p>
-
-            Current XP:
-
-            <strong>
-
-            ${
-            localStorage
-            .getItem("xp")
-            }
-
-            </strong>
-
-            </p>
-
-            <a href="../practice/">
-
-            Return to Practice Arena
-
-            </a>
-
-            </div>`;
+            `;
 
             return;
         }
@@ -201,87 +114,55 @@ function(){
 
         const hint =
             q.hints[
-                Math.min(
-                    wrongAttempts-1,
-                    q.hints.length-1
-                )
+            Math.min(
+                wrongAttempts-1,
+                q.hints.length-1
+            )
             ];
 
         document
-        .getElementById(
-            "feedback"
-        ).innerHTML =
-
+        .getElementById("feedback")
+        .innerHTML =
         `<p class="incorrect">
-
-        Hint:
-        ${hint}
-
+        Hint: ${hint}
         </p>`;
     }
-
-};
+}
 
 });
 
-function updateXP(){
-
-document
-.getElementById(
-    "xp-display"
-)
-.textContent =
-localStorage
-.getItem("xp") || 0;
-
-}
-
 function awardXP(level){
 
-let xp =
-parseInt(
-localStorage.getItem("xp")
-|| "0"
-);
+    let xp =
+    parseInt(
+        localStorage.getItem("xp")
+        || "0"
+    );
 
-if(level==="easy")
-xp += 10;
+    if(level==="easy") xp+=10;
+    if(level==="medium") xp+=20;
+    if(level==="hard") xp+=40;
 
-if(level==="medium")
-xp += 20;
-
-if(level==="hard")
-xp += 40;
-
-localStorage.setItem(
-"xp",
-xp
-);
-
-updateXP();
-
+    localStorage.setItem(
+        "xp",
+        xp
+    );
 }
 
 function completeTopic(topic){
 
-let badges =
-JSON.parse(
-localStorage.getItem(
-"badges"
-) || "[]"
-);
+    let badges =
+    JSON.parse(
+        localStorage.getItem(
+            "badges"
+        ) || "[]"
+    );
 
-if(
-!badges.includes(topic)
-){
-badges.push(topic);
-}
+    if(!badges.includes(topic))
+        badges.push(topic);
 
-localStorage.setItem(
-"badges",
-JSON.stringify(
-badges
-)
-);
-
+    localStorage.setItem(
+        "badges",
+        JSON.stringify(badges)
+    );
 }
