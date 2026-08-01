@@ -1,80 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-
-const QUESTIONS_DIR = './questions';
-const OUTPUT_DIR = '.';
-
-// Read all JSON files
-const topics = [];
-const files = fs.readdirSync(QUESTIONS_DIR).filter(f => f.endsWith('.json'));
-
-files.forEach(file => {
-  const data = JSON.parse(fs.readFileSync(path.join(QUESTIONS_DIR, file), 'utf8'));
-  topics.push({
-    key: data.topic,
-    displayName: data.displayName || data.topic,
-    count: data.questions.length,
-    questions: data.questions
-  });
-});
-
-// --- Generate index.html ---
-let topicCardsHTML = topics.map(t => `
-  <a class="topic-card" href="/course-demo/practice/topic.html?topic=${t.key}">
-    <h3>${t.displayName}</h3>
-    <p>${t.count} Questions</p>
-    <span class="question-count">${t.count} problems</span>
-  </a>
-`).join('');
-
-const indexHTML = `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Practice Arena 🎮 | COL1000</title>
-  <link rel="stylesheet" href="/course-demo/practice/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  <div class="main-content-wrap">
-    <main>
-      <h1>🎮 COL1000 Practice Arena</h1>
-      <p>Earn XP, unlock badges, and revise Python through interactive challenges.</p>
-      
-      <div id="stats">
-        <strong>XP:</strong> <span id="xp">0</span>
-        <strong>Badges:</strong> <span id="badge-count">0</span>
-      </div>
-
-      <div class="topic-grid">
-        <a class="topic-card featured-card" href="/course-demo/practice/all-questions.html">
-          <h2>📚 Question Bank</h2>
-          <p>Browse all practice questions organized by topic and difficulty.</p>
-        </a>
-        ${topicCardsHTML}
-      </div>
-    </main>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("xp").textContent = localStorage.getItem("xp") || 0;
-      let badges = JSON.parse(localStorage.getItem("badges") || "[]");
-      document.getElementById("badge-count").textContent = badges.length;
-    });
-  </script>
-</body>
-</html>`;
-
-fs.writeFileSync(path.join(OUTPUT_DIR, 'index.html'), indexHTML);
-console.log('✅ Generated index.html');
-
-// --- Generate topic.html (single template that loads dynamically) ---
-// We build the HTML as a string without nesting template literals.
-// All backticks inside the JavaScript code are escaped.
-
-const topicHTML = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -82,7 +6,7 @@ const topicHTML = `<!DOCTYPE html>
   <title>Practice | COL1000</title>
   <link rel="stylesheet" href="/course-demo/practice/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"><\/script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
   <style>
     @keyframes floatUp {
       0% { opacity: 1; transform: translateY(0) scale(1); }
@@ -287,9 +211,6 @@ const topicHTML = `<!DOCTYPE html>
     }
 
     init();
-  <\/script>
+  </script>
 </body>
-</html>`;
-
-fs.writeFileSync(path.join(OUTPUT_DIR, 'topic.html'), topicHTML);
-console.log('✅ Generated topic.html');
+</html>

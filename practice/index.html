@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Practice Arena 🎮 | COL1000</title>
+  <link rel="stylesheet" href="/course-demo/practice/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="main-content-wrap">
+    <main>
+      <h1>🎮 COL1000 Practice Arena</h1>
+      <p>Earn XP, unlock badges, and revise Python through interactive challenges.</p>
+      
+      <div id="stats">
+        <strong>XP:</strong> <span id="xp">0</span>
+        <strong>Badges:</strong> <span id="badge-count">0</span>
+      </div>
+
+      <div class="topic-grid">
+        <a class="topic-card featured-card" href="/course-demo/practice/all-questions.html">
+          <h2>📚 Question Bank</h2>
+          <p>Browse all practice questions organized by topic and difficulty.</p>
+        </a>
+        
+  <a class="topic-card" href="/course-demo/practice/topic.html?topic=variables">
+    <h3>Variables</h3>
+    <p>15 Questions</p>
+    <span class="question-count">15 problems</span>
+  </a>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("xp").textContent = localStorage.getItem("xp") || 0;
+      let badges = JSON.parse(localStorage.getItem("badges") || "[]");
+      document.getElementById("badge-count").textContent = badges.length;
+    });
+  </script>
+</body>
+</html>
