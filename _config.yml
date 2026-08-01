@@ -80,3 +80,7 @@ liquid:
   error_mode: strict
   strict_filters: true
 
+# Navigation configuration
+nav_external_links:
+  - title: Practice Arena
+    url: /course-demo/practice/

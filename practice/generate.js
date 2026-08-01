@@ -48,7 +48,7 @@ const indexHTML = `<!DOCTYPE html>
       </div>
 
       <div class="topic-grid">
-        <a class="topic-card featured-card" href="/course-demo/practice/all-questions.html">
+	<a class="topic-card featured-card" href="/course-demo/practice/topic.html">
           <h2>📚 Question Bank</h2>
           <p>Browse all practice questions organized by topic and difficulty.</p>
         </a>
@@ -109,18 +109,53 @@ const topicHTML = `<!DOCTYPE html>
     const topicKey = params.get('topic');
 
     // Load the questions from the JSON file
-    async function loadQuestions() {
-      try {
-        const response = await fetch('/course-demo/practice/questions/' + topicKey + '.json');
-        if (!response.ok) throw new Error('Topic not found');
-        const data = await response.json();
-        return data;
-      } catch (e) {
+//    async function loadQuestions() {
+  //    try {
+    //    const response = await fetch('/course-demo/practice/questions/' + topicKey + '.json');
+      //  if (!response.ok) throw new Error('Topic not found');
+       // const data = await response.json();
+       // return data;
+     // } catch (e) {
+       // document.getElementById('app').innerHTML =
+         // '<h2>Topic not found</h2><p>Please go back to the <a href="/course-demo/practice/">Practice Arena</a>.</p>';
+      //  return null;
+     // }
+   // }
+
+async function loadQuestions() {
+    const params = new URLSearchParams(window.location.search);
+    const topicKey = params.get('topic');
+
+    try {
+        if (topicKey) {
+            // Load a single topic
+            const response = await fetch('/course-demo/practice/questions/' + topicKey + '.json');
+            if (!response.ok) throw new Error('Topic not found');
+            const data = await response.json();
+            return data;
+        } else {
+            // Load ALL topics (for the "Question Bank")
+            const dirResponse = await fetch('/course-demo/practice/questions/');
+            // Note: GitHub Pages doesn't support directory listing, so we need a manifest.
+            // Alternative: hardcode the list of topics or use a manifest file.
+            // For now, we'll use a hardcoded list (you can generate this dynamically).
+            const topics = ['variables']; // Add all your topic keys here
+            let allQuestions = [];
+            for (const t of topics) {
+                const resp = await fetch('/course-demo/practice/questions/' + t + '.json');
+                if (resp.ok) {
+                    const data = await resp.json();
+                    allQuestions = allQuestions.concat(data.questions);
+                }
+            }
+            return { topic: 'all', displayName: 'All Topics', questions: allQuestions };
+        }
+    } catch (e) {
         document.getElementById('app').innerHTML =
-          '<h2>Topic not found</h2><p>Please go back to the <a href="/course-demo/practice/">Practice Arena</a>.</p>';
+            '<h2>Topic not found</h2><p>Please go back to the <a href="/course-demo/practice/">Practice Arena</a>.</p>';
         return null;
-      }
     }
+}
 
     // State
     let questions = [];
@@ -186,7 +221,7 @@ const topicHTML = `<!DOCTYPE html>
         '<div class="question-text">' + q.question + '</div>' +
         codeHTML +
         '<div class="options" id="options-container">' + optionsHTML + '</div>' +
-        hintHTML +
+        // hintHTML +
         '<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">' +
           '<span style="color: #5A6B7C; font-size: 0.9rem;">Question ' + (currentIndex + 1) + ' of ' + total + '</span>' +
           '<span style="color: #4A6CF7; font-weight: 600;">XP: ' + xp + ' 🏆</span>' +
@@ -253,7 +288,18 @@ const topicHTML = `<!DOCTYPE html>
           // Show badge popup
           showBadgeUnlock('Topic: ' + topicKey + ' - ' + q.level.charAt(0).toUpperCase() + q.level.slice(1));
         }
-      }
+      } else {
+        // Show hint if available
+        if (q.hints && q.hints.length > 0) {
+            const hintBox = document.createElement('div');
+            hintBox.className = 'hint-box';
+            hintBox.innerHTML = '<strong>💡 Hint:</strong> ' + q.hints[0];
+            // Insert after the options container
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.parentNode.insertBefore(hintBox, optionsContainer.nextSibling);
+        }
+    }
+
 
       // Update feedback
       const feedback = document.createElement('span');
