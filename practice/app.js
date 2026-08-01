@@ -142,6 +142,7 @@ function awardXP(level){
     if(level==="easy") xp+=10;
     if(level==="medium") xp+=20;
     if(level==="hard") xp+=40;
+    if(level==="challenging") xp+=50;
 
     localStorage.setItem(
         "xp",
