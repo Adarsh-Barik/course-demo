@@ -4,7 +4,7 @@ const path = require('path');
 const QUESTIONS_DIR = './questions';
 const OUTPUT_DIR = '.';
 
-// Read all JSON files
+// Read all JSON files and build topics list
 const topics = [];
 const files = fs.readdirSync(QUESTIONS_DIR).filter(f => f.endsWith('.json'));
 
@@ -17,6 +17,10 @@ files.forEach(file => {
     questions: data.questions
   });
 });
+
+// Write a manifest file (list of topic keys) for the frontend to fetch
+fs.writeFileSync(path.join(QUESTIONS_DIR, 'manifest.json'), JSON.stringify(topics.map(t => t.key)));
+console.log('✅ Generated manifest.json');
 
 // --- Generate index.html ---
 let topicCardsHTML = topics.map(t => `
@@ -48,7 +52,7 @@ const indexHTML = `<!DOCTYPE html>
       </div>
 
       <div class="topic-grid">
-	<a class="topic-card featured-card" href="/course-demo/practice/topic.html">
+        <a class="topic-card featured-card" href="/course-demo/practice/topic.html">
           <h2>📚 Question Bank</h2>
           <p>Browse all practice questions organized by topic and difficulty.</p>
         </a>
@@ -70,10 +74,7 @@ const indexHTML = `<!DOCTYPE html>
 fs.writeFileSync(path.join(OUTPUT_DIR, 'index.html'), indexHTML);
 console.log('✅ Generated index.html');
 
-// --- Generate topic.html (single template that loads dynamically) ---
-// We build the HTML as a string without nesting template literals.
-// All backticks inside the JavaScript code are escaped.
-
+// --- Generate topic.html ---
 const topicHTML = `<!DOCTYPE html>
 <html>
 <head>
@@ -92,6 +93,91 @@ const topicHTML = `<!DOCTYPE html>
       0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
       100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
     }
+    /* All-questions list styles */
+    .question-block {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--primary-light);
+    }
+    .question-block .level-badge {
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+    .question-block .question-text {
+      font-weight: 500;
+      margin: 0.5rem 0;
+    }
+    .question-block pre {
+      background: #1A2332;
+      color: #E3E8F0;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      margin: 0.5rem 0;
+    }
+    .question-block .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin: 0.5rem 0;
+    }
+    .question-block .choices button {
+      background: var(--bg);
+      border: 1px solid #ddd;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: default;
+    }
+    .question-block .choices button.correct-reveal {
+      background: #E8F5E9;
+      border-color: #4CAF50;
+    }
+    .question-block .choices button.wrong-reveal {
+      background: #FFEBEE;
+      border-color: #EF5350;
+    }
+    .question-block .reveal-btn {
+      margin-top: 0.5rem;
+      padding: 0.3rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background: var(--primary);
+      color: white;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .question-block .reveal-btn:hover {
+      background: var(--primary-dark);
+    }
+    .question-block .hint-box {
+      background: #FFF8E1;
+      padding: 0.8rem 1rem;
+      border-radius: 6px;
+      border-left: 4px solid #FFC107;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #4A3A00;
+      display: none;
+    }
+    .question-block .hint-box.visible {
+      display: block;
+    }
+    .question-block .answer-feedback {
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
@@ -108,63 +194,47 @@ const topicHTML = `<!DOCTYPE html>
     const params = new URLSearchParams(window.location.search);
     const topicKey = params.get('topic');
 
-    // Load the questions from the JSON file
-//    async function loadQuestions() {
-  //    try {
-    //    const response = await fetch('/course-demo/practice/questions/' + topicKey + '.json');
-      //  if (!response.ok) throw new Error('Topic not found');
-       // const data = await response.json();
-       // return data;
-     // } catch (e) {
-       // document.getElementById('app').innerHTML =
-         // '<h2>Topic not found</h2><p>Please go back to the <a href="/course-demo/practice/">Practice Arena</a>.</p>';
-      //  return null;
-     // }
-   // }
-
-async function loadQuestions() {
-    const params = new URLSearchParams(window.location.search);
-    const topicKey = params.get('topic');
-
-    try {
+    // Load the questions
+    async function loadQuestions() {
+      try {
         if (topicKey) {
-            // Load a single topic
-            const response = await fetch('/course-demo/practice/questions/' + topicKey + '.json');
-            if (!response.ok) throw new Error('Topic not found');
-            const data = await response.json();
-            return data;
+          // Single topic
+          const response = await fetch('/course-demo/practice/questions/' + topicKey + '.json');
+          if (!response.ok) throw new Error('Topic not found');
+          const data = await response.json();
+          data.isAll = false;
+          return data;
         } else {
-            // Load ALL topics (for the "Question Bank")
-            const dirResponse = await fetch('/course-demo/practice/questions/');
-            // Note: GitHub Pages doesn't support directory listing, so we need a manifest.
-            // Alternative: hardcode the list of topics or use a manifest file.
-            // For now, we'll use a hardcoded list (you can generate this dynamically).
-            const topics = ['variables']; // Add all your topic keys here
-            let allQuestions = [];
-            for (const t of topics) {
-                const resp = await fetch('/course-demo/practice/questions/' + t + '.json');
-                if (resp.ok) {
-                    const data = await resp.json();
-                    allQuestions = allQuestions.concat(data.questions);
-                }
+          // All topics (Question Bank)
+          const manifestResponse = await fetch('/course-demo/practice/questions/manifest.json');
+          if (!manifestResponse.ok) throw new Error('Manifest not found');
+          const topicKeys = await manifestResponse.json();
+          let allQuestions = [];
+          for (const key of topicKeys) {
+            const resp = await fetch('/course-demo/practice/questions/' + key + '.json');
+            if (resp.ok) {
+              const data = await resp.json();
+              allQuestions = allQuestions.concat(data.questions.map(q => ({ ...q, topic: data.displayName || key })));
             }
-            return { topic: 'all', displayName: 'All Topics', questions: allQuestions };
+          }
+          return { topic: 'all', displayName: 'All Topics', questions: allQuestions, isAll: true };
         }
-    } catch (e) {
+      } catch (e) {
         document.getElementById('app').innerHTML =
-            '<h2>Topic not found</h2><p>Please go back to the <a href="/course-demo/practice/">Practice Arena</a>.</p>';
+          '<h2>Error loading questions</h2><p>Please go back to the <a href="/course-demo/practice/">Practice Arena</a>.</p>';
         return null;
+      }
     }
-}
 
-    // State
+    // State for single-topic mode
     let questions = [];
     let currentIndex = 0;
     let xp = parseInt(localStorage.getItem('xp') || '0');
     let badges = JSON.parse(localStorage.getItem('badges') || '[]');
     let answered = false;
+    let isAllMode = false;
 
-    // Show a floating emoji (cat)
+    // Show floating emoji (for single mode)
     function showFloatingEmoji(emoji) {
       const el = document.createElement('div');
       el.textContent = emoji;
@@ -192,10 +262,38 @@ async function loadQuestions() {
       });
     }
 
-    // Render the current question
+    // Render function
     function render() {
       if (!questions || questions.length === 0) return;
-      
+
+      if (isAllMode) {
+        // --- All Questions Mode ---
+        let html = '<h2>📚 Question Bank</h2><p>All questions from all topics are listed below. Click "Reveal Answer" to check your understanding.</p>';
+        questions.forEach((q, idx) => {
+          const levelClass = 'level-' + q.level.toLowerCase();
+          let choicesHTML = '';
+          q.choices.forEach((choice, ci) => {
+            choicesHTML += '<button data-answer="' + (ci === q.answer ? '1' : '0') + '">' + String.fromCharCode(65 + ci) + '. ' + choice + '</button>';
+          });
+          html += '<div class="question-block" id="qblock-' + idx + '">';
+          html += '<span class="level-badge ' + levelClass + '">' + q.level + (q.topic ? ' • ' + q.topic : '') + '</span>';
+          html += '<div class="question-text">' + q.question + '</div>';
+          if (q.code) html += '<pre>' + q.code + '</pre>';
+          html += '<div class="choices">' + choicesHTML + '</div>';
+          html += '<button class="reveal-btn" onclick="revealAnswer(' + idx + ')">🔍 Reveal Answer</button>';
+          html += '<div class="hint-box" id="hint-' + idx + '">';
+          if (q.hints && q.hints.length > 0) {
+            html += '<strong>💡 Hint:</strong> ' + q.hints[0];
+          }
+          html += '</div>';
+          html += '<div class="answer-feedback" id="feedback-' + idx + '"></div>';
+          html += '</div>';
+        });
+        document.getElementById('app').innerHTML = html;
+        return;
+      }
+
+      // --- Single Question Mode (Original) ---
       const q = questions[currentIndex];
       const total = questions.length;
       const levelClass = 'level-' + q.level.toLowerCase();
@@ -205,15 +303,7 @@ async function loadQuestions() {
         optionsHTML += '<button onclick="selectAnswer(' + i + ')" id="opt-' + i + '">' + String.fromCharCode(65 + i) + '. ' + q.choices[i] + '</button>';
       }
 
-      let hintHTML = '';
-      if (q.hints && q.hints.length > 0) {
-        hintHTML = '<div class="hint-box"><strong>💡 Hint:</strong> ' + q.hints[0] + '</div>';
-      }
-
-      let codeHTML = '';
-      if (q.code) {
-        codeHTML = '<pre>' + q.code + '</pre>';
-      }
+      let codeHTML = q.code ? '<pre>' + q.code + '</pre>' : '';
 
       document.getElementById('app').innerHTML =
         '<div class="progress-bar"><div class="fill" style="width: ' + ((currentIndex + 1) / total * 100) + '%"></div></div>' +
@@ -221,7 +311,6 @@ async function loadQuestions() {
         '<div class="question-text">' + q.question + '</div>' +
         codeHTML +
         '<div class="options" id="options-container">' + optionsHTML + '</div>' +
-        // hintHTML +
         '<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">' +
           '<span style="color: #5A6B7C; font-size: 0.9rem;">Question ' + (currentIndex + 1) + ' of ' + total + '</span>' +
           '<span style="color: #4A6CF7; font-weight: 600;">XP: ' + xp + ' 🏆</span>' +
@@ -234,7 +323,36 @@ async function loadQuestions() {
       answered = false;
     }
 
-    // Select an answer
+    // Reveal answer for all-questions mode
+    window.revealAnswer = function(idx) {
+      const q = questions[idx];
+      const block = document.getElementById('qblock-' + idx);
+      const choices = block.querySelectorAll('.choices button');
+      const feedback = document.getElementById('feedback-' + idx);
+      const hintBox = document.getElementById('hint-' + idx);
+
+      // Mark correct and wrong choices
+      choices.forEach((btn, ci) => {
+        btn.style.cursor = 'default';
+        if (ci === q.answer) {
+          btn.classList.add('correct-reveal');
+        } else {
+          btn.classList.add('wrong-reveal');
+        }
+      });
+
+      // Show hint
+      if (q.hints && q.hints.length > 0) {
+        hintBox.classList.add('visible');
+      }
+
+      feedback.textContent = '✅ Correct answer is: ' + q.choices[q.answer];
+      // Disable the reveal button
+      block.querySelector('.reveal-btn').disabled = true;
+      block.querySelector('.reveal-btn').style.opacity = '0.5';
+    };
+
+    // Single-question select
     window.selectAnswer = function(idx) {
       if (answered) return;
       answered = true;
@@ -242,7 +360,6 @@ async function loadQuestions() {
       const q = questions[currentIndex];
       const isCorrect = idx === q.answer;
       
-      // Highlight correct/wrong
       const btns = document.querySelectorAll('.options button');
       btns.forEach((btn, i) => {
         btn.disabled = true;
@@ -250,7 +367,6 @@ async function loadQuestions() {
         if (i === idx && !isCorrect) btn.classList.add('wrong');
       });
 
-      // Award XP
       if (isCorrect) {
         let earned = 5;
         if (q.level === 'challenging') earned = 15;
@@ -260,55 +376,36 @@ async function loadQuestions() {
         xp += earned;
         localStorage.setItem('xp', String(xp));
         
-        // Celebration confetti
-        confetti({
-          particleCount: 50,
-          spread: 60,
-          origin: { y: 0.6 }
-        });
-
-        // Cat emoji float
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
         const catReactions = ['🐱', '😺', '😸', '😻', '🙀', '🐈'];
-        const cat = catReactions[Math.floor(Math.random() * catReactions.length)];
-        showFloatingEmoji(cat);
+        showFloatingEmoji(catReactions[Math.floor(Math.random() * catReactions.length)]);
 
-        // Check for badge
         const badgeKey = 'badge_' + topicKey + '_' + q.level;
         if (!badges.includes(badgeKey)) {
           badges.push(badgeKey);
           localStorage.setItem('badges', JSON.stringify(badges));
-          // Extra confetti for badge!
-          setTimeout(function() {
-            confetti({
-              particleCount: 100,
-              spread: 100,
-              origin: { y: 0.5 }
-            });
+          setTimeout(() => {
+            confetti({ particleCount: 100, spread: 100, origin: { y: 0.5 } });
           }, 300);
-          // Show badge popup
           showBadgeUnlock('Topic: ' + topicKey + ' - ' + q.level.charAt(0).toUpperCase() + q.level.slice(1));
         }
       } else {
         // Show hint if available
-        if (q.hints && q.hints.length > 0) {
-            const hintBox = document.createElement('div');
-            hintBox.className = 'hint-box';
-            hintBox.innerHTML = '<strong>💡 Hint:</strong> ' + q.hints[0];
-            // Insert after the options container
-            const optionsContainer = document.getElementById('options-container');
-            optionsContainer.parentNode.insertBefore(hintBox, optionsContainer.nextSibling);
+        if (q.hints && q.hints.length > 0 && !document.querySelector('.hint-box')) {
+          const hintBox = document.createElement('div');
+          hintBox.className = 'hint-box';
+          hintBox.innerHTML = '<strong>💡 Hint:</strong> ' + q.hints[0];
+          const optionsContainer = document.getElementById('options-container');
+          optionsContainer.parentNode.insertBefore(hintBox, optionsContainer.nextSibling);
         }
-    }
+      }
 
-
-      // Update feedback
       const feedback = document.createElement('span');
       feedback.style.cssText = 'font-weight: 600; margin-left: 1rem;';
       feedback.textContent = isCorrect ? '✅ Correct! +' + earned + ' XP' : '❌ Not quite';
       document.querySelector('.nav-buttons').appendChild(feedback);
     };
 
-    // Navigation
     window.prevQuestion = function() {
       if (currentIndex > 0) {
         currentIndex--;
@@ -323,11 +420,11 @@ async function loadQuestions() {
       }
     };
 
-    // Initialize
     async function init() {
       const data = await loadQuestions();
       if (data) {
         questions = data.questions;
+        isAllMode = data.isAll || false;
         render();
       }
     }
