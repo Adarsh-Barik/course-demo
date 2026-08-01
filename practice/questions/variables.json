@@ -1,74 +1,172 @@
 [
   {
-    "level":"easy",
-    "question":"What is the value of x?",
-    "code":"x = 7\nx = x + 3",
-    "choices":["7","10","3","Error"],
-    "answer":1,
-    "hints":["The second assignment updates x.","Evaluate 7 + 3."]
+    "level": "easy",
+    "question": "What is the data type of the value printed?",
+    "code": "print(10 / 2)",
+    "choices": ["int", "float", "str", "bool"],
+    "answer": 1,
+    "hints": [
+      "The `/` operator always returns a floating‑point number in Python 3.",
+      "10 divided by 2 is 5.0."
+    ]
   },
   {
-    "level":"easy",
-    "question":"What is printed?",
-    "code":"a = 5\nb = 2\nprint(a + b)",
-    "choices":["52","7","10","Error"],
-    "answer":1,
-    "hints":["Both variables store numbers.","Addition is performed."]
+    "level": "easy",
+    "question": "What is printed?",
+    "code": "print(True + False)",
+    "choices": ["True", "False", "1", "0"],
+    "answer": 2,
+    "hints": [
+      "Booleans are subclasses of integers in Python.",
+      "True is 1 and False is 0, so 1 + 0 = 1."
+    ]
   },
   {
-    "level":"easy",
-    "question":"Which variable stores the value 8?",
-    "code":"x = 4\ny = x * 2",
-    "choices":["x","y","Both","Neither"],
-    "answer":1,
-    "hints":["Evaluate x * 2.","4 multiplied by 2 equals 8."]
+    "level": "easy",
+    "question": "What is printed?",
+    "code": "print(10 % 4)",
+    "choices": ["2", "2.5", "0", "1"],
+    "answer": 0,
+    "hints": [
+      "`%` is the modulo operator.",
+      "10 divided by 4 leaves a remainder of 2."
+    ]
   },
   {
-    "level":"medium",
-    "question":"What is printed?",
-    "code":"x = 3\ny = x\nx = 5\nprint(y)",
-    "choices":["3","5","8","Error"],
-    "answer":0,
-    "hints":["Changing x later does not change y.","y received the old value."]
+    "level": "easy",
+    "question": "What is printed?",
+    "code": "print('a' * 2 + 'b')",
+    "choices": ["'aab'", "'aa b'", "'ab'", "'aabb'"],
+    "answer": 0,
+    "hints": [
+      "`*` on strings repeats the string.",
+      "`+` concatenates strings.",
+      "'a' * 2 gives 'aa', then + 'b' gives 'aab'."
+    ]
   },
   {
-    "level":"medium",
-    "question":"What is printed?",
-    "code":"a = 10\nb = a - 4\nc = b + 1\nprint(c)",
-    "choices":["5","6","7","11"],
-    "answer":2,
-    "hints":["First compute b.","Then compute c."]
+    "level": "medium",
+    "question": "What is printed?",
+    "code": "print(0 or 5)",
+    "choices": ["True", "False", "0", "5"],
+    "answer": 3,
+    "hints": [
+      "`or` short‑circuits and returns the first truthy value.",
+      "0 is falsy, so it evaluates the second operand and returns 5."
+    ]
   },
   {
-    "level":"medium",
-    "question":"What is printed?",
-    "code":"x = 2\ny = 3\nz = x + y * 2\nprint(z)",
-    "choices":["10","8","7","12"],
-    "answer":1,
-    "hints":["Multiplication happens before addition.","Compute y*2 first."]
+    "level": "medium",
+    "question": "What is printed?",
+    "code": "print(5 and 0)",
+    "choices": ["True", "False", "5", "0"],
+    "answer": 3,
+    "hints": [
+      "`and` returns the first falsy value, or the last truthy value.",
+      "5 is truthy, so it returns 0."
+    ]
   },
   {
-    "level":"hard",
-    "question":"What is printed?",
-    "code":"x = 1\ny = x + 1\nx = y + 1\nprint(x + y)",
-    "choices":["3","4","5","6"],
-    "answer":2,
-    "hints":["Track x and y carefully.","Find y before updating x."]
+    "level": "medium",
+    "question": "What is printed?",
+    "code": "print(-10 // 3)",
+    "choices": ["-3", "-4", "-3.33", "3"],
+    "answer": 1,
+    "hints": [
+      "`//` performs floor division, which rounds down to the nearest integer.",
+      "-10 / 3 ≈ -3.33, rounding down gives -4."
+    ]
   },
   {
-    "level":"hard",
-    "question":"What is printed?",
-    "code":"a = 2\nb = a\nc = b\nb = 10\nprint(a + c)",
-    "choices":["4","12","20","2"],
-    "answer":0,
-    "hints":["Changing b later does not affect a or c.","Find values of a and c."]
+    "level": "medium",
+    "question": "What is printed?",
+    "code": "print(2 + 3 * 4 ** 2)",
+    "choices": ["80", "50", "20", "100"],
+    "answer": 1,
+    "hints": [
+      "Exponentiation has higher precedence than multiplication.",
+      "Multiplication has higher precedence than addition.",
+      "4 ** 2 = 16, 3 * 16 = 48, 2 + 48 = 50."
+    ]
   },
   {
-    "level":"hard",
-    "question":"What is printed?",
-    "code":"x = 5\nx = x + x\nx = x - 3\nprint(x)",
-    "choices":["7","10","12","13"],
-    "answer":0,
-    "hints":["Evaluate each assignment sequentially.","First double x."]
+    "level": "difficult",
+    "question": "What is printed?",
+    "code": "print(not True and False)",
+    "choices": ["True", "False", "None", "Error"],
+    "answer": 1,
+    "hints": [
+      "`not` has higher precedence than `and`.",
+      "Compute `not True` first, which is False.",
+      "Then `False and False` gives False."
+    ]
+  },
+  {
+    "level": "difficult",
+    "question": "What is printed?",
+    "code": "print(5 // 2 * 2)",
+    "choices": ["5", "6", "4", "2.5"],
+    "answer": 2,
+    "hints": [
+      "`//` and `*` have the same precedence and are evaluated left‑to‑right.",
+      "5 // 2 = 2, then 2 * 2 = 4."
+    ]
+  },
+  {
+    "level": "difficult",
+    "question": "What is printed?",
+    "code": "print(1 == True and 2 == True)",
+    "choices": ["True", "False", "1", "0"],
+    "answer": 1,
+    "hints": [
+      "`==` has higher precedence than `and`.",
+      "1 == True is True, but 2 == True is False (because True is exactly 1).",
+      "True and False gives False."
+    ]
+  },
+  {
+    "level": "difficult",
+    "question": "What is printed?",
+    "code": "print(2 and 3 or 4)",
+    "choices": ["2", "3", "4", "True"],
+    "answer": 1,
+    "hints": [
+      "`and` has higher precedence than `or`.",
+      "Compute `2 and 3` first: 2 is truthy, so it returns 3.",
+      "Then `3 or 4` returns 3 (since 3 is truthy)."
+    ]
+  },
+  {
+    "level": "challenging",
+    "question": "What is printed?",
+    "code": "print(-3 ** 2)",
+    "choices": ["-9", "9", "-6", "Error"],
+    "answer": 0,
+    "hints": [
+      "Exponentiation (`**`) has higher precedence than unary minus.",
+      "So this is parsed as `-(3 ** 2)` = -9."
+    ]
+  },
+  {
+    "level": "challenging",
+    "question": "What is printed?",
+    "code": "print(3 // -2)",
+    "choices": ["-1", "-2", "-1.5", "1"],
+    "answer": 1,
+    "hints": [
+      "Floor division rounds down to the nearest integer.",
+      "3 / -2 = -1.5, rounding down gives -2."
+    ]
+  },
+  {
+    "level": "challenging",
+    "question": "What is printed?",
+    "code": "print(2 ** 3 ** 2)",
+    "choices": ["64", "512", "256", "32"],
+    "answer": 1,
+    "hints": [
+      "Exponentiation is right‑associative.",
+      "So it is evaluated as `2 ** (3 ** 2)` = 2 ** 9 = 512."
+    ]
   }
 ]
