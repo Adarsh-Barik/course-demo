@@ -1,0 +1,31 @@
+name: Build Practice Pages
+
+on:
+  push:
+    paths:
+      - 'practice/questions/*.json'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Generate pages
+        run: |
+          cd practice
+          node generate.js
+          
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add practice/index.html practice/topic.html
+          git diff --staged --quiet || git commit -m "Auto-generate practice pages"
+          git push
