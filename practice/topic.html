@@ -101,6 +101,16 @@
       margin-top: 0.5rem;
       font-weight: 500;
     }
+    /* Roaming cat styles */
+    #roaming-cat {
+      position: fixed;
+      font-size: 3rem;
+      z-index: 9999;
+      pointer-events: none;
+      user-select: none;
+      transition: none;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
   </style>
 </head>
 <body>
@@ -112,7 +122,120 @@
     </main>
   </div>
 
+  <div id="roaming-cat" style="display:none;">🐱</div>
+
   <script>
+    // --- Roaming Cat ---
+    let catElement = document.getElementById('roaming-cat');
+    let catX = 100, catY = 100;
+    let catDX = 2, catDY = 1.5;
+    let catVisible = false;
+    let catTimeout = null;
+    let catInterval = null;
+    let mouseX = 0, mouseY = 0;
+    const catSize = 60; // approximate size for collision detection
+
+    function spawnCat() {
+      // Random position
+      const maxX = window.innerWidth - catSize;
+      const maxY = window.innerHeight - catSize;
+      catX = Math.random() * maxX;
+      catY = Math.random() * maxY;
+      // Random direction
+      const angle = Math.random() * 2 * Math.PI;
+      const speed = 0.8 + Math.random() * 0.8;
+      catDX = Math.cos(angle) * speed;
+      catDY = Math.sin(angle) * speed;
+      catElement.style.left = catX + 'px';
+      catElement.style.top = catY + 'px';
+      catElement.style.display = 'block';
+      catVisible = true;
+    }
+
+    function hideCat() {
+      catElement.style.display = 'none';
+      catVisible = false;
+      clearInterval(catInterval);
+      // Schedule next appearance after 2-3 minutes
+      const nextDelay = 120000 + Math.random() * 60000; // 2-3 min
+      if (catTimeout) clearTimeout(catTimeout);
+      catTimeout = setTimeout(() => {
+        if (!catVisible) {
+          spawnCat();
+          startCatMovement();
+        }
+      }, nextDelay);
+    }
+
+    function startCatMovement() {
+      if (catInterval) clearInterval(catInterval);
+      catInterval = setInterval(() => {
+        if (!catVisible) return;
+        // Move
+        catX += catDX;
+        catY += catDY;
+        // Bounce off walls
+        if (catX <= 0 || catX + catSize >= window.innerWidth) {
+          catDX *= -1;
+          catX = Math.max(0, Math.min(catX, window.innerWidth - catSize));
+        }
+        if (catY <= 0 || catY + catSize >= window.innerHeight) {
+          catDY *= -1;
+          catY = Math.max(0, Math.min(catY, window.innerHeight - catSize));
+        }
+        catElement.style.left = catX + 'px';
+        catElement.style.top = catY + 'px';
+
+        // Check if mouse is near (within 150px)
+        const dx = mouseX - (catX + catSize/2);
+        const dy = mouseY - (catY + catSize/2);
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 150) {
+          // Run away: flee from mouse
+          const fleeAngle = Math.atan2(dy, dx);
+          const fleeSpeed = 2.5;
+          catDX = Math.cos(fleeAngle) * fleeSpeed;
+          catDY = Math.sin(fleeAngle) * fleeSpeed;
+          // If it's really close, hide immediately
+          if (dist < 50) {
+            hideCat();
+          }
+        } else {
+          // Occasionally change direction slightly to look natural
+          if (Math.random() < 0.01) {
+            const angle = Math.atan2(catDY, catDX) + (Math.random() - 0.5) * 0.5;
+            const speed = Math.sqrt(catDX*catDX + catDY*catDY);
+            catDX = Math.cos(angle) * speed;
+            catDY = Math.sin(angle) * speed;
+          }
+        }
+      }, 20);
+    }
+
+    // Listen for mouse movement
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // Initialize cat after page load
+    window.addEventListener('load', () => {
+      // First appearance after 30 seconds
+      setTimeout(() => {
+        spawnCat();
+        startCatMovement();
+      }, 30000);
+      // After first hide, the hideCat function will schedule next
+    });
+
+    // Clean up when leaving page
+    window.addEventListener('beforeunload', () => {
+      if (catInterval) clearInterval(catInterval);
+      if (catTimeout) clearTimeout(catTimeout);
+    });
+
+    // --- Main app logic ---
+
     // Get topic from URL
     const params = new URLSearchParams(window.location.search);
     const topicKey = params.get('topic');
@@ -157,20 +280,9 @@
     let answered = false;
     let isAllMode = false;
 
-    // Show floating emoji (for single mode)
-    function showFloatingEmoji(emoji) {
-      const el = document.createElement('div');
-      el.textContent = emoji;
-      el.style.cssText = 'position: fixed; font-size: 3rem; animation: floatUp 1.5s ease-out forwards; pointer-events: none; z-index: 999;';
-      el.style.left = (Math.random() * 80 + 10) + '%';
-      el.style.top = (Math.random() * 40 + 20) + '%';
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 1500);
-    }
-
-    // Show badge unlock popup
+    // Show badge unlock popup (with confetti)
     function showBadgeUnlock(badgeName) {
-      const emojis = ['🐱', '🌟', '🎉', '🏅', '🌈', '🦄', '🚀', '🎊'];
+      const emojis = ['🌟', '🎉', '🏅', '🌈', '🦄', '🚀', '🎊'];
       const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
       
       const popup = document.createElement('div');
@@ -178,6 +290,7 @@
       popup.innerHTML = '<div style="font-size: 4rem;">' + randomEmoji + '</div><h2 style="margin: 0.5rem 0; color: #1A2332;">Badge Unlocked!</h2><p style="color: #5A6B7C;">' + badgeName + '</p><button onclick="this.parentElement.remove()" style="margin-top: 1rem; padding: 0.5rem 2rem; border: none; background: #4A6CF7; color: white; border-radius: 10px; cursor: pointer; font-weight: 600;">🎮 Continue</button>';
       document.body.appendChild(popup);
       
+      // Confetti celebration
       confetti({
         particleCount: 150,
         spread: 120,
@@ -299,17 +412,14 @@
         xp += earned;
         localStorage.setItem('xp', String(xp));
         
-        confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
-        const catReactions = ['🐱', '😺', '😸', '😻', '🙀', '🐈'];
-        showFloatingEmoji(catReactions[Math.floor(Math.random() * catReactions.length)]);
+        // Confetti and cat emoji removed here — only on badge unlock
 
+        // Check for badge (difficulty level completion)
         const badgeKey = 'badge_' + topicKey + '_' + q.level;
         if (!badges.includes(badgeKey)) {
           badges.push(badgeKey);
           localStorage.setItem('badges', JSON.stringify(badges));
-          setTimeout(() => {
-            confetti({ particleCount: 100, spread: 100, origin: { y: 0.5 } });
-          }, 300);
+          // Trigger celebration for new badge (only once per level)
           showBadgeUnlock('Topic: ' + topicKey + ' - ' + q.level.charAt(0).toUpperCase() + q.level.slice(1));
         }
       } else {
