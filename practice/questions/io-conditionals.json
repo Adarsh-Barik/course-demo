@@ -17,14 +17,13 @@
     {
       "id": 2,
       "level": "easy",
-      "question": "What is printed?",
-      "code": "x = int(input(\"Enter: \"))\nif x > 0:\n    print(\"Positive\")",
-      "choices": ["Positive", "Nothing", "Error", "Negative"],
-      "answer": 2,
+      "question": "What happens when the user enters `abc`?",
+      "code": "x = int(input(\"Enter: \"))",
+      "choices": ["The program continues", "A `ValueError` is raised", "`x` becomes `0`", "Nothing"],
+      "answer": 1,
       "hints": [
-        "The `input()` function captures user input as a string.",
-        "The `int()` function converts the string to an integer.",
-        "If the user enters a non-numeric value, a `ValueError` is raised."
+        "`int()` expects a string that represents an integer.",
+        "`\"abc\"` cannot be converted to an integer, so a `ValueError` is raised."
       ]
     },
     {
@@ -73,9 +72,9 @@
       "choices": ["Condition 1", "Condition 2", "Condition 3", "Error"],
       "answer": 1,
       "hints": [
-        "The first condition checks if `x > 5` (True) and `y < 15` (False).",
-        "`True and False` evaluates to `False`, so the `elif` is checked.",
-        "The `elif` condition `x > 5 and y > 15` is `True and True`, which is `True`."
+        "The first condition checks `x > 5` (True) and `y < 15` (False) → `False`.",
+        "The `elif` checks `x > 5` (True) and `y > 15` (True) → `True`.",
+        "So `Condition 2` is printed."
       ]
     },
     {
@@ -99,8 +98,8 @@
       "choices": ["Between 10 and 20", "Greater than 20", "Less than or equal to 10", "Error"],
       "answer": 0,
       "hints": [
-        "The outer `if` checks if `x > 10` (True for 15).",
-        "Inside the outer `if`, the nested `if` checks if `x < 20` (True for 15).",
+        "The outer `if` checks `x > 10` (True for 15).",
+        "Inside, the nested `if` checks `x < 20` (True for 15).",
         "So the nested `if` block executes and prints \"Between 10 and 20\"."
       ]
     },
@@ -112,9 +111,9 @@
       "choices": ["Positive", "Non-positive", "Invalid input", "Error"],
       "answer": 2,
       "hints": [
-        "The `int()` function raises a `ValueError` if the string cannot be converted to an integer.",
-        "The `try` block attempts to convert the input.",
-        "Since `\"abc\"` cannot be converted, the `except` block catches the `ValueError` and prints \"Invalid input\"."
+        "`int()` raises a `ValueError` if the string cannot be converted.",
+        "The `try` block attempts the conversion; it fails for `\"abc\"`.",
+        "The `except` block catches the error and prints \"Invalid input\"."
       ]
     },
     {
@@ -125,7 +124,7 @@
       "choices": ["Equal", "Not equal", "SyntaxError", "NameError"],
       "answer": 2,
       "hints": [
-        "In Python, assignment uses `=`, while comparison uses `==`.",
+        "In Python, `=` is assignment, `==` is comparison.",
         "Using `=` in an `if` condition is a syntax error.",
         "The correct syntax is `if x == 10:`."
       ]
@@ -139,8 +138,8 @@
       "answer": 0,
       "hints": [
         "Python supports chained comparisons: `x < y < z` is equivalent to `x < y and y < z`.",
-        "5 < 10 is True, and 10 < 15 is True, so the entire expression is True.",
-        "The `if` block executes."
+        "5 < 10 is True, and 10 < 15 is True, so the condition is `True`.",
+        "Thus the `if` block executes and prints \"Chain 1\"."
       ]
     },
     {
@@ -149,11 +148,11 @@
       "question": "What is the value of `result`?",
       "code": "x = 0\ny = 5\nz = 10\nresult = (x and y) or z",
       "choices": ["0", "5", "10", "True"],
-      "answer": 0,
+      "answer": 2,
       "hints": [
-        "`and` returns the first falsy value or the last truthy value.",
-        "`x and y` evaluates to `0` (since `x` is falsy).",
-        "Then `0 or z` evaluates to `z` (10) because `0` is falsy. So the result is 10? Wait, let's re-evaluate."
+        "`and` returns the first falsy value; otherwise the last truthy value.",
+        "`x and y` with x=0 (falsy) returns `0` immediately.",
+        "Then `0 or z` returns `z` because `0` is falsy. So `result = 10`."
       ]
     },
     {
@@ -164,9 +163,10 @@
       "choices": ["Negative", "Negative\\nDone", "Done", "Error"],
       "answer": 1,
       "hints": [
-        "The `if-elif-else` structure handles the sign of the number.",
-        "Since `-3` is less than 0, the `elif` block executes and prints \"Negative\".",
-        "The `print(\"Done\")` statement is outside the conditional block, so it always executes."
+        "The `if-elif-else` handles the sign of `x`.",
+        "For `-3`, the `elif x < 0` is True, so \"Negative\" is printed.",
+        "The `print(\"Done\")` is outside the conditional, so it always executes.",
+        "Thus the output is \"Negative\" followed by \"Done\" on the next line."
       ]
     },
     {
@@ -177,9 +177,9 @@
       "choices": ["Between", "Greater", "Less", "Error"],
       "answer": 0,
       "hints": [
-        "Chained comparisons work as expected: `10 < x < 20` is `True` for `x = 15`.",
-        "So the `if` block executes.",
-        "There is no logical error here; the code works correctly."
+        "The condition `10 < x < 20` is a chained comparison.",
+        "For `x = 15`, it is `True` because 10<15 and 15<20 are both True.",
+        "The `if` block executes, so \"Between\" is printed."
       ]
     },
     {
@@ -190,10 +190,9 @@
       "choices": ["Condition 1", "Condition 2", "Condition 3", "Error"],
       "answer": 1,
       "hints": [
-        "Evaluate the first condition: `x % y == 1` (5 % 2 = 1, True) and `y ** z > 10` (2 ** 3 = 8 > 10, False).",
-        "`True and False` is `False`, so the `elif` is checked.",
-        "The `elif` condition: `x // y == 2` (5 // 2 = 2, True) or `z * y == 6` (3 * 2 = 6, True).",
-        "`True or True` is `True`, so the `elif` block executes."
+        "First condition: `x % y == 1` → 5%2=1 (True), `y ** z > 10` → 2**3=8 > 10 (False) → overall False.",
+        "Second condition: `x // y == 2` → 5//2=2 (True), `z * y == 6` → 3*2=6 (True) → overall True.",
+        "Since the `elif` condition is True, \"Condition 2\" is printed."
       ]
     }
   ]
