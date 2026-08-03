@@ -220,7 +220,7 @@ const topicHTML = `<!DOCTYPE html>
   <div id="roaming-cat" style="display:none;">🐈</div>
 
   <script>
-    // --- Roaming Cat ---
+    // --- Roaming Cat (runs away from mouse, hides off-screen) ---
     let catElement = document.getElementById('roaming-cat');
     let catX = 100, catY = 100;
     let catDX = 2, catDY = 1.5;
@@ -228,13 +228,16 @@ const topicHTML = `<!DOCTYPE html>
     let catTimeout = null;
     let catInterval = null;
     let mouseX = 0, mouseY = 0;
+    let isFleeing = false;  // flag to indicate fleeing mode
     const catSize = 60;
 
     function spawnCat() {
+      // Start from a random visible position (not off-screen)
       const maxX = window.innerWidth - catSize;
       const maxY = window.innerHeight - catSize;
       catX = Math.random() * maxX;
       catY = Math.random() * maxY;
+      // Random wandering direction
       const angle = Math.random() * 2 * Math.PI;
       const speed = 0.8 + Math.random() * 0.8;
       catDX = Math.cos(angle) * speed;
@@ -243,13 +246,15 @@ const topicHTML = `<!DOCTYPE html>
       catElement.style.top = catY + 'px';
       catElement.style.display = 'block';
       catVisible = true;
+      isFleeing = false;
     }
 
     function hideCat() {
       catElement.style.display = 'none';
       catVisible = false;
       clearInterval(catInterval);
-      const nextDelay = 120000 + Math.random() * 60000; // 2-3 min
+      // Schedule next appearance after 2-3 minutes
+      const nextDelay = 120000 + Math.random() * 60000;
       if (catTimeout) clearTimeout(catTimeout);
       catTimeout = setTimeout(() => {
         if (!catVisible) {
@@ -263,31 +268,56 @@ const topicHTML = `<!DOCTYPE html>
       if (catInterval) clearInterval(catInterval);
       catInterval = setInterval(() => {
         if (!catVisible) return;
-        catX += catDX;
-        catY += catDY;
-        if (catX <= 0 || catX + catSize >= window.innerWidth) {
-          catDX *= -1;
-          catX = Math.max(0, Math.min(catX, window.innerWidth - catSize));
-        }
-        if (catY <= 0 || catY + catSize >= window.innerHeight) {
-          catDY *= -1;
-          catY = Math.max(0, Math.min(catY, window.innerHeight - catSize));
-        }
-        catElement.style.left = catX + 'px';
-        catElement.style.top = catY + 'px';
 
-        const dx = mouseX - (catX + catSize/2);
-        const dy = mouseY - (catY + catSize/2);
+        // Compute distance to mouse
+        const centerX = catX + catSize/2;
+        const centerY = catY + catSize/2;
+        const dx = mouseX - centerX;
+        const dy = mouseY - centerY;
         const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 150) {
+
+        // If mouse is within 200px, start fleeing
+        if (dist < 200) {
+          isFleeing = true;
+          // Flee directly away from mouse
           const fleeAngle = Math.atan2(dy, dx);
-          const fleeSpeed = 2.5;
+          const fleeSpeed = 3.5; // faster when fleeing
           catDX = Math.cos(fleeAngle) * fleeSpeed;
           catDY = Math.sin(fleeAngle) * fleeSpeed;
-          if (dist < 50) {
+        } else if (isFleeing) {
+          // If we were fleeing but mouse is now far, go back to wandering
+          isFleeing = false;
+          // Random new wandering direction
+          const angle = Math.random() * 2 * Math.PI;
+          const speed = 0.8 + Math.random() * 0.8;
+          catDX = Math.cos(angle) * speed;
+          catDY = Math.sin(angle) * speed;
+        }
+
+        // Move
+        catX += catDX;
+        catY += catDY;
+
+        if (isFleeing) {
+          // While fleeing, allow cat to go off-screen
+          // If completely off-screen, hide it
+          if (catX + catSize < 0 || catX > window.innerWidth ||
+              catY + catSize < 0 || catY > window.innerHeight) {
             hideCat();
+            return;
           }
+          // No bouncing, it just keeps going until off-screen
         } else {
+          // Wandering: bounce off walls
+          if (catX <= 0 || catX + catSize >= window.innerWidth) {
+            catDX *= -1;
+            catX = Math.max(0, Math.min(catX, window.innerWidth - catSize));
+          }
+          if (catY <= 0 || catY + catSize >= window.innerHeight) {
+            catDY *= -1;
+            catY = Math.max(0, Math.min(catY, window.innerHeight - catSize));
+          }
+          // Occasionally change direction slightly
           if (Math.random() < 0.01) {
             const angle = Math.atan2(catDY, catDX) + (Math.random() - 0.5) * 0.5;
             const speed = Math.sqrt(catDX*catDX + catDY*catDY);
@@ -295,6 +325,10 @@ const topicHTML = `<!DOCTYPE html>
             catDY = Math.sin(angle) * speed;
           }
         }
+
+        // Update position
+        catElement.style.left = catX + 'px';
+        catElement.style.top = catY + 'px';
       }, 20);
     }
 
@@ -304,10 +338,11 @@ const topicHTML = `<!DOCTYPE html>
     });
 
     window.addEventListener('load', () => {
+      // First appearance after 10 seconds (so user notices)
       setTimeout(() => {
         spawnCat();
         startCatMovement();
-      }, 30000);
+      }, 10000);
     });
 
     window.addEventListener('beforeunload', () => {
@@ -397,7 +432,6 @@ const topicHTML = `<!DOCTYPE html>
           html += '<div class="answer-feedback" id="feedback-' + idx + '"></div>';
           html += '</div>';
         });
-        // Back to Topics button at the end of all questions
         html += '<div style="text-align: center; margin-top: 2rem;">' +
                   '<a href="/course-demo/practice/" class="back-btn">🏠 Back to Topics</a>' +
                 '</div>';
@@ -431,7 +465,6 @@ const topicHTML = `<!DOCTYPE html>
           '<button class="prev-btn" onclick="prevQuestion()" ' + (currentIndex === 0 ? 'disabled' : '') + '>⬅ Previous</button>' +
           '<button class="next-btn" onclick="nextQuestion()" ' + (currentIndex === total - 1 ? 'disabled' : '') + '>Next ➡</button>' +
         '</div>' +
-        // Back to Topics button below navigation
         '<div style="text-align: center; margin-top: 0.5rem;">' +
           '<a href="/course-demo/practice/" class="back-btn">🏠 Back to Topics</a>' +
         '</div>';
