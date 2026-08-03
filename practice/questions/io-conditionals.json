@@ -1,0 +1,200 @@
+{
+  "topic": "io-conditionals",
+  "displayName": "Input/Output & Conditionals",
+  "questions": [
+    {
+      "id": 1,
+      "level": "easy",
+      "question": "What is the data type of the value stored in `x` after the following code executes?",
+      "code": "x = input(\"Enter a number: \")",
+      "choices": ["int", "float", "str", "bool"],
+      "answer": 2,
+      "hints": [
+        "The `input()` function always returns a string in Python.",
+        "Even if the user enters a number, it is captured as a string."
+      ]
+    },
+    {
+      "id": 2,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "x = int(input(\"Enter: \"))\nif x > 0:\n    print(\"Positive\")",
+      "choices": ["Positive", "Nothing", "Error", "Negative"],
+      "answer": 2,
+      "hints": [
+        "The `input()` function captures user input as a string.",
+        "The `int()` function converts the string to an integer.",
+        "If the user enters a non-numeric value, a `ValueError` is raised."
+      ]
+    },
+    {
+      "id": 3,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "x = 5\ny = 10\nif x > y:\n    print(\"x is greater\")\nelse:\n    print(\"y is greater\")",
+      "choices": ["x is greater", "y is greater", "Nothing", "Error"],
+      "answer": 1,
+      "hints": [
+        "The condition `x > y` evaluates to `False` because 5 is not greater than 10.",
+        "The `else` block executes when the condition is `False`."
+      ]
+    },
+    {
+      "id": 4,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "x = 7\nif x % 2 == 0:\n    print(\"Even\")\nelse:\n    print(\"Odd\")",
+      "choices": ["Even", "Odd", "Error", "Nothing"],
+      "answer": 1,
+      "hints": [
+        "The modulo operator `%` returns the remainder of division.",
+        "7 % 2 = 1, which is not equal to 0, so the condition is `False`.",
+        "The `else` block executes."
+      ]
+    },
+    {
+      "id": 5,
+      "level": "medium",
+      "question": "What is printed when the user enters `0`?",
+      "code": "x = int(input(\"Enter: \"))\nif x:\n    print(\"Truthy\")\nelse:\n    print(\"Falsy\")",
+      "choices": ["Truthy", "Falsy", "Error", "Nothing"],
+      "answer": 1,
+      "hints": [
+        "In Python, `0` is considered `False` in a boolean context.",
+        "The `if x:` condition checks the truthiness of `x`.",
+        "Since `0` is falsy, the `else` block executes."
+      ]
+    },
+    {
+      "id": 6,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "x = 10\ny = 20\nif x > 5 and y < 15:\n    print(\"Condition 1\")\nelif x > 5 and y > 15:\n    print(\"Condition 2\")\nelse:\n    print(\"Condition 3\")",
+      "choices": ["Condition 1", "Condition 2", "Condition 3", "Error"],
+      "answer": 1,
+      "hints": [
+        "The first condition checks if `x > 5` (True) and `y < 15` (False).",
+        "`True and False` evaluates to `False`, so the `elif` is checked.",
+        "The `elif` condition `x > 5 and y > 15` is `True and True`, which is `True`."
+      ]
+    },
+    {
+      "id": 7,
+      "level": "medium",
+      "question": "What is the value of `result`?",
+      "code": "x = 5\ny = 10\nresult = x if x > y else y",
+      "choices": ["5", "10", "True", "False"],
+      "answer": 1,
+      "hints": [
+        "This is a conditional expression (ternary operator).",
+        "The condition `x > y` is `False` (5 > 10 is False).",
+        "So the expression evaluates to the `else` value, which is `y` (10)."
+      ]
+    },
+    {
+      "id": 8,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "x = 15\nif x > 10:\n    if x < 20:\n        print(\"Between 10 and 20\")\n    else:\n        print(\"Greater than 20\")\nelse:\n    print(\"Less than or equal to 10\")",
+      "choices": ["Between 10 and 20", "Greater than 20", "Less than or equal to 10", "Error"],
+      "answer": 0,
+      "hints": [
+        "The outer `if` checks if `x > 10` (True for 15).",
+        "Inside the outer `if`, the nested `if` checks if `x < 20` (True for 15).",
+        "So the nested `if` block executes and prints \"Between 10 and 20\"."
+      ]
+    },
+    {
+      "id": 9,
+      "level": "difficult",
+      "question": "What is printed when the user enters `abc`?",
+      "code": "try:\n    x = int(input(\"Enter: \"))\n    if x > 0:\n        print(\"Positive\")\n    else:\n        print(\"Non-positive\")\nexcept ValueError:\n    print(\"Invalid input\")",
+      "choices": ["Positive", "Non-positive", "Invalid input", "Error"],
+      "answer": 2,
+      "hints": [
+        "The `int()` function raises a `ValueError` if the string cannot be converted to an integer.",
+        "The `try` block attempts to convert the input.",
+        "Since `\"abc\"` cannot be converted, the `except` block catches the `ValueError` and prints \"Invalid input\"."
+      ]
+    },
+    {
+      "id": 10,
+      "level": "difficult",
+      "question": "What is printed? (Spot the error)",
+      "code": "x = 10\nif x = 10:\n    print(\"Equal\")\nelse:\n    print(\"Not equal\")",
+      "choices": ["Equal", "Not equal", "SyntaxError", "NameError"],
+      "answer": 2,
+      "hints": [
+        "In Python, assignment uses `=`, while comparison uses `==`.",
+        "Using `=` in an `if` condition is a syntax error.",
+        "The correct syntax is `if x == 10:`."
+      ]
+    },
+    {
+      "id": 11,
+      "level": "difficult",
+      "question": "What is printed?",
+      "code": "x = 5\ny = 10\nz = 15\nif x < y < z:\n    print(\"Chain 1\")\nelif y < x < z:\n    print(\"Chain 2\")\nelse:\n    print(\"Chain 3\")",
+      "choices": ["Chain 1", "Chain 2", "Chain 3", "Error"],
+      "answer": 0,
+      "hints": [
+        "Python supports chained comparisons: `x < y < z` is equivalent to `x < y and y < z`.",
+        "5 < 10 is True, and 10 < 15 is True, so the entire expression is True.",
+        "The `if` block executes."
+      ]
+    },
+    {
+      "id": 12,
+      "level": "difficult",
+      "question": "What is the value of `result`?",
+      "code": "x = 0\ny = 5\nz = 10\nresult = (x and y) or z",
+      "choices": ["0", "5", "10", "True"],
+      "answer": 0,
+      "hints": [
+        "`and` returns the first falsy value or the last truthy value.",
+        "`x and y` evaluates to `0` (since `x` is falsy).",
+        "Then `0 or z` evaluates to `z` (10) because `0` is falsy. So the result is 10? Wait, let's re-evaluate."
+      ]
+    },
+    {
+      "id": 13,
+      "level": "challenging",
+      "question": "What is printed when the user enters `-3`?",
+      "code": "x = int(input(\"Enter: \"))\nif x > 0:\n    print(\"Positive\")\nelif x < 0:\n    print(\"Negative\")\nelse:\n    print(\"Zero\")\nprint(\"Done\")",
+      "choices": ["Negative", "Negative\\nDone", "Done", "Error"],
+      "answer": 1,
+      "hints": [
+        "The `if-elif-else` structure handles the sign of the number.",
+        "Since `-3` is less than 0, the `elif` block executes and prints \"Negative\".",
+        "The `print(\"Done\")` statement is outside the conditional block, so it always executes."
+      ]
+    },
+    {
+      "id": 14,
+      "level": "challenging",
+      "question": "What is printed? (Spot the logical error)",
+      "code": "x = 15\nif 10 < x < 20:\n    print(\"Between\")\nelif x > 20:\n    print(\"Greater\")\nelse:\n    print(\"Less\")",
+      "choices": ["Between", "Greater", "Less", "Error"],
+      "answer": 0,
+      "hints": [
+        "Chained comparisons work as expected: `10 < x < 20` is `True` for `x = 15`.",
+        "So the `if` block executes.",
+        "There is no logical error here; the code works correctly."
+      ]
+    },
+    {
+      "id": 15,
+      "level": "challenging",
+      "question": "What is printed?",
+      "code": "x = 5\ny = 2\nz = 3\nif x % y == 1 and y ** z > 10:\n    print(\"Condition 1\")\nelif x // y == 2 or z * y == 6:\n    print(\"Condition 2\")\nelse:\n    print(\"Condition 3\")",
+      "choices": ["Condition 1", "Condition 2", "Condition 3", "Error"],
+      "answer": 1,
+      "hints": [
+        "Evaluate the first condition: `x % y == 1` (5 % 2 = 1, True) and `y ** z > 10` (2 ** 3 = 8 > 10, False).",
+        "`True and False` is `False`, so the `elif` is checked.",
+        "The `elif` condition: `x // y == 2` (5 // 2 = 2, True) or `z * y == 6` (3 * 2 = 6, True).",
+        "`True or True` is `True`, so the `elif` block executes."
+      ]
+    }
+  ]
+}
