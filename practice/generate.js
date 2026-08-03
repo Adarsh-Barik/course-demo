@@ -228,16 +228,14 @@ const topicHTML = `<!DOCTYPE html>
     let catTimeout = null;
     let catInterval = null;
     let mouseX = 0, mouseY = 0;
-    let isFleeing = false;  // flag to indicate fleeing mode
+    let isFleeing = false;
     const catSize = 60;
 
     function spawnCat() {
-      // Start from a random visible position (not off-screen)
       const maxX = window.innerWidth - catSize;
       const maxY = window.innerHeight - catSize;
       catX = Math.random() * maxX;
       catY = Math.random() * maxY;
-      // Random wandering direction
       const angle = Math.random() * 2 * Math.PI;
       const speed = 0.8 + Math.random() * 0.8;
       catDX = Math.cos(angle) * speed;
@@ -253,8 +251,7 @@ const topicHTML = `<!DOCTYPE html>
       catElement.style.display = 'none';
       catVisible = false;
       clearInterval(catInterval);
-      // Schedule next appearance after 2-3 minutes
-      const nextDelay = 120000 + Math.random() * 60000;
+      const nextDelay = 120000 + Math.random() * 60000; // 2-3 min
       if (catTimeout) clearTimeout(catTimeout);
       catTimeout = setTimeout(() => {
         if (!catVisible) {
@@ -269,25 +266,24 @@ const topicHTML = `<!DOCTYPE html>
       catInterval = setInterval(() => {
         if (!catVisible) return;
 
-        // Compute distance to mouse
         const centerX = catX + catSize/2;
         const centerY = catY + catSize/2;
         const dx = mouseX - centerX;
         const dy = mouseY - centerY;
         const dist = Math.sqrt(dx*dx + dy*dy);
 
-        // If mouse is within 200px, start fleeing
-        if (dist < 200) {
+        // If mouse is within 250px, start fleeing AWAY from mouse
+        if (dist < 250) {
           isFleeing = true;
-          // Flee directly away from mouse
-          const fleeAngle = Math.atan2(dy, dx);
-          const fleeSpeed = 3.5; // faster when fleeing
+          // Flee direction = from mouse to cat (opposite of vector to mouse)
+          // Angle from mouse to cat = atan2(-dy, -dx)
+          const fleeAngle = Math.atan2(-dy, -dx);
+          const fleeSpeed = 4.0;
           catDX = Math.cos(fleeAngle) * fleeSpeed;
           catDY = Math.sin(fleeAngle) * fleeSpeed;
         } else if (isFleeing) {
-          // If we were fleeing but mouse is now far, go back to wandering
+          // Mouse is far again, go back to wandering
           isFleeing = false;
-          // Random new wandering direction
           const angle = Math.random() * 2 * Math.PI;
           const speed = 0.8 + Math.random() * 0.8;
           catDX = Math.cos(angle) * speed;
@@ -299,14 +295,13 @@ const topicHTML = `<!DOCTYPE html>
         catY += catDY;
 
         if (isFleeing) {
-          // While fleeing, allow cat to go off-screen
-          // If completely off-screen, hide it
+          // Allow cat to go off-screen while fleeing
           if (catX + catSize < 0 || catX > window.innerWidth ||
               catY + catSize < 0 || catY > window.innerHeight) {
             hideCat();
             return;
           }
-          // No bouncing, it just keeps going until off-screen
+          // No bouncing while fleeing
         } else {
           // Wandering: bounce off walls
           if (catX <= 0 || catX + catSize >= window.innerWidth) {
@@ -317,7 +312,7 @@ const topicHTML = `<!DOCTYPE html>
             catDY *= -1;
             catY = Math.max(0, Math.min(catY, window.innerHeight - catSize));
           }
-          // Occasionally change direction slightly
+          // Random direction change
           if (Math.random() < 0.01) {
             const angle = Math.atan2(catDY, catDX) + (Math.random() - 0.5) * 0.5;
             const speed = Math.sqrt(catDX*catDX + catDY*catDY);
@@ -326,7 +321,6 @@ const topicHTML = `<!DOCTYPE html>
           }
         }
 
-        // Update position
         catElement.style.left = catX + 'px';
         catElement.style.top = catY + 'px';
       }, 20);
@@ -338,7 +332,7 @@ const topicHTML = `<!DOCTYPE html>
     });
 
     window.addEventListener('load', () => {
-      // First appearance after 10 seconds (so user notices)
+      // First appearance after 10 seconds
       setTimeout(() => {
         spawnCat();
         startCatMovement();
