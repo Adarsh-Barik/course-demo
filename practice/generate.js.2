@@ -188,24 +188,6 @@ const topicHTML = `<!DOCTYPE html>
       transition: none;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
     }
-    /* Back to Topics button */
-    .back-btn {
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.6rem 1.8rem;
-      background: var(--bg);
-      color: var(--text-primary);
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 500;
-      border: 1px solid var(--primary-light);
-      transition: var(--transition);
-    }
-    .back-btn:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
   </style>
 </head>
 <body>
@@ -228,13 +210,15 @@ const topicHTML = `<!DOCTYPE html>
     let catTimeout = null;
     let catInterval = null;
     let mouseX = 0, mouseY = 0;
-    const catSize = 60;
+    const catSize = 60; // approximate size for collision detection
 
     function spawnCat() {
+      // Random position
       const maxX = window.innerWidth - catSize;
       const maxY = window.innerHeight - catSize;
       catX = Math.random() * maxX;
       catY = Math.random() * maxY;
+      // Random direction
       const angle = Math.random() * 2 * Math.PI;
       const speed = 0.8 + Math.random() * 0.8;
       catDX = Math.cos(angle) * speed;
@@ -249,6 +233,7 @@ const topicHTML = `<!DOCTYPE html>
       catElement.style.display = 'none';
       catVisible = false;
       clearInterval(catInterval);
+      // Schedule next appearance after 2-3 minutes
       const nextDelay = 120000 + Math.random() * 60000; // 2-3 min
       if (catTimeout) clearTimeout(catTimeout);
       catTimeout = setTimeout(() => {
@@ -263,8 +248,10 @@ const topicHTML = `<!DOCTYPE html>
       if (catInterval) clearInterval(catInterval);
       catInterval = setInterval(() => {
         if (!catVisible) return;
+        // Move
         catX += catDX;
         catY += catDY;
+        // Bounce off walls
         if (catX <= 0 || catX + catSize >= window.innerWidth) {
           catDX *= -1;
           catX = Math.max(0, Math.min(catX, window.innerWidth - catSize));
@@ -276,18 +263,22 @@ const topicHTML = `<!DOCTYPE html>
         catElement.style.left = catX + 'px';
         catElement.style.top = catY + 'px';
 
+        // Check if mouse is near (within 150px)
         const dx = mouseX - (catX + catSize/2);
         const dy = mouseY - (catY + catSize/2);
         const dist = Math.sqrt(dx*dx + dy*dy);
         if (dist < 150) {
+          // Run away: flee from mouse
           const fleeAngle = Math.atan2(dy, dx);
           const fleeSpeed = 2.5;
           catDX = Math.cos(fleeAngle) * fleeSpeed;
           catDY = Math.sin(fleeAngle) * fleeSpeed;
+          // If it's really close, hide immediately
           if (dist < 50) {
             hideCat();
           }
         } else {
+          // Occasionally change direction slightly to look natural
           if (Math.random() < 0.01) {
             const angle = Math.atan2(catDY, catDX) + (Math.random() - 0.5) * 0.5;
             const speed = Math.sqrt(catDX*catDX + catDY*catDY);
@@ -298,18 +289,23 @@ const topicHTML = `<!DOCTYPE html>
       }, 20);
     }
 
+    // Listen for mouse movement
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
 
+    // Initialize cat after page load
     window.addEventListener('load', () => {
+      // First appearance after 30 seconds
       setTimeout(() => {
         spawnCat();
         startCatMovement();
       }, 30000);
+      // After first hide, the hideCat function will schedule next
     });
 
+    // Clean up when leaving page
     window.addEventListener('beforeunload', () => {
       if (catInterval) clearInterval(catInterval);
       if (catTimeout) clearTimeout(catTimeout);
@@ -317,18 +313,22 @@ const topicHTML = `<!DOCTYPE html>
 
     // --- Main app logic ---
 
+    // Get topic from URL
     const params = new URLSearchParams(window.location.search);
     const topicKey = params.get('topic');
 
+    // Load the questions
     async function loadQuestions() {
       try {
         if (topicKey) {
+          // Single topic
           const response = await fetch('/course-demo/practice/questions/' + topicKey + '.json');
           if (!response.ok) throw new Error('Topic not found');
           const data = await response.json();
           data.isAll = false;
           return data;
         } else {
+          // All topics (Question Bank)
           const manifestResponse = await fetch('/course-demo/practice/questions/manifest.json');
           if (!manifestResponse.ok) throw new Error('Manifest not found');
           const topicKeys = await manifestResponse.json();
@@ -349,6 +349,7 @@ const topicHTML = `<!DOCTYPE html>
       }
     }
 
+    // State for single-topic mode
     let questions = [];
     let currentIndex = 0;
     let xp = parseInt(localStorage.getItem('xp') || '0');
@@ -356,6 +357,7 @@ const topicHTML = `<!DOCTYPE html>
     let answered = false;
     let isAllMode = false;
 
+    // Show badge unlock popup (with confetti)
     function showBadgeUnlock(badgeName) {
       const emojis = ['🌟', '🎉', '🏅', '🌈', '🦄', '🚀', '🎊'];
       const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
@@ -365,6 +367,7 @@ const topicHTML = `<!DOCTYPE html>
       popup.innerHTML = '<div style="font-size: 4rem;">' + randomEmoji + '</div><h2 style="margin: 0.5rem 0; color: #1A2332;">Badge Unlocked!</h2><p style="color: #5A6B7C;">' + badgeName + '</p><button onclick="this.parentElement.remove()" style="margin-top: 1rem; padding: 0.5rem 2rem; border: none; background: #4A6CF7; color: white; border-radius: 10px; cursor: pointer; font-weight: 600;">🎮 Continue</button>';
       document.body.appendChild(popup);
       
+      // Confetti celebration
       confetti({
         particleCount: 150,
         spread: 120,
@@ -372,10 +375,12 @@ const topicHTML = `<!DOCTYPE html>
       });
     }
 
+    // Render function
     function render() {
       if (!questions || questions.length === 0) return;
 
       if (isAllMode) {
+        // --- All Questions Mode ---
         let html = '<h2>📚 Question Bank</h2><p>All questions from all topics are listed below. Click "Reveal Answer" to check your understanding.</p>';
         questions.forEach((q, idx) => {
           const levelClass = 'level-' + q.level.toLowerCase();
@@ -397,15 +402,11 @@ const topicHTML = `<!DOCTYPE html>
           html += '<div class="answer-feedback" id="feedback-' + idx + '"></div>';
           html += '</div>';
         });
-        // Back to Topics button at the end of all questions
-        html += '<div style="text-align: center; margin-top: 2rem;">' +
-                  '<a href="/course-demo/practice/" class="back-btn">🏠 Back to Topics</a>' +
-                '</div>';
         document.getElementById('app').innerHTML = html;
         return;
       }
 
-      // Single Topic Mode
+      // --- Single Question Mode (Original) ---
       const q = questions[currentIndex];
       const total = questions.length;
       const levelClass = 'level-' + q.level.toLowerCase();
@@ -430,15 +431,12 @@ const topicHTML = `<!DOCTYPE html>
         '<div class="nav-buttons">' +
           '<button class="prev-btn" onclick="prevQuestion()" ' + (currentIndex === 0 ? 'disabled' : '') + '>⬅ Previous</button>' +
           '<button class="next-btn" onclick="nextQuestion()" ' + (currentIndex === total - 1 ? 'disabled' : '') + '>Next ➡</button>' +
-        '</div>' +
-        // Back to Topics button below navigation
-        '<div style="text-align: center; margin-top: 0.5rem;">' +
-          '<a href="/course-demo/practice/" class="back-btn">🏠 Back to Topics</a>' +
         '</div>';
 
       answered = false;
     }
 
+    // Reveal answer for all-questions mode
     window.revealAnswer = function(idx) {
       const q = questions[idx];
       const block = document.getElementById('qblock-' + idx);
@@ -446,6 +444,7 @@ const topicHTML = `<!DOCTYPE html>
       const feedback = document.getElementById('feedback-' + idx);
       const hintBox = document.getElementById('hint-' + idx);
 
+      // Mark correct and wrong choices
       choices.forEach((btn, ci) => {
         btn.style.cursor = 'default';
         if (ci === q.answer) {
@@ -455,15 +454,18 @@ const topicHTML = `<!DOCTYPE html>
         }
       });
 
+      // Show hint
       if (q.hints && q.hints.length > 0) {
         hintBox.classList.add('visible');
       }
 
       feedback.textContent = '✅ Correct answer is: ' + q.choices[q.answer];
+      // Disable the reveal button
       block.querySelector('.reveal-btn').disabled = true;
       block.querySelector('.reveal-btn').style.opacity = '0.5';
     };
 
+    // Single-question select
     window.selectAnswer = function(idx) {
       if (answered) return;
       answered = true;
@@ -486,14 +488,19 @@ const topicHTML = `<!DOCTYPE html>
         
         xp += earned;
         localStorage.setItem('xp', String(xp));
+        
+        // Confetti and cat emoji removed here — only on badge unlock
 
+        // Check for badge (difficulty level completion)
         const badgeKey = 'badge_' + topicKey + '_' + q.level;
         if (!badges.includes(badgeKey)) {
           badges.push(badgeKey);
           localStorage.setItem('badges', JSON.stringify(badges));
+          // Trigger celebration for new badge (only once per level)
           showBadgeUnlock('Topic: ' + topicKey + ' - ' + q.level.charAt(0).toUpperCase() + q.level.slice(1));
         }
       } else {
+        // Show hint if available
         if (q.hints && q.hints.length > 0 && !document.querySelector('.hint-box')) {
           const hintBox = document.createElement('div');
           hintBox.className = 'hint-box';
