@@ -25,7 +25,7 @@ seo:
 Ragesh Jaisawal, Rajendra Kumar, Adarsh Barik, and Vijay Keswani
 
 ### Lectures
-- Monday: 2:00 pm - 3:30 pm (Location: TBD) 
+- Monday: 2:00 pm - 3:30 pm (Location: 408) 
 - Thursday: 2:00 pm - 3:30 pm (Location: TBD)
 
 ### Labs
