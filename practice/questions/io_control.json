@@ -1,0 +1,151 @@
+{
+  "topic": "io-control-flow",
+  "displayName": "Input, Output & Control Flow",
+  "questions": [
+    {
+      "id": 1,
+      "level": "easy",
+      "question": "What is the output of the following program if the user enters 7?",
+      "code": "x = input()\nprint(x + '3')",
+      "choices": [
+        "10",
+        "73",
+        "Error",
+        "3"
+      ],
+      "answer": 1,
+      "hints": [
+        "input() always returns a string unless explicitly converted."
+      ]
+    },
+    {
+      "id": 2,
+      "level": "easy",
+      "question": "What is the output if the user enters '10'?",
+      "code": "x = input()\nif x == 10:\n    print('A')\nelif x == '10':\n    print('B')\nelse:\n    print('C')",
+      "choices": ["A", "B", "C", "Error"],
+      "answer": 1,
+      "hints": [
+        "The `input()` function always returns a string.",
+        "Comparing a string with an integer (`x == 10`) is always False."
+      ]
+    },
+    {
+      "id": 3,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "a = 5\nb = 10\nprint(f'{a} + {b} = {a + b}')",
+      "choices": ["5 + 10 = 15", "{a} + {b} = {a + b}", "a + b = 15", "5 + 10 = a + b"],
+      "answer": 0,
+      "hints": [
+        "f-strings evaluate expressions inside curly braces.",
+        "The placeholders `{a}` and `{b}` are replaced with their values."
+      ]
+    },
+    {
+      "id": 4,
+      "level": "medium",
+      "question": "What is the output if the user enters '0'?",
+      "code": "x = int(input())\nif x:\n    print('True')\nelse:\n    print('False')",
+      "choices": ["True", "False", "Error", "Nothing"],
+      "answer": 1,
+      "hints": [
+        "In Python, `0` is considered falsy in a boolean context.",
+        "The `if x:` condition checks the truthiness of `x`."
+      ]
+    },
+    {
+      "id": 5,
+      "level": "medium",
+      "question": "What is the output?",
+      "code": "score = 85\nprint(f'{score//10}*{score%10}')",
+      "choices": ["85", "40", "88888", "8*5"],
+      "answer": 3,
+      "hints": [
+        "{} evaluate the expressions separately",
+        "* is not inside {}"
+      ]
+    },
+    {
+      "id": 6,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "a = 10\nb = 20\nprint(f'{a > b}')",
+      "choices": [
+        "True",
+        "False",
+        "{a > b}",
+        "{10 > 20}"
+      ],
+      "answer": 1,
+      "hints": [
+        "f‑strings can evaluate expressions inside braces.",
+        "Since `a > b` is `False`."
+      ]
+    },
+    {
+      "id": 7,
+      "level": "difficult",
+      "question": "What is the output if the user enters 'False'?",
+      "code": "x = bool(input())\nif x == True:\n    print('A')\nelif x == 'True':\n    print('B')\nelse:\n    print('C')",
+      "choices": ["A", "B", "C", "Error"],
+      "answer": 0,
+      "hints": [
+        "`input()` returns a string: 'False'.",
+        "Boolean of a nonempty string is True."
+      ]
+    },
+    {
+      "id": 8,
+      "level": "difficult",
+      "question": "What is the output if the user enters 'hello'?",
+      "code": "x = input()\nif x:\n    print('A')\nelse:\n    print('B')",
+      "choices": ["A", "B", "Error", "Nothing"],
+      "answer": 0,
+      "hints": [
+        "Non-empty strings are truthy in Python.",
+        "The condition `if x:` checks if the string is non-empty."
+      ]
+    },
+    {
+      "id": 9,
+      "level": "difficult",
+      "question": "What is the output?",
+      "code": "name = 'Ram'\nstatement = f'{name} is {5 + 5} years old'\nprint(statement)",
+      "choices": [
+        "Ram is 10 years old",
+        "Error: Incorrect use of f-string",
+        "Ram is {5 + 5} years old",
+        "{name} is {5 + 5} years old"
+      ],
+      "answer": 0,
+      "hints": [
+        "f-string is not tied to the print()."
+      ]
+    },
+    {
+      "id": 10,
+      "level": "challenging",
+      "question": "What is the output if the user presses Enter without typing anything?",
+      "code": "x = input()\nif x:\n    print('A')\nelse:\n    print('B')",
+      "choices": ["A", "B", "Error", "Nothing"],
+      "answer": 1,
+      "hints": [
+        "An empty string is falsy in Python.",
+        "When the user just presses Enter, `input()` returns an empty string, so the `else` branch is taken."
+      ]
+    },
+    {
+      "id": 11,
+      "level": "challenging",
+      "question": "What is printed?",
+      "code": "print(f'{{hello}}')",
+      "choices": ["{hello}", "hello", "{{hello}}", "Error"],
+      "answer": 0,
+      "hints": [
+        "In f-strings, double curly braces `{{` and `}}` are used to escape literal curly braces.",
+        "The outer braces indicate an f-string, but the inner braces are treated as literal characters."
+      ]
+    }
+  ]
+}
