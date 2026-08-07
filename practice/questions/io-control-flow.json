@@ -3,7 +3,7 @@
   "displayName": "Input, Output & Control Flow",
   "questions": [
     {
-      "id": 16,
+      "id": 1,
       "level": "easy",
       "question": "What is the output of the following program if the user enters 7?",
       "code": "x = input()\nprint(x + '3')",
@@ -14,7 +14,7 @@
       ]
     },
     {
-      "id": 17,
+      "id": 2,
       "level": "easy",
       "question": "What is the output if the user enters '10'?",
       "code": "x = input()\nif x == 10:\n print('A')\nelif x == '10':\n print('B')\nelse:\n print('C')",
@@ -26,7 +26,7 @@
       ]
     },
     {
-      "id": 18,
+      "id": 3,
       "level": "easy",
       "question": "What is printed?",
       "code": "a = 5\nb = 10\nprint(f'{a} + {b} = {a + b}')",
@@ -189,7 +189,7 @@
       "question": "What is the output?",
       "code": "x = 10\nx > 0 and print(f'{x} is positive.')",
       "choices": [
-        "True\n15 is poitive.",
+        "True\n15 is positive.",
         "True\n{x} is positive.",
         "15 is positive.",
         "Error"
