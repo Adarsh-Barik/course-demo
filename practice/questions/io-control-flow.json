@@ -16,7 +16,7 @@
     {
       "id": 2,
       "level": "easy",
-      "question": "What is the output if the user enters '10'?",
+      "question": "What is the output if the user enters 10?",
       "code": "x = input()\nif x == 10:\n print('A')\nelif x == '10':\n print('B')\nelse:\n print('C')",
       "choices": ["A", "B", "C", "Error"],
       "answer": 1,
@@ -30,7 +30,7 @@
       "level": "easy",
       "question": "What is printed?",
       "code": "a = 5\nb = 10\nprint(f'{a} + {b} = {a + b}')",
-      "choices": ["5 + 10 = 15", "{a} + {b} = {a + b}", "a + b = 15", "5 + 10 = a + b"],
+      "choices": ["5 + 10 = 15", "{a} + {b} = {a + b}", "a + b = 15", "5 + 10 = {a + b}"],
       "answer": 0,
       "hints": [
         "f-strings evaluate expressions inside curly braces.",
@@ -40,7 +40,7 @@
     {
       "id": 4,
       "level": "easy",
-      "question": "What is printed when the user enters `25`?",
+      "question": "What is printed when the user enters 25?",
       "code": "age = int(input())\nprint(f'You are {age} years old.')",
       "choices": [
         "You are 25 years old.",
@@ -50,19 +50,18 @@
       ],
       "answer": 0,
       "hints": [
-        "`int(input())` converts the user input to an integer.",
         "f-strings embed the value of `age` directly into the string."
       ]
     },
     {
       "id": 5,
       "level": "medium",
-      "question": "What is the output if the user enters '0'?",
+      "question": "What is the output if the user enters 0?",
       "code": "x = int(input())\nif x:\n print('True')\nelse:\n print('False')",
       "choices": ["True", "False", "Error", "Nothing"],
       "answer": 1,
       "hints": [
-        "In Python, `0` is considered falsy in a boolean context.",
+        "In Python, 0 is considered falsy in a boolean context.",
         "The `if x:` condition checks the truthiness of `x`."
       ]
     },
@@ -110,19 +109,19 @@
     {
       "id": 9,
       "level": "difficult",
-      "question": "What is the output if the user enters 'False'?",
-      "code": "x = bool(input())\nif x == True:\n print('A')\nelif x == 'True':\n print('B')\nelse:\n print('C')",
-      "choices": ["A", "B", "C", "Error"],
+      "question": "What is the output if the user enters False?",
+      "code": "x = bool(input())\nif x == True:\n print('A')\nelif x == 'True':\n print('B')\nelif x == 'False':\n print('C')\nelse:\n print('D')",
+      "choices": ["A", "B", "C", "D"],
       "answer": 0,
       "hints": [
-        "`input()` returns a string: 'False'.",
+        "`input()` returns a nonempty string: 'False'.",
         "Boolean of a nonempty string is True."
       ]
     },
     {
       "id": 10,
       "level": "difficult",
-      "question": "What is the output if the user enters 'hello'?",
+      "question": "What is the output if the user enters hello?",
       "code": "x = input()\nif x:\n print('A')\nelse:\n print('B')",
       "choices": ["A", "B", "Error", "Nothing"],
       "answer": 0,
@@ -150,7 +149,7 @@
     {
       "id": 12,
       "level": "difficult",
-      "question": "What is the output if the user enters `-5`?",
+      "question": "What is the output if the user enters -5?",
       "code": "num = int(input()) % 4\nif num == -1:\n    print('A')\nelif num == 1:\n    print('B')\nelse:\n    print('C')",
       "choices": ["A", "B", "C", "Error"],
       "answer": 2,
@@ -187,10 +186,10 @@
       "id": 15,
       "level": "challenging",
       "question": "What is the output?",
-      "code": "x = 10\nx > 0 and print(f'{x} is positive.')",
+      "code": "x = 15\nx > 0 and print(f'{x} is positive.')",
       "choices": [
-        "True\n15 is positive.",
-        "True\n{x} is positive.",
+        "True 15 is positive.",
+        "True {x} is positive.",
         "15 is positive.",
         "Error"
       ],
