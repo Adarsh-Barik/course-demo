@@ -7,12 +7,7 @@
       "level": "easy",
       "question": "What is the output of the following program if the user enters 7?",
       "code": "x = input()\nprint(x + '3')",
-      "choices": [
-        "10",
-        "73",
-        "Error",
-        "3"
-      ],
+      "choices": ["10", "73", "Error", "3"],
       "answer": 1,
       "hints": [
         "input() always returns a string unless explicitly converted."
@@ -22,7 +17,7 @@
       "id": 2,
       "level": "easy",
       "question": "What is the output if the user enters '10'?",
-      "code": "x = input()\nif x == 10:\n    print('A')\nelif x == '10':\n    print('B')\nelse:\n    print('C')",
+      "code": "x = input()\nif x == 10:\n print('A')\nelif x == '10':\n print('B')\nelse:\n print('C')",
       "choices": ["A", "B", "C", "Error"],
       "answer": 1,
       "hints": [
@@ -44,9 +39,26 @@
     },
     {
       "id": 4,
+      "level": "easy",
+      "question": "What is printed when the user enters `25`?",
+      "code": "age = int(input())\nprint(f'You are {age} years old.')",
+      "choices": [
+        "You are 25 years old.",
+        "You are age years old.",
+        "You are {age} years old.",
+        "Error"
+      ],
+      "answer": 0,
+      "hints": [
+        "`int(input())` converts the user input to an integer.",
+        "f-strings embed the value of `age` directly into the string."
+      ]
+    },
+    {
+      "id": 5,
       "level": "medium",
       "question": "What is the output if the user enters '0'?",
-      "code": "x = int(input())\nif x:\n    print('True')\nelse:\n    print('False')",
+      "code": "x = int(input())\nif x:\n print('True')\nelse:\n print('False')",
       "choices": ["True", "False", "Error", "Nothing"],
       "answer": 1,
       "hints": [
@@ -55,28 +67,23 @@
       ]
     },
     {
-      "id": 5,
+      "id": 6,
       "level": "medium",
       "question": "What is the output?",
       "code": "score = 85\nprint(f'{score//10}*{score%10}')",
       "choices": ["85", "40", "88888", "8*5"],
       "answer": 3,
       "hints": [
-        "{} evaluate the expressions separately",
+        "Both {} evaluate the expressions separately",
         "* is not inside {}"
       ]
     },
     {
-      "id": 6,
+      "id": 7,
       "level": "medium",
       "question": "What is printed?",
       "code": "a = 10\nb = 20\nprint(f'{a > b}')",
-      "choices": [
-        "True",
-        "False",
-        "{a > b}",
-        "{10 > 20}"
-      ],
+      "choices": ["True", "False", "{a > b}", "{10 > 20}"],
       "answer": 1,
       "hints": [
         "f‑strings can evaluate expressions inside braces.",
@@ -84,10 +91,27 @@
       ]
     },
     {
-      "id": 7,
+      "id": 8,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "x = input('Enter a number: ')\nprint(x * 3)",
+      "choices": [
+        "The number repeated three times as a string",
+        "The number multiplied by 3",
+        "Error",
+        "None"
+      ],
+      "answer": 0,
+      "hints": [
+        "`input()` always returns a string.",
+        "Multiplying a string by an integer repeats it."
+      ]
+    },
+    {
+      "id": 9,
       "level": "difficult",
       "question": "What is the output if the user enters 'False'?",
-      "code": "x = bool(input())\nif x == True:\n    print('A')\nelif x == 'True':\n    print('B')\nelse:\n    print('C')",
+      "code": "x = bool(input())\nif x == True:\n print('A')\nelif x == 'True':\n print('B')\nelse:\n print('C')",
       "choices": ["A", "B", "C", "Error"],
       "answer": 0,
       "hints": [
@@ -96,10 +120,10 @@
       ]
     },
     {
-      "id": 8,
+      "id": 10,
       "level": "difficult",
       "question": "What is the output if the user enters 'hello'?",
-      "code": "x = input()\nif x:\n    print('A')\nelse:\n    print('B')",
+      "code": "x = input()\nif x:\n print('A')\nelse:\n print('B')",
       "choices": ["A", "B", "Error", "Nothing"],
       "answer": 0,
       "hints": [
@@ -108,7 +132,7 @@
       ]
     },
     {
-      "id": 9,
+      "id": 11,
       "level": "difficult",
       "question": "What is the output?",
       "code": "name = 'Ram'\nstatement = f'{name} is {5 + 5} years old'\nprint(statement)",
@@ -124,10 +148,22 @@
       ]
     },
     {
-      "id": 10,
+      "id": 12,
+      "level": "difficult",
+      "question": "What is the output if the user enters `-5`?",
+      "code": "num = int(input()) % 4\nif num == -1:\n    print('A')\nelif num == 1:\n    print('B')\nelse:\n    print('C')",
+      "choices": ["A", "B", "C", "Error"],
+      "answer": 2,
+      "hints": [
+        "In Python, num = (num // x) * x + (num % x)",
+        "The operator `%` always returns the number having the same sign as denominator."
+      ]
+    },
+    {
+      "id": 13,
       "level": "challenging",
       "question": "What is the output if the user presses Enter without typing anything?",
-      "code": "x = input()\nif x:\n    print('A')\nelse:\n    print('B')",
+      "code": "x = input()\nif x:\n print('A')\nelse:\n print('B')",
       "choices": ["A", "B", "Error", "Nothing"],
       "answer": 1,
       "hints": [
@@ -136,7 +172,7 @@
       ]
     },
     {
-      "id": 11,
+      "id": 14,
       "level": "challenging",
       "question": "What is printed?",
       "code": "print(f'{{hello}}')",
@@ -145,6 +181,22 @@
       "hints": [
         "In f-strings, double curly braces `{{` and `}}` are used to escape literal curly braces.",
         "The outer braces indicate an f-string, but the inner braces are treated as literal characters."
+      ]
+    },
+    {
+      "id": 15,
+      "level": "challenging",
+      "question": "What is the output?",
+      "code": "x = 10\nx > 0 and print(f'{x} is positive.')",
+      "choices": [
+        "True\n15 is poitive.",
+        "True\n{x} is positive.",
+        "15 is positive.",
+        "Error"
+      ],
+      "answer": 2,
+      "hints": [
+        "`and` only executes the second part when first part is true."
       ]
     }
   ]
