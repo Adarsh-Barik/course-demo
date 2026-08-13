@@ -1,0 +1,215 @@
+{
+  "topic": "loops-control-flow",
+  "displayName": "Loops & Control Flow",
+  "questions": [
+    {
+      "id": 1,
+      "level": "easy",
+      "question": "What is the output of the following code?",
+      "code": "i = 5\nwhile i > 0:\n    print(i, end=' ')\n    i -= 2",
+      "choices": ["5 3 1", "5 4 3 2 1", "5 3", "1 3 5"],
+      "answer": 0,
+      "hints": [
+        "The loop runs as long as `i > 0`.",
+        "`i` decreases by 2 in each iteration.",
+        "The values printed are 5, 3, 1."
+      ]
+    },
+    {
+      "id": 2,
+      "level": "easy",
+      "question": "What is the output?",
+      "code": "for i in range(5, 0, -1):\n    print(i, end=' ')",
+      "choices": ["5 4 3 2 1", "4 3 2 1 0", "5 4 3 2", "1 2 3 4 5"],
+      "answer": 0,
+      "hints": [
+        "`range(start, stop, step)` generates numbers from `start` to `stop-1`.",
+        "A negative step means counting down.",
+        "It prints 5, 4, 3, 2, 1."
+      ]
+    },
+    {
+      "id": 3,
+      "level": "easy",
+      "question": "What is the output?",
+      "code": "for i in range(1, 6):\n    if i == 3:\n        break\n    print(i, end=' ')",
+      "choices": ["1 2", "1 2 3", "1 2 3 4 5", "1 2 4 5"],
+      "answer": 0,
+      "hints": [
+        "`break` exits the loop immediately.",
+        "When `i` becomes 3, the loop terminates.",
+        "So only 1 and 2 are printed."
+      ]
+    },
+    {
+      "id": 4,
+      "level": "easy",
+      "question": "What is the output?",
+      "code": "x = 2\nif x > 3:\n    print('A')\nelif x == 2:\n    print('B')\nelse:\n    print('C')",
+      "choices": ["A", "B", "C", "None"],
+      "answer": 1,
+      "hints": [
+        "The `if-elif-else` chain checks conditions in order.",
+        "`x > 3` is False, so it moves to the `elif`.",
+        "`x == 2` is True, so it prints 'B'."
+      ]
+    },
+    {
+      "id": 5,
+      "level": "medium",
+      "question": "What is the output?",
+      "code": "for i in range(1, 4):\n    for j in range(1, 3):\n        print(i, j, end=' ')",
+      "choices": [
+        "1 1 1 2 2 1 2 2 3 1 3 2",
+        "1 1 1 2 2 1 2 2 3 1",
+        "1 2 3 1 2 3",
+        "1 1 2 2 3 3"
+      ],
+      "answer": 0,
+      "hints": [
+        "The outer loop runs `i = 1, 2, 3`.",
+        "The inner loop runs `j = 1, 2` for each `i`.",
+        "The `print` statement prints `i` and `j` for every combination."
+      ]
+    },
+    {
+      "id": 6,
+      "level": "medium",
+      "question": "What is the output?",
+      "code": "i = 0\nwhile i < 5:\n    i += 1\n    if i == 3:\n        continue\n    print(i, end=' ')\nelse:\n    print('done')",
+      "choices": ["1 2 4 5 done", "1 2 3 4 5 done", "1 2 4 5", "1 2 3 4 5"],
+      "answer": 0,
+      "hints": [
+        "`continue` skips the rest of the current iteration.",
+        "When `i == 3`, `continue` is executed, so `print(i)` is skipped.",
+        "The `else` clause runs after the loop completes normally (without `break`)."
+      ]
+    },
+    {
+      "id": 7,
+      "level": "medium",
+      "question": "What is the output?",
+      "code": "for i in range(1, 6):\n    if i % 2 == 0:\n        continue\n    print(i, end=' ')\nelse:\n    print('done')",
+      "choices": ["1 3 5 done", "1 2 3 4 5 done", "1 3 5", "2 4 done"],
+      "answer": 0,
+      "hints": [
+        "`continue` skips the rest of the iteration when `i` is even.",
+        "So only odd numbers are printed.",
+        "The `else` clause runs after the loop completes normally."
+      ]
+    },
+    {
+      "id": 8,
+      "level": "medium",
+      "question": "What is the output?",
+      "code": "x = 0\nwhile x < 3:\n    x += 1\n    if x == 2:\n        break\nelse:\n    print('else')\nprint(x)",
+      "choices": ["2", "1", "3", "else 2"],
+      "answer": 0,
+      "hints": [
+        "`break` exits the loop immediately.",
+        "When `x` becomes 2, the loop breaks.",
+        "The `else` clause is skipped because the loop was terminated by `break`.",
+        "After the loop, `print(x)` prints the value of `x`, which is 2."
+      ]
+    },
+    {
+      "id": 9,
+      "level": "difficult",
+      "question": "What is the output?",
+      "code": "i = 0\nwhile i < 5:\n    i += 1\n    if i == 3:\n        continue\n    print(i, end=' ')\nelse:\n    print('done')",
+      "choices": ["1 2 4 5 done", "1 2 3 4 5 done", "1 2 4 5", "1 2 3 4 5"],
+      "answer": 0,
+      "hints": [
+        "`continue` skips the `print` when `i == 3`.",
+        "The loop completes all iterations (`i` goes to 5) without `break`.",
+        "So the `else` clause runs after the loop."
+      ]
+    },
+    {
+      "id": 10,
+      "level": "difficult",
+      "question": "What is the output?",
+      "code": "for i in range(1, 4):\n    for j in range(i):\n        print(i, end=' ')",
+      "choices": ["1 2 2 3 3 3", "1 2 3", "1 1 2 2 3 3", "1 2 2 3"],
+      "answer": 0,
+      "hints": [
+        "The outer loop runs `i = 1, 2, 3`.",
+        "The inner loop runs `j` from 0 to `i-1`.",
+        "So for `i=1`, `j=0` prints 1; `i=2`, `j=0,1` prints 2 2; `i=3`, `j=0,1,2` prints 3 3 3."
+      ]
+    },
+    {
+      "id": 11,
+      "level": "difficult",
+      "question": "What is the output?",
+      "code": "x = 0\nwhile x < 5:\n    x += 1\n    if x == 3:\n        break\n    print(x, end=' ')\nelse:\n    print('else')\nprint(x)",
+      "choices": ["1 2 3", "1 2", "1 2 else 3", "1 2 3 else"],
+      "answer": 0,
+      "hints": [
+        "`break` exits the loop when `x == 3`.",
+        "The loop prints 1 and 2 before breaking.",
+        "The `else` clause is skipped because of `break`.",
+        "After the loop, `print(x)` prints 3."
+      ]
+    },
+    {
+      "id": 12,
+      "level": "difficult",
+      "question": "What is the output?",
+      "code": "for i in range(1, 6):\n    if i == 3:\n        continue\n    if i == 5:\n        break\n    print(i, end=' ')\nelse:\n    print('else')",
+      "choices": ["1 2 4", "1 2 4 else", "1 2 3 4", "1 2"],
+      "answer": 0,
+      "hints": [
+        "When `i == 3`, `continue` skips the `print`.",
+        "When `i == 5`, `break` exits the loop.",
+        "The `else` clause is skipped because of `break`.",
+        "So it prints 1, 2, 4."
+      ]
+    },
+    {
+      "id": 13,
+      "level": "challenging",
+      "question": "What is the output?",
+      "code": "i = 10\nwhile i > 0:\n    if i % 2 == 0:\n        i -= 1\n        continue\n    print(i, end=' ')\n    i -= 2",
+      "choices": ["9 7 5 3 1", "10 8 6 4 2", "9 5 1", "10 9 8 7 6 5 4 3 2 1"],
+      "answer": 0,
+      "hints": [
+        "When `i` is even, it decrements by 1 and `continue`s (no print).",
+        "When `i` is odd, it prints `i` and then decrements by 2.",
+        "So it prints odd numbers from 9 down to 1."
+      ]
+    },
+    {
+      "id": 14,
+      "level": "challenging",
+      "question": "What is the output?",
+      "code": "for i in range(1, 4):\n    for j in range(1, 4):\n        if i == j:\n            break\n        print(i, j, end=' ')",
+      "choices": ["2 1 3 1 3 2", "1 1 2 2 3 3", "1 2 1 3 2 3", "2 1 3 1"],
+      "answer": 0,
+      "hints": [
+        "The outer loop runs `i = 1, 2, 3`.",
+        "The inner loop runs `j = 1, 2, 3`.",
+        "When `i == j`, `break` exits the inner loop.",
+        "For `i=1`, `j=1` breaks immediately (no print).",
+        "For `i=2`, `j=1` prints 2 1, then `j=2` breaks.",
+        "For `i=3`, `j=1` prints 3 1, `j=2` prints 3 2, `j=3` breaks."
+      ]
+    },
+    {
+      "id": 15,
+      "level": "challenging",
+      "question": "What is the output?",
+      "code": "x = 5\nwhile x > 0:\n    x -= 1\n    if x == 2:\n        continue\n    print(x, end=' ')\nelse:\n    print('done')",
+      "choices": ["4 3 1 0 done", "4 3 2 1 0 done", "4 3 1 0", "3 1 0 done"],
+      "answer": 0,
+      "hints": [
+        "`x` starts at 5, decrements to 4, prints 4.",
+        "`x` becomes 3, prints 3.",
+        "`x` becomes 2, `continue` skips the `print`.",
+        "`x` becomes 1, prints 1.",
+        "`x` becomes 0, prints 0.",
+        "Loop ends normally, `else` prints `done`."
+      ]
+    }
+  ]
+}
