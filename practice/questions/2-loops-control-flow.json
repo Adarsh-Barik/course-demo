@@ -76,13 +76,11 @@
       "id": 6,
       "level": "medium",
       "question": "What is the output?",
-      "code": "for i in range(1, 6):\n    if i == 3:\n        break\n    print(i, end=' ')\nelse:\n    print('done')",
-      "choices": ["1 2", "1 2 done", "1 2 3", "1 2 3 done"],
+      "code": "for i in range(1, 6):\n    if i == 3:\n        break\n    print(i, end=' ')",
+      "choices": ["1 2", "1 2 3 4 5", "1 2 3", "1 2 3 4 5 6"],
       "answer": 0,
       "hints": [
-        "`break` exits the loop when `i == 3`.",
-        "The `else` clause only runs if the loop completes without a `break`.",
-        "Since it breaks, `else` is skipped."
+        "`break` exits the loop when `i == 3`."
       ]
     },
     {
@@ -102,12 +100,11 @@
       "id": 8,
       "level": "medium",
       "question": "What is the output?",
-      "code": "x = 0\nwhile x < 3:\n    x += 1\n    if x == 2:\n        break\nelse:\n    print('else')\nprint(x)",
+      "code": "x = 0\nwhile x < 3:\n    x += 1\n    if x == 2:\n        break\nprint(x)",
       "choices": ["2", "1", "3", "else 2"],
       "answer": 0,
       "hints": [
         "`break` exits the loop when `x == 2`.",
-        "The `else` clause is skipped because of the `break`.",
         "After the loop, `print(x)` shows `x = 2`."
       ]
     },
@@ -149,13 +146,12 @@
       "id": 11,
       "level": "difficult",
       "question": "What is the output?",
-      "code": "x = 0\nwhile x < 5:\n    x += 1\n    if x == 3:\n        break\n    print(x, end=' ')\nelse:\n    print('else')\nprint(x)",
-      "choices": ["1 2 3", "1 2", "1 2 else 3", "1 2 3 else"],
+      "code": "x = 0\nwhile x < 5:\n    x *= 2\n    if x == 0:\n        break\n    print(x, end=' ')\nprint(x)",
+      "choices": ["0", "Nothing gets printed", "Infinite loop", "0 2 4 6 8"],
       "answer": 0,
       "hints": [
-        "`break` exits the loop when `x == 3`.",
-        "The loop prints 1 and 2 before breaking.",
-        "The `else` clause is skipped, and after the loop `print(x)` prints 3."
+        "`break` exits the loop when `x == 0`.",
+        "`x *= 2` is same as `x = 2*x`, which means that `x = 0`."
       ]
     },
     {
