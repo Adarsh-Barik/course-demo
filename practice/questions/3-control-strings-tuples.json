@@ -1,0 +1,192 @@
+{
+  "topic": "3-control-strings-tuples",
+  "displayName": "Control Flow, Strings & Tuples",
+  "questions": [
+    {
+      "id": 1,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "s = 'Python'\nprint(s[1:4])",
+      "choices": ["'yth'", "'ytho'", "'y'", "'ython'"],
+      "answer": 0,
+      "hints": [
+        "In Python slicing, the start index is inclusive and the end index is exclusive.",
+        "s[1:4] extracts characters from index 1 up to (but not including) index 4."
+      ]
+    },
+    {
+      "id": 2,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "t = (1, 2, 3)\nprint(t.count(2))",
+      "choices": ["0", "1", "2", "3"],
+      "answer": 1,
+      "hints": [
+        "The `count()` method returns the number of occurrences of a value in a tuple.",
+        "The tuple `(1, 2, 3)` has the value 2 appearing exactly once."
+      ]
+    },
+    {
+      "id": 3,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "s = '  Hello  '\nprint(s.strip())",
+      "choices": ["'  Hello  '", "'Hello'", "'  Hello'", "'Hello  '"],
+      "answer": 1,
+      "hints": [
+        "The `strip()` method removes leading and trailing whitespace from a string.",
+        "It does not remove spaces in the middle of the string."
+      ]
+    },
+    {
+      "id": 4,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "for i in range(5):\n    if i == 2:\n        continue\n    print(i, end=' ')",
+      "choices": ["0 1 2 3 4", "0 1 3 4", "0 1 2 4", "0 1 3"],
+      "answer": 1,
+      "hints": [
+        "The `continue` statement skips the rest of the current iteration and moves to the next one.",
+        "When `i` equals 2, the `print` statement is skipped."
+      ]
+    },
+    {
+      "id": 5,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "s = 'abcdef'\nprint(s[-3:-1])",
+      "choices": ["'def'", "'cde'", "'de'", "'ef'"],
+      "answer": 2,
+      "hints": [
+        "Negative indices count from the end of the string.",
+        "s[-3] is 'd', s[-2] is 'e', s[-1] is 'f'. The slice `-3:-1` includes indices -3 and -2, but not -1."
+      ]
+    },
+    {
+      "id": 6,
+      "level": "medium",
+      "question": "What is the output?",
+      "code": "s = 'Hello, World!'\nprint(s.replace('o', '0').replace('l', '1'))",
+      "choices": ["'Hell0, W0r1d!'", "'He110, W0r1d!'", "'He11o, W0r1d!'", "'He110, W0rld!'"],
+      "answer": 1,
+      "hints": [
+        "The `replace()` method returns a new string with all occurrences of a substring replaced.",
+        "The replacements are applied sequentially: first 'o' becomes '0', then 'l' becomes '1'.",
+        "In 'Hello', the two 'l's become '1's, and the 'o' becomes '0'."
+      ]
+    },
+    {
+      "id": 7,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "t1 = (1, 2)\nt2 = (3, 4)\nprint(t1 + t2)",
+      "choices": ["(1, 2, 3, 4)", "((1, 2), (3, 4))", "(1, 2)(3, 4)", "Error"],
+      "answer": 0,
+      "hints": [
+        "The `+` operator concatenates tuples.",
+        "It creates a new tuple containing elements from both operands."
+      ]
+    },
+    {
+      "id": 8,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "s = 'Python Programming'\nprint(s.split(' '))",
+      "choices": ["['Python', 'Programming']", "['Python Programming']", "['P', 'y', 't', 'h', 'o', 'n', ' ', 'P', 'r', 'o', 'g', 'r', 'a', 'm', 'm', 'i', 'n', 'g']", "['Python', ' ', 'Programming']"],
+      "answer": 0,
+      "hints": [
+        "The `split()` method divides a string into a list of substrings based on a delimiter.",
+        "When the delimiter is a space, it splits at each space."
+      ]
+    },
+    {
+      "id": 9,
+      "level": "difficult",
+      "question": "What is the output?",
+      "code": "s = 'abcde'\nprint(s[4:1:-1])",
+      "choices": ["'edc'", "'edcb'", "'cde'", "'edcba'"],
+      "answer": 0,
+      "hints": [
+        "When slicing with a negative step, the start index must be greater than the end index.",
+        "s[4] is 'e', s[3] is 'd', s[2] is 'c'. The slice stops before index 1 (which is 'b')."
+      ]
+    },
+    {
+      "id": 10,
+      "level": "difficult",
+      "question": "What is printed?",
+      "code": "t = (1, 2, (3, 4), 5)\nprint(t[2][0])",
+      "choices": ["3", "(3, 4)", "4", "2"],
+      "answer": 0,
+      "hints": [
+        "Tuples can contain other tuples as elements.",
+        "t[2] is the inner tuple `(3, 4)`, and `[0]` accesses its first element."
+      ]
+    },
+    {
+      "id": 11,
+      "level": "difficult",
+      "question": "What is the output?",
+      "code": "s = '   Hello   '\nprint(s.strip().upper())",
+      "choices": ["'   HELLO   '", "'HELLO'", "'   Hello   '", "'hello'"],
+      "answer": 1,
+      "hints": [
+        "Method calls are evaluated from left to right.",
+        "`strip()` removes leading/trailing spaces, then `upper()` converts the result to uppercase."
+      ]
+    },
+    {
+      "id": 12,
+      "level": "difficult",
+      "question": "What is printed?",
+      "code": "for i in range(3):\n    for j in range(3):\n        if i == j:\n            continue\n        print(i, j)",
+      "choices": [
+        "(0, 1) (0, 2) (1, 0) (1, 2) (2, 0) (2, 1)",
+        "(0, 0) (0, 1) (0, 2) (1, 0) (1, 1) (1, 2) (2, 0) (2, 1) (2, 2)",
+        "(0, 1) (0, 2) (1, 2) (2, 1)",
+        "(0, 0) (1, 1) (2, 2)"
+      ],
+      "answer": 0,
+      "hints": [
+        "The `continue` statement only affects the innermost loop it is in.",
+        "When `i == j`, the `continue` skips the `print` for that inner iteration, but the outer loop continues normally."
+      ]
+    },
+    {
+      "id": 13,
+      "level": "challenging",
+      "question": "What is printed?",
+      "code": "s = 'abcdef'\nprint(s[::2])",
+      "choices": ["'ace'", "'bdf'", "'abcdef'", "'ac'"],
+      "answer": 0,
+      "hints": [
+        "The slice `[::2]` means start from the beginning, go to the end, with a step of 2.",
+        "It selects every second character: indices 0, 2, 4."
+      ]
+    },
+    {
+      "id": 14,
+      "level": "challenging",
+      "question": "What is printed?",
+      "code": "t = (1, 2, 3)\nprint(t.index(2))",
+      "choices": ["0", "1", "2", "3"],
+      "answer": 1,
+      "hints": [
+        "The `index()` method returns the first index where the specified value is found.",
+        "In the tuple `(1, 2, 3)`, the value 2 is at index 1."
+      ]
+    },
+    {
+      "id": 15,
+      "level": "challenging",
+      "question": "What is the output?",
+      "code": "s = 'aBcDeF'\nprint(s.lower().replace('f', 'F'))",
+      "choices": ["'abcdef'", "'abcdeF'", "'aBcDeF'", "'ABCDEF'"],
+      "answer": 1,
+      "hints": [
+        "`lower()` converts all characters to lowercase: 'abcdef'.",
+        "Then `replace('f', 'F')` replaces the last 'f' with 'F', resulting in 'abcdeF'."
+      ]
+    }
+  ]
+}
