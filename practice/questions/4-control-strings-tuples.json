@@ -78,12 +78,12 @@
       "id": 7,
       "level": "medium",
       "question": "What is printed?",
-      "code": "for i in range(3):\n    for j in range(3):\n        if i + j == 2:\n            continue\n        print(i, j, end=' ')",
+      "code": "for i in range(3):\n    for j in range(3):\n        if i + j == 2:\n            continue\n        print((i, j), end=' ')",
       "choices": [
         "(0,0) (0,1) (1,0) (1,1) (2,2)",
-        "(0,0) (0,1) (1,0) (1,1) (2,0) (2,1)",
+        "(0,0) (0,1) (1,0) (1,2) (2,1) (2,2)",
         "(0,0) (0,1) (0,2) (1,0) (1,1) (2,0) (2,1) (2,2)",
-        "(0,0) (0,1) (1,0) (1,1) (2,0) (2,1) (2,2)"
+        "(0,0) (0,1) (1,0) (2,0) (2,1) (2,2)"
       ],
       "answer": 1,
       "hints": [
@@ -108,11 +108,11 @@
       "level": "difficult",
       "question": "What is printed?",
       "code": "s = 'abcdef'\nprint(s[5:1:-2])",
-      "choices": ["'fdb'", "'fdb'", "'eca'", "'fbd'"],
+      "choices": ["'fd'", "'fdb'", "'eca'", "'fbd'"],
       "answer": 0,
       "hints": [
-        "Slice with negative step requires start > stop. Here start=5 ('f'), stop=1 ('b'), step=-2.",
-        "Indices selected: 5, 3, 1 => 'f', 'd', 'b' => 'fdb'."
+        "Slice with negative step requires start > stop. Here start=5 ('f'), stop=1 (excluded), step=-2.",
+        "Indices selected: 5, 3 => 'f', 'd' => 'fd'."
       ]
     },
     {
@@ -143,13 +143,13 @@
       "id": 12,
       "level": "difficult",
       "question": "What is printed?",
-      "code": "s = '   hello   '\nprint(s.strip().replace('l', 'L', 2).upper())",
-      "choices": ["'HELLO'", "'HELLO'", "'HELLO'", "'HELLO'"],
-      "answer": 0,
+      "code": "s = '   hello   '\nprint(s.strip().replace('l', 'h', 2).upper())",
+      "choices": ["'HELLO'", "'HEhhO'", "'LEHHO'", "'HEHHO'"],
+      "answer": 3,
       "hints": [
         "First strip removes spaces: 'hello'.",
-        "Then replace first two 'l's with 'L': 'heLLo'.",
-        "Then upper(): 'HELLO'."
+        "Then replace first two 'l's with 'h': 'hehho'.",
+        "Then upper(): 'HEHHO'."
       ]
     },
     {
@@ -157,7 +157,7 @@
       "level": "challenging",
       "question": "What is printed?",
       "code": "s = 'a1b2c3'\nprint(s[::2] + s[1::2])",
-      "choices": ["'abc123'", "'abc123'", "'a1b2c3'", "'a1b2c3'"],
+      "choices": ["'abc123'", "'ab12'", "'abc12'", "'a1b2c3'"],
       "answer": 0,
       "hints": [
         "s[::2] takes every even index: 'abc' (indices 0,2,4).",
@@ -182,19 +182,20 @@
       "id": 15,
       "level": "challenging",
       "question": "What is printed?",
-      "code": "for i in range(2):\n    for j in range(2):\n        if i == j:\n            continue\n        print(i, j)\n    else:\n        print('inner done')",
+      "code": "s = '  Hello  '\nprint(s.strip()[::-1].upper())",
       "choices": [
-        "(0,1) (1,0) inner done inner done",
-        "(0,1) (1,0) inner done",
-        "(0,1) (1,0)",
-        "(0,0) (1,1) inner done inner done"
+        "'  OLLEH  '",
+        "'OLLEH'",
+        "'  Hello  '",
+        "'HELLO'"
       ],
-      "answer": 0,
+      "answer": 1,
       "hints": [
-        "The `continue` skips only the inner `print` when i == j.",
-        "The `else` clause of a loop executes when the loop completes normally (without `break`).",
-        "For each outer iteration, the inner loop runs both times (i=0,1; j=0,1) and each time the else of the inner loop executes because no break occurs."
+        "The `strip()` method removes leading and trailing whitespace.",
+        "Then `[::-1]` reverses the string.",
+        "Then `upper()` converts all characters to uppercase.",
+        "The final result has no leading/trailing spaces and all letters uppercase."
       ]
-    }
+    }	
   ]
 }
