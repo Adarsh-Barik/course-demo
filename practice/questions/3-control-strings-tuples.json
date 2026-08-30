@@ -6,187 +6,196 @@
       "id": 1,
       "level": "easy",
       "question": "What is printed?",
-      "code": "s = 'Python'\nprint(s[1:4])",
-      "choices": ["'yth'", "'ytho'", "'y'", "'ython'"],
+      "code": "s = 'abcdef'\nprint(s[-4:-1:2])",
+      "choices": ["'ce'", "'bd'", "'df'", "'ac'"],
       "answer": 0,
       "hints": [
-        "In Python slicing, the start index is inclusive and the end index is exclusive.",
-        "s[1:4] extracts characters from index 1 up to (but not including) index 4."
+        "Negative indices count from the end: -4 refers to index 2 ('c'), -1 refers to index 5 ('f') but is exclusive.",
+        "The slice s[2:5:2] selects indices 2 and 4, giving 'c' and 'e'."
       ]
     },
     {
       "id": 2,
       "level": "easy",
       "question": "What is printed?",
-      "code": "t = (1, 2, 3)\nprint(t.count(2))",
+      "code": "t = (1, 2, 3, 2)\nprint(t.index(2, 2))",
       "choices": ["0", "1", "2", "3"],
-      "answer": 1,
+      "answer": 3,
       "hints": [
-        "The `count()` method returns the number of occurrences of a value in a tuple.",
-        "The tuple `(1, 2, 3)` has the value 2 appearing exactly once."
+        "The `index()` method can take a start index as the second argument.",
+        "It searches for the value 2 starting from index 2, and the first occurrence after that is at index 3."
       ]
     },
     {
       "id": 3,
       "level": "easy",
       "question": "What is printed?",
-      "code": "s = '  Hello  '\nprint(s.strip())",
-      "choices": ["'  Hello  '", "'Hello'", "'  Hello'", "'Hello  '"],
+      "code": "for i in range(1, 6):\n    if i % 3 == 0:\n        continue\n    print(i, end=' ')",
+      "choices": ["1 2 3 4 5", "1 2 4 5", "1 2 4", "2 4 5"],
       "answer": 1,
       "hints": [
-        "The `strip()` method removes leading and trailing whitespace from a string.",
-        "It does not remove spaces in the middle of the string."
+        "The `continue` statement skips the rest of the current iteration.",
+        "When `i` is a multiple of 3 (i=3), the `print` is skipped. The loop continues to 4 and 5."
       ]
     },
     {
       "id": 4,
       "level": "easy",
       "question": "What is printed?",
-      "code": "for i in range(5):\n    if i == 2:\n        continue\n    print(i, end=' ')",
-      "choices": ["0 1 2 3 4", "0 1 3 4", "0 1 2 4", "0 1 3"],
+      "code": "s = 'xxabcxx'\nprint(s.strip('x'))",
+      "choices": ["'xxabcxx'", "'abc'", "'abcxx'", "'xxabc'"],
       "answer": 1,
       "hints": [
-        "The `continue` statement skips the rest of the current iteration and moves to the next one.",
-        "When `i` equals 2, the `print` statement is skipped."
+        "The `strip()` method with an argument removes leading and trailing characters that are in the set.",
+        "All leading and trailing 'x' characters are removed, leaving 'abc'."
       ]
     },
     {
       "id": 5,
       "level": "medium",
       "question": "What is printed?",
-      "code": "s = 'abcdef'\nprint(s[-3:-1])",
-      "choices": ["'def'", "'cde'", "'de'", "'ef'"],
-      "answer": 2,
+      "code": "s = 'ababab'\nprint(s.replace('a', 'x', 2).replace('b', 'y', 1))",
+      "choices": ["'xyxbab'", "'xyxyab'", "'xyxbyb'", "'xyxyby'"],
+      "answer": 0,
       "hints": [
-        "Negative indices count from the end of the string.",
-        "s[-3] is 'd', s[-2] is 'e', s[-1] is 'f'. The slice `-3:-1` includes indices -3 and -2, but not -1."
+        "Replacements are applied sequentially from left to right.",
+        "First, replace first two 'a's with 'x': 'ababab' -> 'xbxbab'.",
+        "Then, replace the first 'b' with 'y': 'xbxbab' -> 'xyxbab'."
       ]
     },
     {
       "id": 6,
       "level": "medium",
-      "question": "What is the output?",
-      "code": "s = 'Hello, World!'\nprint(s.replace('o', '0').replace('l', '1'))",
-      "choices": ["'Hell0, W0r1d!'", "'He110, W0r1d!'", "'He11o, W0r1d!'", "'He110, W0rld!'"],
+      "question": "What is printed?",
+      "code": "t = (1, 2, (3, 4), 5)\nprint(t[2][1])",
+      "choices": ["3", "4", "(3, 4)", "2"],
       "answer": 1,
       "hints": [
-        "The `replace()` method returns a new string with all occurrences of a substring replaced.",
-        "The replacements are applied sequentially: first 'o' becomes '0', then 'l' becomes '1'.",
-        "In 'Hello', the two 'l's become '1's, and the 'o' becomes '0'."
+        "t[2] is the inner tuple `(3, 4)`, and `[1]` accesses its second element (index 1)."
       ]
     },
     {
       "id": 7,
       "level": "medium",
       "question": "What is printed?",
-      "code": "t1 = (1, 2)\nt2 = (3, 4)\nprint(t1 + t2)",
-      "choices": ["(1, 2, 3, 4)", "((1, 2), (3, 4))", "(1, 2)(3, 4)", "Error"],
-      "answer": 0,
+      "code": "for i in range(3):\n    for j in range(3):\n        if i + j == 2:\n            continue\n        print((i, j), end=' ')",
+      "choices": [
+        "(0,0) (0,1) (1,0) (1,1) (2,2)",
+        "(0,0) (0,1) (1,0) (1,2) (2,1) (2,2)",
+        "(0,0) (0,1) (0,2) (1,0) (1,1) (2,0) (2,1) (2,2)",
+        "(0,0) (0,1) (1,0) (2,0) (2,1) (2,2)"
+      ],
+      "answer": 1,
       "hints": [
-        "The `+` operator concatenates tuples.",
-        "It creates a new tuple containing elements from both operands."
+        "The `continue` only affects the inner loop; it skips the print when i+j equals 2.",
+        "List all pairs (i,j) with i,j in {0,1,2} except those where sum is 2: (0,2), (1,1), (2,0)."
       ]
     },
     {
       "id": 8,
       "level": "medium",
       "question": "What is printed?",
-      "code": "s = 'Python Programming'\nprint(s.split(' '))",
-      "choices": ["['Python', 'Programming']", "['Python Programming']", "['P', 'y', 't', 'h', 'o', 'n', ' ', 'P', 'r', 'o', 'g', 'r', 'a', 'm', 'm', 'i', 'n', 'g']", "['Python', ' ', 'Programming']"],
-      "answer": 0,
+      "code": "s = 'apple,banana,grape'\nprint(s.split(',', 1))",
+      "choices": ["['apple', 'banana', 'grape']", "['apple', 'banana,grape']", "['apple,banana', 'grape']", "['apple', 'banana']"],
+      "answer": 1,
       "hints": [
-        "The `split()` method divides a string into a list of substrings based on a delimiter.",
-        "When the delimiter is a space, it splits at each space."
+        "The `split()` method with a maxsplit argument splits at most that many times.",
+        "Here, maxsplit=1 means only the first comma is used, resulting in two parts: 'apple' and 'banana,grape'."
       ]
     },
     {
       "id": 9,
       "level": "difficult",
-      "question": "What is the output?",
-      "code": "s = 'abcde'\nprint(s[4:1:-1])",
-      "choices": ["'edc'", "'edcb'", "'cde'", "'edcba'"],
+      "question": "What is printed?",
+      "code": "s = 'abcdef'\nprint(s[5:1:-2])",
+      "choices": ["'fd'", "'fdb'", "'eca'", "'fbd'"],
       "answer": 0,
       "hints": [
-        "When slicing with a negative step, the start index must be greater than the end index.",
-        "s[4] is 'e', s[3] is 'd', s[2] is 'c'. The slice stops before index 1 (which is 'b')."
+        "Slice with negative step requires start > stop. Here start=5 ('f'), stop=1 (excluded), step=-2.",
+        "Indices selected: 5, 3 => 'f', 'd' => 'fd'."
       ]
     },
     {
       "id": 10,
       "level": "difficult",
       "question": "What is printed?",
-      "code": "t = (1, 2, (3, 4), 5)\nprint(t[2][0])",
-      "choices": ["3", "(3, 4)", "4", "2"],
+      "code": "t = (1, 2, (1, 2), 1)\nprint(t.count(1))",
+      "choices": ["2", "3", "4", "1"],
       "answer": 0,
       "hints": [
-        "Tuples can contain other tuples as elements.",
-        "t[2] is the inner tuple `(3, 4)`, and `[0]` accesses its first element."
+        "The `count()` method counts occurrences of a value at the top level only.",
+        "It does not recursively count inside nested tuples. Here, 1 appears at indices 0 and 3 (twice)."
       ]
     },
     {
       "id": 11,
       "level": "difficult",
-      "question": "What is the output?",
-      "code": "s = '   Hello   '\nprint(s.strip().upper())",
-      "choices": ["'   HELLO   '", "'HELLO'", "'   Hello   '", "'hello'"],
+      "question": "What is printed?",
+      "code": "s = 'abc'\nprint(s.upper() < 'ABC')",
+      "choices": ["True", "False", "Error", "None"],
       "answer": 1,
       "hints": [
-        "Method calls are evaluated from left to right.",
-        "`strip()` removes leading/trailing spaces, then `upper()` converts the result to uppercase."
+        "`s.upper()` gives 'ABC'.",
+        "String comparison is lexicographic based on ASCII values. 'ABC' is equal to 'ABC', so 'ABC' < 'ABC' is False."
       ]
     },
     {
       "id": 12,
       "level": "difficult",
       "question": "What is printed?",
-      "code": "for i in range(3):\n    for j in range(3):\n        if i == j:\n            continue\n        print(i, j)",
-      "choices": [
-        "(0, 1) (0, 2) (1, 0) (1, 2) (2, 0) (2, 1)",
-        "(0, 0) (0, 1) (0, 2) (1, 0) (1, 1) (1, 2) (2, 0) (2, 1) (2, 2)",
-        "(0, 1) (0, 2) (1, 2) (2, 1)",
-        "(0, 0) (1, 1) (2, 2)"
-      ],
-      "answer": 0,
+      "code": "s = '   hello   '\nprint(s.strip().replace('l', 'h', 2).upper())",
+      "choices": ["'HELLO'", "'HEhhO'", "'LEHHO'", "'HEHHO'"],
+      "answer": 3,
       "hints": [
-        "The `continue` statement only affects the innermost loop it is in.",
-        "When `i == j`, the `continue` skips the `print` for that inner iteration, but the outer loop continues normally."
+        "First strip removes spaces: 'hello'.",
+        "Then replace first two 'l's with 'h': 'hehho'.",
+        "Then upper(): 'HEHHO'."
       ]
     },
     {
       "id": 13,
       "level": "challenging",
       "question": "What is printed?",
-      "code": "s = 'abcdef'\nprint(s[::2])",
-      "choices": ["'ace'", "'bdf'", "'abcdef'", "'ac'"],
+      "code": "s = 'a1b2c3'\nprint(s[::2] + s[1::2])",
+      "choices": ["'abc123'", "'ab12'", "'abc12'", "'a1b2c3'"],
       "answer": 0,
       "hints": [
-        "The slice `[::2]` means start from the beginning, go to the end, with a step of 2.",
-        "It selects every second character: indices 0, 2, 4."
+        "s[::2] takes every even index: 'abc' (indices 0,2,4).",
+        "s[1::2] takes every odd index: '123' (indices 1,3,5).",
+        "Concatenation gives 'abc123'."
       ]
     },
     {
       "id": 14,
       "level": "challenging",
       "question": "What is printed?",
-      "code": "t = (1, 2, 3)\nprint(t.index(2))",
-      "choices": ["0", "1", "2", "3"],
-      "answer": 1,
+      "code": "t = ((1, 2), (3, 4))\nprint(t[0][1] + t[1][0])",
+      "choices": ["5", "6", "7", "4"],
+      "answer": 0,
       "hints": [
-        "The `index()` method returns the first index where the specified value is found.",
-        "In the tuple `(1, 2, 3)`, the value 2 is at index 1."
+        "t[0] is (1,2), t[0][1] is 2.",
+        "t[1] is (3,4), t[1][0] is 3.",
+        "Sum is 2 + 3 = 5."
       ]
     },
     {
       "id": 15,
       "level": "challenging",
-      "question": "What is the output?",
-      "code": "s = 'aBcDeF'\nprint(s.lower().replace('f', 'F'))",
-      "choices": ["'abcdef'", "'abcdeF'", "'aBcDeF'", "'ABCDEF'"],
+      "question": "What is printed?",
+      "code": "s = '  Hello  '\nprint(s.strip()[::-1].upper())",
+      "choices": [
+        "'  OLLEH  '",
+        "'OLLEH'",
+        "'  Hello  '",
+        "'HELLO'"
+      ],
       "answer": 1,
       "hints": [
-        "`lower()` converts all characters to lowercase: 'abcdef'.",
-        "Then `replace('f', 'F')` replaces the last 'f' with 'F', resulting in 'abcdeF'."
+        "The `strip()` method removes leading and trailing whitespace.",
+        "Then `[::-1]` reverses the string.",
+        "Then `upper()` converts all characters to uppercase.",
+        "The final result has no leading/trailing spaces and all letters uppercase."
       ]
-    }
+    }	
   ]
 }
