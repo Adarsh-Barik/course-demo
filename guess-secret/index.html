@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COL1000 Word Guessing Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header: title + New Game button (top-right, small) -->
+        <header class="app-header">
+            <h1>🎯 COL1000 Word Guessing Game</h1>
+            <button id="new-game" title="Start a new game (confirmation required)">
+                ↻ New Game
+            </button>
+        </header>
+
+        <!-- Toggleable instructions -->
+        <button id="toggle-instructions" class="toggle-btn" aria-expanded="false">
+            📖 Show Instructions
+        </button>
+
+        <div id="instructions" class="instructions hidden">
+            <p><strong>How to play:</strong></p>
+            <ul>
+                <li>Guess the secret <strong>5‑letter word</strong> in up to <strong>5 attempts</strong>.</li>
+                <li>Your guess does <em>not</em> have to be a valid English word, but it must contain exactly 5 letters (A–Z).</li>
+                <li>Letters are compared by their <strong>Unicode value</strong>: A &lt; B &lt; C &lt; … &lt; Z.</li>
+                <li>After each guess you’ll see coloured tiles:
+                    <span class="legend lightblue">Light Blue</span> = guessed letter is <em>smaller</em> than the secret letter.
+                    <span class="legend green">Green</span> = exact match.
+                    <span class="legend red">Strawberry Red</span> = guessed letter is <em>larger</em> than the secret letter.
+                </li>
+                <li>Use the on‑screen keyboard or your physical keyboard to type. Press <strong>Enter</strong> to submit.</li>
+                <li>Press <strong>⌫ Backspace</strong> to delete the last letter.</li>
+            </ul>
+        </div>
+
+        <!-- Game board -->
+        <div id="game-board"></div>
+
+        <!-- On‑screen keyboard -->
+        <div id="keyboard"></div>
+
+        <!-- Message area -->
+        <p id="message"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
