@@ -6,7 +6,7 @@
       "id": 1,
       "level": "easy",
       "question": "What is printed?",
-      "code": "def f(x, lst=[]):\n    lst.append(x)\n    return lst\n\nprint(f(1))\nprint(f(2))",
+      "code": "def f(x, lst=[]):\n    lst.append(x)\n    return lst\n\nprint(f(1), end='')\nprint(f(2))",
       "choices": [
         "[1]\n[2]",
         "[1]\n[1, 2]",
@@ -142,17 +142,16 @@
       "id": 9,
       "level": "difficult",
       "question": "What is printed?",
-      "code": "funcs = []\nfor i in range(3):\n    funcs.append(lambda: i)\nprint([f() for f in funcs])",
+      "code": "def funcs():\n def sq(x):\n  return x * x\n\n def cu(x):\n  return x * x * x\n return [sq, cu]\nfs = funcs()\n\nprint(fs[0](3),fs[1](3))",
       "choices": [
-        "[0, 1, 2]",
-        "[2, 2, 2]",
-        "[0, 0, 0]",
+        "3 3",
+        "9 27",
+        "None None",
         "Error"
       ],
       "answer": 1,
       "hints": [
-        "Lambdas close over the variable `i`, not its value at creation time.",
-        "By the time the lambdas are called, the loop has finished and `i` is 2."
+        "In Python, functions can return a function."
       ]
     },
     {
