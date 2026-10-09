@@ -1,0 +1,261 @@
+{
+  "topic": "5-functions-scope-recursion",
+  "displayName": "Functions, Scope & Recursion",
+  "questions": [
+    {
+      "id": 1,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "def f(x, lst=[]):\n    lst.append(x)\n    return lst\n\nprint(f(1))\nprint(f(2))",
+      "choices": [
+        "[1]\n[2]",
+        "[1]\n[1, 2]",
+        "[1, 2]\n[1, 2]",
+        "Error"
+      ],
+      "answer": 1,
+      "hints": [
+        "Default arguments are evaluated only once, at function definition time.",
+        "The same list object is reused across calls, so the second call appends to the already-modified list."
+      ]
+    },
+    {
+      "id": 2,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "x = 10\ndef f():\n    print(x)\n    x = 20\nf()",
+      "choices": [
+        "10",
+        "20",
+        "UnboundLocalError",
+        "None"
+      ],
+      "answer": 2,
+      "hints": [
+        "Python decides whether a name is local by scanning the entire function body for assignments.",
+        "Since `x` is assigned inside `f`, it is local throughout `f`; `print(x)` runs before that local `x` is bound."
+      ]
+    },
+    {
+      "id": 3,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "def f(n):\n    if n == 0:\n        return 0\n    return n + f(n-1)\nprint(f(4))",
+      "choices": [
+        "4",
+        "10",
+        "24",
+        "0"
+      ],
+      "answer": 1,
+      "hints": [
+        "This is a recursive sum: f(4) = 4 + f(3) = 4 + 3 + f(2) = ...",
+        "The base case returns 0, so the sum is 4 + 3 + 2 + 1 + 0."
+      ]
+    },
+    {
+      "id": 4,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "x = 5\ndef f():\n    global x\n    x = 10\nf()\nprint(x)",
+      "choices": [
+        "5",
+        "10",
+        "Error",
+        "None"
+      ],
+      "answer": 1,
+      "hints": [
+        "The `global` keyword tells Python that `x` inside `f` refers to the module-level variable.",
+        "The assignment `x = 10` changes the global `x`, so the final `print(x)` prints 10."
+      ]
+    },
+    {
+      "id": 5,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "def outer():\n    x = 1\n    def inner():\n        nonlocal x\n        x = 2\n    inner()\n    return x\nprint(outer())",
+      "choices": [
+        "1",
+        "2",
+        "Error",
+        "None"
+      ],
+      "answer": 1,
+      "hints": [
+        "`nonlocal x` makes `inner` refer to the `x` defined in the enclosing `outer`, not a new local variable.",
+        "After `inner()` runs, the `x` in `outer` has been changed to 2."
+      ]
+    },
+    {
+      "id": 6,
+      "level": "medium",
+      "question": "How many distinct ways can you climb a staircase with 5 steps if you can take 1 or 2 steps at a time?",
+      "code": "",
+      "choices": [
+        "5",
+        "8",
+        "13",
+        "6"
+      ],
+      "answer": 1,
+      "hints": [
+        "Let f(n) be the number of ways to reach step n. Then f(n) = f(n-1) + f(n-2).",
+        "The sequence for n = 1, 2, 3, 4, 5 is 1, 2, 3, 5, 8."
+      ]
+    },
+    {
+      "id": 7,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "x = 1\ndef outer():\n    x = 2\n    def inner():\n        global x\n        x = 3\n    inner()\n    return x\nprint(outer(), x)",
+      "choices": [
+        "2 3",
+        "3 3",
+        "2 1",
+        "3 1"
+      ],
+      "answer": 0,
+      "hints": [
+        "The `global x` inside `inner` skips over `outer`'s local `x` and modifies the module-level `x`.",
+        "`outer` returns its own local `x` (still 2), while the global `x` becomes 3."
+      ]
+    },
+    {
+      "id": 8,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "def sum_digits(n):\n    if n < 10:\n        return n\n    return n % 10 + sum_digits(n // 10)\nprint(sum_digits(1234))",
+      "choices": [
+        "4",
+        "10",
+        "1234",
+        "6"
+      ],
+      "answer": 1,
+      "hints": [
+        "Each recursive call peels off the last digit: 1234 -> 123 -> 12 -> 1.",
+        "The returned values are 4 + 3 + 2 + 1 = 10."
+      ]
+    },
+    {
+      "id": 9,
+      "level": "difficult",
+      "question": "What is printed?",
+      "code": "funcs = []\nfor i in range(3):\n    funcs.append(lambda: i)\nprint([f() for f in funcs])",
+      "choices": [
+        "[0, 1, 2]",
+        "[2, 2, 2]",
+        "[0, 0, 0]",
+        "Error"
+      ],
+      "answer": 1,
+      "hints": [
+        "Lambdas close over the variable `i`, not its value at creation time.",
+        "By the time the lambdas are called, the loop has finished and `i` is 2."
+      ]
+    },
+    {
+      "id": 10,
+      "level": "difficult",
+      "question": "In the Tower of Hanoi puzzle with 5 disks, what is the minimum number of moves required to move all disks from the source peg to the destination peg?",
+      "code": "",
+      "choices": [
+        "15",
+        "31",
+        "32",
+        "63"
+      ],
+      "answer": 1,
+      "hints": [
+        "The recurrence is T(n) = 2·T(n-1) + 1, with T(1) = 1.",
+        "Solving gives T(n) = 2^n − 1; for n = 5, that is 32 − 1 = 31."
+      ]
+    },
+    {
+      "id": 11,
+      "level": "difficult",
+      "question": "What is printed?",
+      "code": "def a():\n    x = 1\n    def b():\n        nonlocal x\n        x = 2\n        def c():\n            nonlocal x\n            x = 3\n        c()\n        return x\n    return b()\nprint(a())",
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "Error"
+      ],
+      "answer": 2,
+      "hints": [
+        "Both `b` and `c` declare `nonlocal x`, and both refer to the same `x` in `a`.",
+        "`c` sets that shared `x` to 3, so `b` returns 3 and `a` returns 3."
+      ]
+    },
+    {
+      "id": 12,
+      "level": "difficult",
+      "question": "How many permutations of the string 'abcd' does the following recursive function generate?",
+      "code": "def permute(s):\n    if len(s) == 1:\n        return [s]\n    result = []\n    for i, ch in enumerate(s):\n        rest = s[:i] + s[i+1:]\n        for p in permute(rest):\n            result.append(ch + p)\n    return result\nprint(len(permute('abcd')))",
+      "choices": [
+        "4",
+        "16",
+        "24",
+        "12"
+      ],
+      "answer": 2,
+      "hints": [
+        "The function generates all permutations of a string of distinct characters.",
+        "The number of permutations of n distinct items is n!; for n = 4, that is 24."
+      ]
+    },
+    {
+      "id": 13,
+      "level": "challenging",
+      "question": "What is printed?",
+      "code": "x = 1\ndef outer():\n    x = 2\n    def inner():\n        nonlocal x\n        x = 3\n    inner()\n    return x\nprint(outer(), x)",
+      "choices": [
+        "3 1",
+        "3 3",
+        "2 1",
+        "2 3"
+      ],
+      "answer": 0,
+      "hints": [
+        "`nonlocal x` inside `inner` refers to the nearest enclosing scope that has `x` — here, `outer`'s local `x`, not the global one.",
+        "So `outer` returns 3, while the module-level `x` is untouched and remains 1."
+      ]
+    },
+    {
+      "id": 14,
+      "level": "challenging",
+      "question": "What is printed?",
+      "code": "def ack(m, n):\n    if m == 0:\n        return n + 1\n    elif n == 0:\n        return ack(m - 1, 1)\n    else:\n        return ack(m - 1, ack(m, n - 1))\nprint(ack(2, 3))",
+      "choices": [
+        "7",
+        "8",
+        "9",
+        "11"
+      ],
+      "answer": 2,
+      "hints": [
+        "Start from small cases: ack(2, 0) = 3, ack(2, 1) = 5, ack(2, 2) = 7.",
+        "Each increase of n by 1 for m = 2 adds 2 to the result, so ack(2, 3) = 9."
+      ]
+    },
+    {
+      "id": 15,
+      "level": "challenging",
+      "question": "How many distinct solutions exist for the 4-Queens problem (placing 4 queens on a 4×4 chessboard so that no two attack each other)?",
+      "code": "",
+      "choices": [
+        "1",
+        "2",
+        "4",
+        "8"
+      ],
+      "answer": 1,
+      "hints": [
+        "A solution can be represented by a permutation of column positions for rows 0–3.",
+        "The two solutions are [1, 3, 0, 2] and its mirror [2, 0, 3, 1]; no other arrangements avoid all attacks."
+      ]
+    }
+  ]
+}
