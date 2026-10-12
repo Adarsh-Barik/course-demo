@@ -157,7 +157,7 @@
     {
       "id": 10,
       "level": "difficult",
-      "question": "In the Tower of Hanoi puzzle with 5 disks, what is the minimum number of moves required to move all disks from the source peg to the destination peg?",
+      "question": "Tower of Hanoi Puzzle: You are given three pegs, labeled A, B, and C, and N disks of distinct sizes. Initially, all N disks are stacked on peg A in decreasing order of size from bottom to top (i.e., the largest disk is at the bottom and the smallest disk is at the top). Pegs B and C are initially empty. The objective is to move the entire stack from peg A to peg C, using peg B as an auxiliary peg, while satisfying the following rules: (i) One disk at a time: Each move transfers exactly one disk from one peg to another. (ii) Top disk only: Only the topmost disk on a peg may be moved. (iii) Size constraint: A disk may never be placed on top of a smaller disk. In the Tower of Hanoi puzzle with 5 disks, what is the minimum number of moves required to move all disks from the source peg to the destination peg?",
       "code": "",
       "choices": [
         "15",
@@ -192,7 +192,7 @@
       "id": 12,
       "level": "difficult",
       "question": "How many permutations of the string 'abcd' does the following recursive function generate?",
-      "code": "def permute(s):\n    if len(s) == 1:\n        return [s]\n    result = []\n    for i, ch in enumerate(s):\n        rest = s[:i] + s[i+1:]\n        for p in permute(rest):\n            result.append(ch + p)\n    return result\nprint(len(permute('abcd')))",
+      "code": "def permute(s):\n    if len(s) == 1:\n        return [s]\n    result = []\n    for i in range(len(s)):\n        ch, rest = s[i], s[:i] + s[i+1:]\n        for p in permute(rest):\n            result.append(ch + p)\n    return result\nprint(len(permute('abcd')))",
       "choices": [
         "4",
         "16",
