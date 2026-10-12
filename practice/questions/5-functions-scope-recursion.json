@@ -209,17 +209,17 @@
       "id": 13,
       "level": "challenging",
       "question": "What is printed?",
-      "code": "def make_adder():\n    total = 0\n    def add(n):\n        nonlocal total\n        if n == 0:\n            return total\n        total += n\n        return add(n-1)\n    return add\n\nf = make_adder()\nprint(f(3))\nprint(f(2))",
+      "code": "def make_adder():\n    total = 0\n    def add(n):\n        nonlocal total\n        if n == 0:\n            return total\n        total += n\n        return add(n-1)\n    return add\n\nf = make_adder()\nprint(f(3), end='')\nprint(f(3))",
       "choices": [
-        "6\n9",
+        "6\n12",
         "6\n6",
-        "3\n5",
-        "10\n12"
+        "3\n3",
+        "0\n0"
       ],
       "answer": 0,
       "hints": [
         "`total` is a nonlocal variable that persists across calls to `f`.",
-        "First call adds 3 + 2 + 1 = 6; second call adds 2 + 1 to the existing total, giving 9."
+        "First call adds 3 + 2 + 1 = 6; second call adds 3 + 2 + 1 to the existing total, giving 12."
       ]
     },
     {
@@ -242,18 +242,17 @@
     {
       "id": 15,
       "level": "challenging",
-      "question": "How many distinct solutions exist for the 4-Queens problem (placing 4 queens on a 4×4 chessboard so that no two attack each other)?",
+      "question": "Josephus problem: There are n people standing in a circle, numbered from 1 to n. Starting from person 1, counting proceeds in clockwise direction. In each step, every second person is eliminated from the circle. The counting then resumes from the next person, and the process continues until only one person remains. In the Josephus problem with 7 people numbered 1 to 7, starting at person 1, every second person is eliminated. Which person survives?",
       "code": "",
       "choices": [
-        "1",
-        "2",
-        "4",
+        "5",
+        "6",
+        "7",
         "8"
       ],
-      "answer": 1,
+      "answer": 2,
       "hints": [
-        "A solution can be represented by a permutation of column positions for rows 0–3.",
-        "The two solutions are [1, 3, 0, 2] and its mirror [2, 0, 3, 1]; no other arrangements avoid all attacks."
+        "Use the base case: f(1) = 1 and f(2) = 1. Recursion: f(2*m) = 2 * f(m) - 1, and f(2 * m + 1) = 2 * f(m) + 1."
       ]
     }
   ]
