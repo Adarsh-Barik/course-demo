@@ -121,21 +121,21 @@
         "`outer` returns its own local `x` (still 2), while the global `x` becomes 3."
       ]
     },
-    {
+     {
       "id": 8,
       "level": "medium",
       "question": "What is printed?",
-      "code": "def sum_digits(n):\n    if n < 10:\n        return n\n    return n % 10 + sum_digits(n // 10)\nprint(sum_digits(1234))",
+      "code": "def count_ones(n):\n    if n == 0:\n        return 0\n    return (n % 2) + count_ones(n // 2)\nprint(count_ones(13))",
       "choices": [
+        "2",
+        "3",
         "4",
-        "10",
-        "1234",
-        "6"
+        "13"
       ],
       "answer": 1,
       "hints": [
-        "Each recursive call peels off the last digit: 1234 -> 123 -> 12 -> 1.",
-        "The returned values are 4 + 3 + 2 + 1 = 10."
+        "The expression `n % 2` is the last binary digit of n, and `n // 2` removes it.",
+        "13 in binary is 1101, which contains three 1s."
       ]
     },
     {
@@ -205,21 +205,21 @@
         "The number of permutations of n distinct items is n!; for n = 4, that is 24."
       ]
     },
-    {
+     {
       "id": 13,
       "level": "challenging",
       "question": "What is printed?",
-      "code": "x = 1\ndef outer():\n    x = 2\n    def inner():\n        nonlocal x\n        x = 3\n    inner()\n    return x\nprint(outer(), x)",
+      "code": "def make_adder():\n    total = 0\n    def add(n):\n        nonlocal total\n        if n == 0:\n            return total\n        total += n\n        return add(n-1)\n    return add\n\nf = make_adder()\nprint(f(3))\nprint(f(2))",
       "choices": [
-        "3 1",
-        "3 3",
-        "2 1",
-        "2 3"
+        "6\n9",
+        "6\n6",
+        "3\n5",
+        "10\n12"
       ],
       "answer": 0,
       "hints": [
-        "`nonlocal x` inside `inner` refers to the nearest enclosing scope that has `x` — here, `outer`'s local `x`, not the global one.",
-        "So `outer` returns 3, while the module-level `x` is untouched and remains 1."
+        "`total` is a nonlocal variable that persists across calls to `f`.",
+        "First call adds 3 + 2 + 1 = 6; second call adds 2 + 1 to the existing total, giving 9."
       ]
     },
     {
