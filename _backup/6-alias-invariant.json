@@ -1,0 +1,215 @@
+{
+  "topic": "6-alias-invariant",
+  "displayName": "Aliasing, Invariants & Backtracking",
+  "questions": [
+    {
+      "id": 1,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "a = [[1, 2], [3, 4]]\nb = a[:]\nb[0][0] = 99\nprint(a[0][0], b[0][0])",
+      "choices": ["99 99", "1 99", "99 1", "1 1"],
+      "answer": 0,
+      "hints": [
+        "A slice such as `a[:]` makes a shallow copy of the outer list, not a deep copy of every nested object.",
+        "The inner lists are shared between `a` and `b`, so modifying `b[0][0]` also changes `a[0][0]`."
+      ]
+    },
+    {
+      "id": 2,
+      "level": "easy",
+      "question": "Assume `a` is sorted in nondecreasing order. At the start of each iteration of the while loop, which statement is guaranteed to be true?",
+      "code": "def f(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo",
+      "choices": [
+        "Every index i < lo has a[i] < x, and every index i >= hi has a[i] >= x.",
+        "Every index i < lo has a[i] <= x, and every index i >= hi has a[i] > x.",
+        "The slice a[lo:hi] contains exactly the elements equal to x.",
+        "lo is the first index where a[lo] == x at every iteration."
+      ],
+      "answer": 0,
+      "hints": [
+        "The invariant describes the two already-processed regions: indices below `lo` are too small, and indices from `hi` onward are at least `x`.",
+        "When `a[mid] < x`, sortedness guarantees that every index up to `mid` is too small, so `lo = mid + 1` preserves the invariant."
+      ]
+    },
+    {
+      "id": 3,
+      "level": "easy",
+      "question": "What is printed?",
+      "code": "def subsets(nums):\n    res = []\n    path = []\n    def bt(i):\n        if i == len(nums):\n            res.append(path[:])\n            return\n        bt(i + 1)\n        path.append(nums[i])\n        bt(i + 1)\n        path.pop()\n    bt(0)\n    return res\n\ns = subsets([1, 2, 3])\nprint(len(s), s[1])",
+      "choices": ["8 [3]", "8 [1]", "7 [3]", "8 []"],
+      "answer": 0,
+      "hints": [
+        "The recursion explores the exclude branch before the include branch, so the first subset is `[]` and the second subset is `[3]`.",
+        "There are two choices for each of the three elements, giving 2^3 = 8 subsets."
+      ]
+    },
+    {
+      "id": 4,
+      "level": "easy",
+      "question": "The function is meant to return all permutations. What is printed?",
+      "code": "def permute(nums):\n    res = []\n    path = []\n    def bt():\n        if len(path) == len(nums):\n            res.append(path)\n            return\n        for x in nums:\n            if x not in path:\n                path.append(x)\n                bt()\n                path.pop()\n    bt()\n    return res\n\nprint(permute([1, 2]))",
+      "choices": ["[[], []]", "[[1, 2], [2, 1]]", "[[1, 2], [1, 2]]", "[[2, 1], [1, 2]]"],
+      "answer": 0,
+      "hints": [
+        "`res.append(path)` stores a reference to the same `path` list, not a snapshot of its current contents.",
+        "After all backtracking pops have run, `path` is empty, so both stored references point to the same empty list. Use `path[:]` to fix it."
+      ]
+    },
+    {
+      "id": 5,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "import copy\n\na = [[1, [2]], [3]]\nb = copy.copy(a)\nc = copy.deepcopy(a)\nb[0][1].append(9)\nprint(a, c)",
+      "choices": [
+        "[[1, [2, 9]], [3]] [[1, [2]], [3]]",
+        "[[1, [2]], [3]] [[1, [2, 9]], [3]]",
+        "[[1, [2, 9]], [3]] [[1, [2, 9]], [3]]",
+        "[[1, [2]], [3]] [[1, [2]], [3]]"
+      ],
+      "answer": 0,
+      "hints": [
+        "`copy.copy` makes a shallow copy: the outer list is new, but nested objects are still shared with `a`.",
+        "`copy.deepcopy` recursively clones nested objects, so `c` is completely independent of `a`."
+      ]
+    },
+    {
+      "id": 6,
+      "level": "medium",
+      "question": "Which statement is maintained as a loop invariant by the while loop? Assume that the input to the function is a list containing 0s, 1s and 2s.",
+      "code": "def f(a):\n    lo, mid, hi = 0, 0, len(a) - 1\n    while mid <= hi:\n        if a[mid] == 0:\n            a[lo], a[mid] = a[mid], a[lo]\n            lo += 1\n            mid += 1\n        elif a[mid] == 1:\n            mid += 1\n        else:\n            a[mid], a[hi] = a[hi], a[mid]\n            hi -= 1\n    return a",
+      "choices": [
+        "a[0:lo] contains only 0s, a[lo:mid] contains only 1s, and a[hi+1:] contains only 2s.",
+        "a[0:lo] contains only 0s, a[lo:mid] contains only 1s, and a[hi:] contains only 2s.",
+        "The entire array a is sorted.",
+        "a[lo:hi+1] contains only 1s."
+      ],
+      "answer": 0,
+      "hints": [
+        "The three regions are: finalized 0s at the front, finalized 1s in the middle, and finalized 2s at the back.",
+        "When `a[mid] == 2`, it is swapped with `a[hi]` and `hi` is decremented; `mid` must not move because the element brought from the back has not been inspected yet."
+      ]
+    },
+	{
+      "id": 7,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "def permute(nums):\n    res = []\n    path = []\n    def bt():\n        if len(path) == len(nums):\n            res.append(path[:])\n            return\n        for x in nums:\n            if x in path:\n                continue\n            path.append(x)\n            bt()\n            # missing: path.pop()\n    bt()\n    return res\n\nprint(permute([1, 2]))",
+      "choices": ["[[1, 2]]", "[[1, 2], [2, 1]]", "[[1], [2]]", "[]"],
+      "answer": 0,
+      "hints": [
+        "The `path[:]` snapshot is correct, so the issue is not aliasing of `res` entries.",
+        "After the first complete permutation `[1, 2]` is reached, the missing `path.pop()` leaves `path` as `[1, 2]`; the later attempt to choose `2` at the top level is skipped because `2` is still in `path`."
+      ]
+    },
+    {
+      "id": 8,
+      "level": "medium",
+      "question": "What is printed?",
+      "code": "def subsets(nums):\n    res = []\n    nums.sort()\n    def bt(start, path):\n        res.append(path[:])\n        for i in range(start, len(nums)):\n            if i > 0 and nums[i] == nums[i - 1]:\n                continue\n            path.append(nums[i])\n            bt(i + 1, path)\n            path.pop()\n    bt(0, [])\n    return res\n\nprint(len(subsets([1, 2, 2])))",
+      "choices": ["8", "6", "4", "3"],
+      "answer": 2,
+      "hints": [
+	      "Skips duplicate entries and generates subsets."
+      ]
+    },
+    {
+      "id": 9,
+      "level": "difficult",
+      "question": "What is printed?",
+      "code": "a = [[]] * 3\na[0].append(1)\na[1].append(2)\nb = [[] for _ in range(3)]\nb[0].append(1)\nb[1].append(2)\nprint(a, b)",
+      "choices": [
+        "[[1, 2], [1, 2], [1, 2]] [[1], [2], []]",
+        "[[1], [2], []] [[1, 2], [1, 2], [1, 2]]",
+        "[[1, 2], [1, 2], [1, 2]] [[1, 2], [1, 2], [1, 2]]",
+        "[[1], [2], []] [[1], [2], []]"
+      ],
+      "answer": 0,
+      "hints": [
+        "`[[]] * 3` repeats three references to the same inner list, so appending through any index affects all three positions.",
+        "A list comprehension such as `[[] for _ in range(3)]` evaluates `[]` separately each time, so the three inner lists are distinct."
+      ]
+    },
+    {
+      "id": 10,
+      "level": "difficult",
+      "question": "What is printed?",
+      "code": "def f(a):\n    lo, mid, hi = 0, 0, len(a) - 1\n    while mid <= hi:\n        if a[mid] == 0:\n            a[lo], a[mid] = a[mid], a[lo]\n            lo += 1\n            mid += 1\n        elif a[mid] == 1:\n            mid += 1\n        else:\n            a[mid], a[hi] = a[hi], a[mid]\n            hi -= 1\n            mid += 1\n    return a\n\nprint(f([1, 2, 0]))",
+      "choices": ["[0, 1, 2]", "[1, 0, 2]", "[2, 1, 0]", "[1, 2, 0]"],
+      "answer": 1,
+      "hints": [
+        "In the `else` branch, `a[mid]` is swapped with `a[hi]`, and the element brought into `a[mid]` has not been inspected yet.",
+        "Incrementing `mid` in that branch skips the new `a[mid]`; for `[1, 2, 0]`, the `0` brought from the end is never processed, leaving `[1, 0, 2]`."
+      ]
+    },
+    {
+      "id": 11,
+      "level": "difficult",
+      "question": "The `dfs` function forgets to restore the board cell. What is printed?",
+      "code": "def exist(board, word):\n    R, C = len(board), len(board[0])\n    def dfs(r, c, i):\n        if i == len(word):\n            return True\n        if r < 0 or r >= R or c < 0 or c >= C or board[r][c] != word[i]:\n            return False\n        ch = board[r][c]\n        board[r][c] = '#'\n        found = False\n        for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):\n            if dfs(r + dr, c + dc, i + 1):\n                found = True\n                break\n        # missing: board[r][c] = ch\n        return found\n    for r in range(R):\n        for c in range(C):\n            if dfs(r, c, 0):\n                return True\n    return False\n\nboard = [['A', 'B'], ['B', 'A']]\nprint(exist(board, 'ABBA'))",
+      "choices": ["True", "False", "Error", "None"],
+      "answer": 1,
+      "hints": [
+        "The first search starting at the top-left `A` explores two failing branches and marks several cells as `#`, but never restores them.",
+        "The only valid path is `A(1,1) -> B(1,0) -> A(0,0) -> B(0,1)`, and those cells are now blocked, so the function returns `False`."
+      ]
+    },
+    {
+      "id": 12,
+      "level": "difficult",
+      "question": "Which invariant at entry to `bt(r)` is sufficient to prove that a completed placement counted by the function is a valid N-Queens placement?",
+      "code": "def n_queens(n):\n    count = 0\n    cols, diag1, diag2 = set(), set(), set()\n    def bt(r):\n        nonlocal count\n        if r == n:\n            count += 1\n            return\n        for c in range(n):\n            if c in cols or r - c in diag1 or r + c in diag2:\n                continue\n            cols.add(c)\n            diag1.add(r - c)\n            diag2.add(r + c)\n            bt(r + 1)\n            cols.remove(c)\n            diag1.remove(r - c)\n            diag2.remove(r + c)\n    bt(0)\n    return count",
+      "choices": [
+        "`cols` contains exactly the columns of queens in rows 0..r-1; `diag1` and `diag2` contain exactly their diagonals; no two of these queens attack each other.",
+        "`cols` contains every column still available; `diag1` and `diag2` contain every blocked diagonal.",
+        "`cols`, `diag1`, and `diag2` contain every column and diagonal of the board.",
+        "Rows 0..r-1 contain exactly r queens, and no queen is in column 0."
+      ],
+      "answer": 0,
+      "hints": [
+        "At `r == n`, the invariant says that all n queens are placed in distinct rows and columns, and no two share a diagonal, so the placement is valid.",
+        "The recursive call adds one queen and then removes it, restoring the invariant for the next sibling choice."
+      ]
+    },
+    {
+      "id": 13,
+      "level": "challenging",
+      "question": "What is printed?",
+      "code": "def permute(nums):\n    res = []\n    path = []\n    used = [False] * len(nums)\n    def bt():\n        if len(path) == len(nums):\n            res.append(path)\n            return\n        for i, x in enumerate(nums):\n            if used[i]:\n                continue\n            used[i] = True\n            path.append(x)\n            bt()\n            path.pop()\n            used[i] = False\n    bt()\n    return res\n\nr = permute([1, 2, 3])\nprint(r[0], r[-1], len(r))",
+      "choices": ["[] [] 6", "[1, 2, 3] [3, 2, 1] 6", "[[], [], [], [], [], []] [[], [], [], [], [], []] 6", "[] [] 0"],
+      "answer": 0,
+      "hints": [
+        "`res.append(path)` appends a reference to the same list object every time a full permutation is reached.",
+        "After the recursion finishes, all backtracking pops have removed every element from `path`, so all six entries in `res` are references to the same empty list."
+      ]
+    },
+    {
+      "id": 14,
+      "level": "challenging",
+      "question": "What is printed?",
+      "code": "def comb(candidates, target):\n    candidates.sort()\n    res = []\n    def bt(start, remain, path):\n        if remain == 0:\n            res.append(path[:])\n            return\n        for i in range(start, len(candidates)):\n            if i > 0 and candidates[i] == candidates[i - 1]:\n                continue\n            if candidates[i] > remain:\n                break\n            path.append(candidates[i])\n            bt(i + 1, remain - candidates[i], path)\n            path.pop()\n    bt(0, target, [])\n    return res\n\nprint(len(comb([1, 1, 2, 5, 6, 7, 10], 8)))",
+      "choices": ["4", "3", "2", "5"],
+      "answer": 1,
+      "hints": [
+        "The duplicate-skipping condition should be `i > start`, not `i > 0`; it must only skip duplicates at the same recursion level.",
+        "With `i > 0`, the valid combination `[1, 1, 6]` is skipped because the second `1` is treated as a duplicate even when it is being chosen at a deeper level. Only three combinations are returned."
+      ]
+    },
+    {
+      "id": 15,
+      "level": "challenging",
+      "question": "Which statement is the correct invariant at the start of each call to `bt(i, parts)` to prove that every completed result is a valid IP address?",
+      "code": "def restore(s):\n    res = []\n    def bt(i, parts):\n        if i == len(s) and len(parts) == 4:\n            res.append('.'.join(parts))\n            return\n        if len(parts) == 4:\n            return\n        for j in range(i + 1, min(i + 4, len(s) + 1)):\n            seg = s[i:j]\n            if (len(seg) > 1 and seg[0] == '0') or int(seg) > 255:\n                continue\n            bt(j, parts + [seg])\n    bt(0, [])\n    return res",
+      "choices": [
+        "`parts` contains exactly the valid segments chosen from `s[:i]`, and their concatenation is `s[:i]`.",
+        "`parts` contains all valid segments of `s[:i]`, and `i` is the total number of dots used.",
+        "`i` equals the number of segments in `parts`, and every segment has length 3.",
+        "Every suffix `s[i:]` can be split into `4 - len(parts)` valid segments."
+      ],
+      "answer": 0,
+      "hints": [
+        "Initially `i == 0` and `parts == []`, so the invariant holds vacuously.",
+        "Each recursive call appends exactly one valid segment to `parts` and advances `i` to the end of that segment, preserving the invariant. At the base case, the invariant guarantees that `parts` represents the whole string using four valid segments."
+      ]
+    }
+  ]
+}
