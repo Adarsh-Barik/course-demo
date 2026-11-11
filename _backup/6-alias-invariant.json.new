@@ -120,12 +120,11 @@
       "id": 8,
       "level": "medium",
       "question": "What is printed?",
-      "code": "def subsets(nums):\n    res = []\n    nums.sort()\n    def bt(start, path):\n        res.append(path[:])\n        for i in range(start, len(nums)):\n            if i > start and nums[i] == nums[i - 1]:\n                continue\n            path.append(nums[i])\n            bt(i + 1, path)\n            path.pop()\n    bt(0, [])\n    return res\n\nprint(len(subsets([1, 2, 2])))",
+      "code": "def subsets(nums):\n    res = []\n    nums.sort()\n    def bt(start, path):\n        res.append(path[:])\n        for i in range(start, len(nums)):\n            if i > 0 and nums[i] == nums[i - 1]:\n                continue\n            path.append(nums[i])\n            bt(i + 1, path)\n            path.pop()\n    bt(0, [])\n    return res\n\nprint(len(subsets([1, 2, 2])))",
       "choices": ["8", "6", "4", "3"],
-      "answer": 1,
+      "answer": 2,
       "hints": [
-        "The duplicate-skipping condition `i > start` skips a duplicate only when it is being considered at the same recursion level.",
-        "The distinct subsets are `[]`, `[1]`, `[1, 2]`, `[1, 2, 2]`, `[2]`, and `[2, 2]`, so there are 6."
+	      "Skips the duplicates and enumerates all the subsets"
       ]
     },
     {
