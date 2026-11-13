@@ -6,99 +6,94 @@
       "id": 1,
       "level": "easy",
       "question": "What is printed?",
-      "code": "a = [[1, 2], [3, 4]]\nb = a[:]\nb[0][0] = 99\nprint(a[0][0], b[0][0])",
-      "choices": ["99 99", "1 99", "99 1", "1 1"],
+      "code": "a = [1, 2]\nb = a\nb.append(3)\nprint(a, b)",
+      "choices": ["[1, 2, 3] [1, 2, 3]", "[1, 2] [1, 2, 3]", "[1, 2, 3] [1, 2]", "[1, 2] [1, 2]"],
       "answer": 0,
       "hints": [
-        "A slice such as `a[:]` makes a shallow copy of the outer list, not a deep copy of every nested object.",
-        "The inner lists are shared between `a` and `b`, so modifying `b[0][0]` also changes `a[0][0]`."
+        "`b = a` does not copy the list; it makes `b` another name for the same list object.",
+        "Appending through `b` changes the same list that `a` refers to."
       ]
     },
     {
       "id": 2,
       "level": "easy",
-      "question": "Assume `a` is sorted in nondecreasing order. At the start of each iteration of the while loop, which statement is guaranteed to be true?",
-      "code": "def f(a, x):\n    lo, hi = 0, len(a)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if a[mid] < x:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo",
+      "question": "At the start of each iteration of the while loop, which statement is guaranteed to be true?",
+      "code": "def f(a):\n    total = 0\n    i = 0\n    while i < len(a):\n        total += a[i]\n        i += 1\n    return total",
       "choices": [
-        "Every index i < lo has a[i] < x, and every index i >= hi has a[i] >= x.",
-        "Every index i < lo has a[i] <= x, and every index i >= hi has a[i] > x.",
-        "The slice a[lo:hi] contains exactly the elements equal to x.",
-        "lo is the first index where a[lo] == x at every iteration."
+        "total == sum(a[:i]) and 0 <= i <= len(a)",
+        "total == sum(a[:i+1]) and 0 <= i < len(a)",
+        "total == sum(a[i:]) and 0 <= i <= len(a)",
+        "total == sum(a) and i == len(a)"
       ],
       "answer": 0,
       "hints": [
-        "The invariant describes the two already-processed regions: indices below `lo` are too small, and indices from `hi` onward are at least `x`.",
-        "When `a[mid] < x`, sortedness guarantees that every index up to `mid` is too small, so `lo = mid + 1` preserves the invariant."
+        "Before the loop, `total` is 0 and `i` is 0, so `total == sum(a[:0])`.",
+        "Each iteration adds `a[i]` to `total` and then increments `i`, so the sum of the first `i` elements is preserved."
       ]
     },
     {
       "id": 3,
       "level": "easy",
       "question": "What is printed?",
-      "code": "def subsets(nums):\n    res = []\n    path = []\n    def bt(i):\n        if i == len(nums):\n            res.append(path[:])\n            return\n        bt(i + 1)\n        path.append(nums[i])\n        bt(i + 1)\n        path.pop()\n    bt(0)\n    return res\n\ns = subsets([1, 2, 3])\nprint(len(s), s[1])",
-      "choices": ["8 [3]", "8 [1]", "7 [3]", "8 []"],
+      "code": "def subsets(nums, path, i):\n        if i == len(nums):\n            print(path, end=' ')\n            return\n        subsets(nums, path, i + 1)\n        path.append(nums[i])\n        subsets(nums, path, i + 1)\n        path.pop()\n\nsubsets([1, 2], [], 0)",
+      "choices": ["[] [2] [1] [1, 2]", "[] [1] [2] [1, 2] ", "[1] [2] [] [1, 2] ", "[1, 2] [1] [2] [] "],
       "answer": 0,
       "hints": [
-        "The recursion explores the exclude branch before the include branch, so the first subset is `[]` and the second subset is `[3]`.",
-        "There are two choices for each of the three elements, giving 2^3 = 8 subsets."
+        "For each element, the recursion makes two choices: exclude it or include it.",
+        "With two elements, there are 2^2 = 4 subsets."
       ]
     },
     {
       "id": 4,
       "level": "easy",
-      "question": "The function is meant to return all permutations. What is printed?",
-      "code": "def permute(nums):\n    res = []\n    path = []\n    def bt():\n        if len(path) == len(nums):\n            res.append(path)\n            return\n        for x in nums:\n            if x not in path:\n                path.append(x)\n                bt()\n                path.pop()\n    bt()\n    return res\n\nprint(permute([1, 2]))",
-      "choices": ["[[], []]", "[[1, 2], [2, 1]]", "[[1, 2], [1, 2]]", "[[2, 1], [1, 2]]"],
+      "question": "What is printed?",
+      "code": "def f():\n    res = []\n    path = []\n    path.append(1)\n    res.append(path)\n    path.append(2)\n    return res\n\nprint(f())",
+      "choices": ["[[1, 2]]", "[[1], [2]]", "[[1]]", "[[2]]"],
       "answer": 0,
       "hints": [
-        "`res.append(path)` stores a reference to the same `path` list, not a snapshot of its current contents.",
-        "After all backtracking pops have run, `path` is empty, so both stored references point to the same empty list. Use `path[:]` to fix it."
+        "`res.append(path)` stores a reference to the same list object, not a snapshot of its contents at that moment.",
+        "After `path.append(2)`, the stored reference sees the updated list `[1, 2]`."
       ]
     },
     {
       "id": 5,
       "level": "medium",
       "question": "What is printed?",
-      "code": "import copy\n\na = [[1, [2]], [3]]\nb = copy.copy(a)\nc = copy.deepcopy(a)\nb[0][1].append(9)\nprint(a, c)",
-      "choices": [
-        "[[1, [2, 9]], [3]] [[1, [2]], [3]]",
-        "[[1, [2]], [3]] [[1, [2, 9]], [3]]",
-        "[[1, [2, 9]], [3]] [[1, [2, 9]], [3]]",
-        "[[1, [2]], [3]] [[1, [2]], [3]]"
-      ],
+      "code": "import copy\n\na = [[1], [2]]\nb = copy.copy(a)\nb[0].append(9)\nprint(a)",
+      "choices": ["[[1, 9], [2]]", "[[1], [2]]", "[[1], [2, 9]]", "[[1, 9], [2, 9]]"],
       "answer": 0,
       "hints": [
-        "`copy.copy` makes a shallow copy: the outer list is new, but nested objects are still shared with `a`.",
-        "`copy.deepcopy` recursively clones nested objects, so `c` is completely independent of `a`."
+        "`copy.copy` makes a shallow copy: the outer list is new, but the inner lists are still shared with `a`.",
+        "Changing `b[0]` changes the same inner list that `a[0]` refers to."
       ]
     },
     {
       "id": 6,
       "level": "medium",
-      "question": "Which statement is maintained as a loop invariant by the while loop? Assume that the input to the function is a list containing 0s, 1s and 2s.",
-      "code": "def f(a):\n    lo, mid, hi = 0, 0, len(a) - 1\n    while mid <= hi:\n        if a[mid] == 0:\n            a[lo], a[mid] = a[mid], a[lo]\n            lo += 1\n            mid += 1\n        elif a[mid] == 1:\n            mid += 1\n        else:\n            a[mid], a[hi] = a[hi], a[mid]\n            hi -= 1\n    return a",
+      "question": "At the start of each iteration of the while loop, which statement is guaranteed to be true?",
+      "code": "def find(a, x):\n    i = 0\n    while i < len(a) and a[i] != x:\n        i += 1\n    return i",
       "choices": [
-        "a[0:lo] contains only 0s, a[lo:mid] contains only 1s, and a[hi+1:] contains only 2s.",
-        "a[0:lo] contains only 0s, a[lo:mid] contains only 1s, and a[hi:] contains only 2s.",
-        "The entire array a is sorted.",
-        "a[lo:hi+1] contains only 1s."
+        "Every index j < i has a[j] != x.",
+        "Every index j < i has a[j] == x.",
+        "a[i] is the first occurrence of x.",
+        "i is the last index of x in a."
       ],
       "answer": 0,
       "hints": [
-        "The three regions are: finalized 0s at the front, finalized 1s in the middle, and finalized 2s at the back.",
-        "When `a[mid] == 2`, it is swapped with `a[hi]` and `hi` is decremented; `mid` must not move because the element brought from the back has not been inspected yet."
+        "Before the loop, `i` is 0, so there are no indices below `i` and the statement is vacuously true.",
+        "The loop increments `i` only after checking that `a[i] != x`, so all earlier positions are known not to contain `x`."
       ]
     },
-	{
+    {
       "id": 7,
       "level": "medium",
       "question": "What is printed?",
-      "code": "def permute(nums):\n    res = []\n    path = []\n    def bt():\n        if len(path) == len(nums):\n            res.append(path[:])\n            return\n        for x in nums:\n            if x in path:\n                continue\n            path.append(x)\n            bt()\n            # missing: path.pop()\n    bt()\n    return res\n\nprint(permute([1, 2]))",
+      "code": "def bt(nums, prefix, res):\n    if len(prefix) == len(nums):\n        res.append(prefix[:])\n        return\n    for x in nums:\n        if x in prefix:\n            continue\n        prefix.append(x)\n        bt(nums, prefix, res)\n        # missing: prefix.pop()\n\nres = []\nbt([1, 2], [], res)\nprint(res)",
       "choices": ["[[1, 2]]", "[[1, 2], [2, 1]]", "[[1], [2]]", "[]"],
       "answer": 0,
       "hints": [
-        "The `path[:]` snapshot is correct, so the issue is not aliasing of `res` entries.",
-        "After the first complete permutation `[1, 2]` is reached, the missing `path.pop()` leaves `path` as `[1, 2]`; the later attempt to choose `2` at the top level is skipped because `2` is still in `path`."
+        "The snapshot `path[:]` is correct, so the problem is not aliasing of the stored results.",
+        "After finding `[1, 2]`, the missing `path.pop()` leaves `path` as `[1, 2]`, so the later attempt to start with `2` is skipped because `2` is still in `path`."
       ]
     },
     {
@@ -109,7 +104,7 @@
       "choices": ["8", "6", "4", "3"],
       "answer": 2,
       "hints": [
-	      "Skips duplicate entries and generates subsets."
+        "Skips the duplicates and enumerates all the subsets"
       ]
     },
     {
@@ -126,7 +121,7 @@
       "answer": 0,
       "hints": [
         "`[[]] * 3` repeats three references to the same inner list, so appending through any index affects all three positions.",
-        "A list comprehension such as `[[] for _ in range(3)]` evaluates `[]` separately each time, so the three inner lists are distinct."
+        "A list comprehension such as `[[] for _ in range(3)]` creates a new inner list each time."
       ]
     },
     {
@@ -138,48 +133,51 @@
       "answer": 1,
       "hints": [
         "In the `else` branch, `a[mid]` is swapped with `a[hi]`, and the element brought into `a[mid]` has not been inspected yet.",
-        "Incrementing `mid` in that branch skips the new `a[mid]`; for `[1, 2, 0]`, the `0` brought from the end is never processed, leaving `[1, 0, 2]`."
+        "Incrementing `mid` there skips that new element; for `[1, 2, 0]`, the `0` brought from the end is never processed, leaving `[1, 0, 2]`."
       ]
     },
     {
       "id": 11,
       "level": "difficult",
-      "question": "The `dfs` function forgets to restore the board cell. What is printed?",
-      "code": "def exist(board, word):\n    R, C = len(board), len(board[0])\n    def dfs(r, c, i):\n        if i == len(word):\n            return True\n        if r < 0 or r >= R or c < 0 or c >= C or board[r][c] != word[i]:\n            return False\n        ch = board[r][c]\n        board[r][c] = '#'\n        found = False\n        for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):\n            if dfs(r + dr, c + dc, i + 1):\n                found = True\n                break\n        # missing: board[r][c] = ch\n        return found\n    for r in range(R):\n        for c in range(C):\n            if dfs(r, c, 0):\n                return True\n    return False\n\nboard = [['A', 'B'], ['B', 'A']]\nprint(exist(board, 'ABBA'))",
-      "choices": ["True", "False", "Error", "None"],
+      "question": "The following buggy code attempts to count total number of simple paths (no cell repeated) from the top-left corner (0, 0) to the bottom-right corner (R-1, C-1) of a grid, moving up / down / left / right one cell at a time. What is the output when the code is executed?",
+      "code": "def count_paths(grid):\n    R, C = len(grid), len(grid[0])\n    count = 0\n\n    def dfs(r, c):\n        nonlocal count\n        if not (0 <= r < R and 0 <= c < C) or grid[r][c] == '#':\n            return\n        if r == R - 1 and c == C - 1:\n            count += 1\n            return\n        grid[r][c] = '#'\n        dfs(r + 1, c)\n        dfs(r - 1, c)\n        dfs(r, c + 1)\n        dfs(r, c - 1)\n        # missing: grid[r][c] = '.'\n\n    dfs(0, 0)\n    return count\n\n\ngrid = [['.', '.', '.'], ['.', '.', '.']]\nprint(count_paths(grid))",
+      "choices": ["1", "2", "3", "4"],
       "answer": 1,
       "hints": [
-        "The first search starting at the top-left `A` explores two failing branches and marks several cells as `#`, but never restores them.",
-        "The only valid path is `A(1,1) -> B(1,0) -> A(0,0) -> B(0,1)`, and those cells are now blocked, so the function returns `False`."
+        "The grid '.' is not restored after the recursive call which leads to buggy count. "
       ]
     },
     {
       "id": 12,
       "level": "difficult",
-      "question": "Which invariant at entry to `bt(r)` is sufficient to prove that a completed placement counted by the function is a valid N-Queens placement?",
-      "code": "def n_queens(n):\n    count = 0\n    cols, diag1, diag2 = set(), set(), set()\n    def bt(r):\n        nonlocal count\n        if r == n:\n            count += 1\n            return\n        for c in range(n):\n            if c in cols or r - c in diag1 or r + c in diag2:\n                continue\n            cols.add(c)\n            diag1.add(r - c)\n            diag2.add(r + c)\n            bt(r + 1)\n            cols.remove(c)\n            diag1.remove(r - c)\n            diag2.remove(r + c)\n    bt(0)\n    return count",
+      "question": "The following code counts the number of distinct solutions to the N-Rooks problem - the number of ways to place n non-attacking rooks on an n × n chess board. Which of the following is not an invariant at entry to `bt(r)`?",
+      "code": "def n_rooks(n):\n    count = 0\n    cols = [False] * n\n\n    def bt(r):\n        nonlocal count\n        if r == n:\n            count += 1\n            return\n        for c in range(n):\n            if cols[c]:\n                continue\n            cols[c] = True\n            bt(r + 1)\n            cols[c] = False\n\n    bt(0)\n    return count",
       "choices": [
-        "`cols` contains exactly the columns of queens in rows 0..r-1; `diag1` and `diag2` contain exactly their diagonals; no two of these queens attack each other.",
-        "`cols` contains every column still available; `diag1` and `diag2` contain every blocked diagonal.",
-        "`cols`, `diag1`, and `diag2` contain every column and diagonal of the board.",
-        "Rows 0..r-1 contain exactly r queens, and no queen is in column 0."
+        "Rows 0, 1, …, r-1 each contain exactly one rook; rows r, r+1, …, n-1 contain none.",
+        "cols[c] == True if and only if some rook in rows 0..r-1 sits in column c",
+        "No two of those rooks share a column. Equivalently: sum(cols) == r",
+        "Columns 0, 1, …, r-1 each contain exactly one rook; columns r, r+1, …, n-1 contain none."
       ],
-      "answer": 0,
+      "answer": 3,
       "hints": [
-        "At `r == n`, the invariant says that all n queens are placed in distinct rows and columns, and no two share a diagonal, so the placement is valid.",
-        "The recursive call adds one queen and then removes it, restoring the invariant for the next sibling choice."
+        "Together, cols is exactly the set of columns occupied by the partial placement, and there are precisely r of them — one per placed rook. That single equation sum(cols) == r captures both \"one rook per row\" and \"no column repeats.\""
       ]
     },
     {
       "id": 13,
       "level": "challenging",
       "question": "What is printed?",
-      "code": "def permute(nums):\n    res = []\n    path = []\n    used = [False] * len(nums)\n    def bt():\n        if len(path) == len(nums):\n            res.append(path)\n            return\n        for i, x in enumerate(nums):\n            if used[i]:\n                continue\n            used[i] = True\n            path.append(x)\n            bt()\n            path.pop()\n            used[i] = False\n    bt()\n    return res\n\nr = permute([1, 2, 3])\nprint(r[0], r[-1], len(r))",
-      "choices": ["[] [] 6", "[1, 2, 3] [3, 2, 1] 6", "[[], [], [], [], [], []] [[], [], [], [], [], []] 6", "[] [] 0"],
+      "code": "def permute(nums):\n    res = []\n    path = []\n    used = [False] * len(nums)\n\n    def bt():\n        if len(path) == len(nums):\n            res.append(path)\n            return\n        for i in range(len(nums)):\n            if used[i]:\n                continue\n            used[i] = True\n            path.append(nums[i])\n            bt()\n            path.pop()\n            used[i] = False\n\n    bt()\n    return res\n\n\nr = permute([1, 2, 3])\nprint(r[0], r[-1], len(r))",
+      "choices": [
+        "[] [] 6",
+        "[1, 2, 3] [3, 2, 1] 6",
+        "[[], [], [], [], [], []] [[], [], [], [], [], []] 6",
+        "[] [] 0"
+      ],
       "answer": 0,
       "hints": [
         "`res.append(path)` appends a reference to the same list object every time a full permutation is reached.",
-        "After the recursion finishes, all backtracking pops have removed every element from `path`, so all six entries in `res` are references to the same empty list."
+        "After the recursion finishes, all backtracking pops have removed every element from `path`, so all six entries in `res` refer to the same empty list."
       ]
     },
     {
@@ -190,14 +188,13 @@
       "choices": ["4", "3", "2", "5"],
       "answer": 1,
       "hints": [
-        "The duplicate-skipping condition should be `i > start`, not `i > 0`; it must only skip duplicates at the same recursion level.",
-        "With `i > 0`, the valid combination `[1, 1, 6]` is skipped because the second `1` is treated as a duplicate even when it is being chosen at a deeper level. Only three combinations are returned."
+        "With `i > 0`, the combination `[1, 1, 6]` is skipped because the second `1` is treated as a duplicate."
       ]
     },
     {
       "id": 15,
       "level": "challenging",
-      "question": "Which statement is the correct invariant at the start of each call to `bt(i, parts)` to prove that every completed result is a valid IP address?",
+      "question": "A valid IP address consists of exactly four integers separated by single dots. Each integer is between 0 and 255 (inclusive) and cannot have leading zeros. For example, \"0.1.2.201\" and \"192.168.1.1\" are valid IP addresses, but \"0.011.255.245\", \"192.168.1.312\" and \"192.168@1.1\" are invalid IP addresses. Given a string s containing only digits, the following code returns all possible valid IP addresses that can be formed by inserting dots into s. Which statement is the correct invariant at the start of each call to `bt(i, parts)` to prove that every completed result is a valid IP address?",
       "code": "def restore(s):\n    res = []\n    def bt(i, parts):\n        if i == len(s) and len(parts) == 4:\n            res.append('.'.join(parts))\n            return\n        if len(parts) == 4:\n            return\n        for j in range(i + 1, min(i + 4, len(s) + 1)):\n            seg = s[i:j]\n            if (len(seg) > 1 and seg[0] == '0') or int(seg) > 255:\n                continue\n            bt(j, parts + [seg])\n    bt(0, [])\n    return res",
       "choices": [
         "`parts` contains exactly the valid segments chosen from `s[:i]`, and their concatenation is `s[:i]`.",
@@ -207,8 +204,7 @@
       ],
       "answer": 0,
       "hints": [
-        "Initially `i == 0` and `parts == []`, so the invariant holds vacuously.",
-        "Each recursive call appends exactly one valid segment to `parts` and advances `i` to the end of that segment, preserving the invariant. At the base case, the invariant guarantees that `parts` represents the whole string using four valid segments."
+        "Each recursive call appends exactly one valid segment and advances `i` to the end of that segment. At the base case, `parts` represents the whole string using four valid segments."
       ]
     }
   ]
