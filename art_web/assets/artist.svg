@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" width="480" height="600" role="img" aria-label="Illustrated portrait of the artist in the studio">
+  <rect width="480" height="600" fill="#f3e2c8"/>
+  <rect x="14" y="14" width="452" height="572" fill="none" stroke="#b4452c" stroke-width="3"/>
+  <g fill="none" stroke="#23395b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="240" cy="220" r="66"/>
+    <path d="M174 214c0-40 30-66 66-66s66 26 66 66"/>
+    <path d="M240 286v96"/>
+    <path d="M240 320c-32 0-56 20-66 48M240 320c32 0 56 20 66 48"/>
+    <path d="M156 470c22-46 52-70 84-70s62 24 84 70"/>
+    <path d="M204 210c6 8 6 18 0 26M276 210c-6 8-6 18 0 26"/>
+    <path d="M226 250c8 8 20 8 28 0"/>
+  </g>
+  <g fill="#b4452c">
+    <circle cx="100" cy="90" r="8"/><circle cx="380" cy="90" r="8"/>
+    <circle cx="100" cy="510" r="8"/><circle cx="380" cy="510" r="8"/>
+  </g>
+  <g fill="#2f5d50">
+    <circle cx="240" cy="60" r="6"/><circle cx="240" cy="540" r="6"/>
+  </g>
+  <g fill="none" stroke="#d99b2b" stroke-width="2" stroke-linecap="round">
+    <path d="M60 300h48M372 300h48"/>
+  </g>
+</svg>

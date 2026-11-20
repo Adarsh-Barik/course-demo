@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500" role="img" aria-label="Gond-style bird made of dots and dashes">
+  <rect width="400" height="500" fill="#e9c48a"/>
+  <rect x="12" y="12" width="376" height="476" fill="none" stroke="#8c3a24" stroke-width="3"/>
+  <g fill="none" stroke="#2f2a24" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M150 300c-24-30-24-74 4-100s78-30 106-4 34 76 6 104-86 36-116 0Z"/>
+    <path d="M150 300c-14 22-16 46-8 66"/>
+    <path d="M264 200c22-6 40-2 52 10-16 10-34 12-52 4"/>
+    <circle cx="290" cy="182" r="4" fill="#8c3a24" stroke="none"/>
+    <path d="M180 380l-14 46M240 380l14 46"/>
+    <path d="M166 426h32M238 426h32"/>
+  </g>
+  <g fill="#8c3a24">
+    <circle cx="200" cy="240" r="5"/><circle cx="222" cy="228" r="4"/>
+    <circle cx="244" cy="244" r="5"/><circle cx="212" cy="264" r="4"/>
+    <circle cx="238" cy="278" r="4"/><circle cx="192" cy="284" r="4"/>
+  </g>
+  <g fill="#2f7d6a">
+    <circle cx="176" cy="216" r="4"/><circle cx="258" cy="212" r="4"/>
+    <circle cx="230" cy="300" r="4"/><circle cx="188" cy="256" r="3.4"/>
+  </g>
+  <g stroke="#8c3a24" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M60 440c40-14 80-14 120 0s80 14 160 0"/>
+    <path d="M70 72c34-12 68-12 102 0"/>
+  </g>
+</svg>

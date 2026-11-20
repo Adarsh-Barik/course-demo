@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500" role="img" aria-label="Warli-style tarpa dance circle painted in white on terracotta">
+  <rect width="400" height="500" fill="#8c3a24"/>
+  <rect x="14" y="14" width="372" height="472" fill="none" stroke="#f7ecd8" stroke-width="3"/>
+  <g stroke="#f7ecd8" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="200" cy="250" r="118" stroke-dasharray="3 12"/>
+    <circle cx="200" cy="250" r="30"/>
+    <path d="M200 220v-22M200 280v22M170 250h-22M230 250h22"/>
+  </g>
+  <defs>
+    <g id="warliFig" stroke="#f7ecd8" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="0" cy="-6" r="6"/>
+      <path d="M0 0v20"/>
+      <path d="M-11 24l11-6 11 6"/>
+      <path d="M-11 24l-6 22M11 24l6 22"/>
+      <path d="M-11 8l-16-8M11 8l16-8"/>
+    </g>
+  </defs>
+  <use href="#warliFig" transform="translate(200,132)"/>
+  <use href="#warliFig" transform="rotate(45 200 250) translate(200,132)"/>
+  <use href="#warliFig" transform="rotate(90 200 250) translate(200,132)"/>
+  <use href="#warliFig" transform="rotate(135 200 250) translate(200,132)"/>
+  <use href="#warliFig" transform="rotate(180 200 250) translate(200,132)"/>
+  <use href="#warliFig" transform="rotate(225 200 250) translate(200,132)"/>
+  <use href="#warliFig" transform="rotate(270 200 250) translate(200,132)"/>
+  <use href="#warliFig" transform="rotate(315 200 250) translate(200,132)"/>
+  <g stroke="#f7ecd8" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M60 430c30-18 60-18 90 0M250 430c30-18 60-18 90 0"/>
+  </g>
+</svg>

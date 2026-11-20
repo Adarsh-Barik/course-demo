@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Art Corner — Folk-Inspired Paintings &amp; Films</title>
+  <meta name="description" content="A gallery of handmade paintings and short films inspired by Indian folk art traditions — Madhubani, Warli, Kalamkari and more." />
+  <meta property="og:title" content="Your Art Corner" />
+  <meta property="og:description" content="Folk-inspired paintings and films, made slowly, by hand." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Kalam:wght@400;700&family=Mulish:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#gallery">Skip to the gallery</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Your Art Corner — home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+            <path d="M24 6c3.6 4.8 6 8.4 6 11.4 0 3-2.7 5.1-6 5.1s-6-2.1-6-5.1C18 14.4 20.4 10.8 24 6Z"/>
+            <path d="M24 42c-6 0-11-3.2-11-8.2 0-3.4 2.6-5.8 6-5.8 2.2 0 4.1 1.2 5 3 .9-1.8 2.8-3 5-3 3.4 0 6 2.4 6 5.8 0 5-5 8.2-11 8.2Z"/>
+            <path d="M12 25c4.5 0 7 2 7 4.5M36 25c-4.5 0-7 2-7 4.5"/>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">Your Art Corner</span>
+          <span class="brand-tag">Folk · Colour · Story</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html" aria-current="page">Gallery</a>
+        <a href="about.html">The Artist</a>
+        <a class="nav-ig" href="https://www.instagram.com/your.art.corner.6" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/>
+          </svg>
+          Instagram
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <div class="divider" aria-hidden="true">
+          <svg viewBox="0 0 240 24" width="240" height="24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+            <path d="M0 12h82"/><path d="M158 12h82"/>
+            <path d="M120 3c6 4 9 6 9 9s-3 5-9 9c-6-4-9-6-9-9s3-5 9-9Z"/>
+            <circle cx="120" cy="12" r="1.6" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <p class="eyebrow">Handcrafted · Folk Inspired</p>
+        <h1 class="hero-title">Your Art Corner</h1>
+        <p class="lede">
+          Paintings and short films rooted in the folk traditions of India — Madhubani lines,
+          Warli dots, Kalamkari dyes — made slowly, by hand, one piece at a time.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#gallery">Explore the collection</a>
+          <a class="btn btn-ghost" href="https://www.instagram.com/your.art.corner.6" target="_blank" rel="noopener">Buy on Instagram</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-section" id="gallery">
+      <div class="wrap">
+        <div class="gallery-head">
+          <h2 class="section-title">The Collection</h2>
+          <p class="section-sub">
+            Every piece is one of a kind. Purchases, commissions and enquiries are all handled
+            through Instagram.
+          </p>
+        </div>
+
+        <div class="filter-bar" id="filterBar" role="group" aria-label="Filter artworks">
+          <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter" type="button" data-filter="image" aria-pressed="false">Paintings</button>
+          <button class="filter" type="button" data-filter="video" aria-pressed="false">Videos</button>
+        </div>
+
+        <p class="gallery-status" id="galleryStatus" role="status">Loading the collection…</p>
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="divider" aria-hidden="true">
+        <svg viewBox="0 0 240 24" width="200" height="24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M0 12h82"/><path d="M158 12h82"/>
+          <path d="M120 3c6 4 9 6 9 9s-3 5-9 9c-6-4-9-6-9-9s3-5 9-9Z"/>
+          <circle cx="120" cy="12" r="1.6" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <p class="footer-brand">Your Art Corner</p>
+      <a class="footer-ig" href="https://www.instagram.com/your.art.corner.6" target="_blank" rel="noopener">@your.art.corner.6</a>
+      <p class="footer-note">
+        All artwork © <span id="year">2025</span> Your Art Corner. Please do not reproduce without permission.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/csv.js" defer></script>
+  <script src="js/site.js" defer></script>
+  <script src="js/gallery.js" defer></script>
+</body>
+</html>

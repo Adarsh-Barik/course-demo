@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500" role="img" aria-label="Madhubani-style painting of two fish in a river">
+  <rect width="400" height="500" fill="#f8eeda"/>
+  <rect x="10" y="10" width="380" height="480" fill="none" stroke="#b4452c" stroke-width="4"/>
+  <rect x="24" y="24" width="352" height="452" fill="none" stroke="#23395b" stroke-width="2"/>
+  <g fill="none" stroke="#23395b" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M112 210c0-30 40-55 85-55s85 25 85 55-40 55-85 55-85-25-85-55Z"/>
+    <path d="M112 210l-42-34v68l42-34Z"/>
+    <circle cx="248" cy="196" r="5" fill="#b4452c" stroke="none"/>
+    <path d="M162 190c10 12 10 28 0 40M192 182c10 16 10 40 0 56M222 190c10 12 10 28 0 40"/>
+    <path d="M58 322c30-14 60-14 90 0s60 14 90 0 60-14 90 0"/>
+    <path d="M58 358c30-14 60-14 90 0s60 14 90 0 60-14 90 0"/>
+  </g>
+  <g fill="#2f5d50">
+    <circle cx="76" cy="108" r="7"/><circle cx="324" cy="108" r="7"/>
+    <circle cx="76" cy="422" r="7"/><circle cx="324" cy="422" r="7"/>
+  </g>
+  <g fill="#b4452c">
+    <circle cx="200" cy="80" r="5"/><circle cx="200" cy="440" r="5"/>
+  </g>
+</svg>
